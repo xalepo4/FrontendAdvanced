@@ -24,9 +24,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),
-      Validators.maxLength(55), Validators.pattern('^[a-zA-Z ]*$')]);
+      Validators.maxLength(55), Validators.pattern('^[-a-zA-Z]+(\\s+[-a-zA-Z]+)*$')]);
     this.surname = new FormControl('', [Validators.minLength(3),
-      Validators.maxLength(55)]);
+      Validators.maxLength(55), Validators.pattern('^[-a-zA-Z]+(\\s+[-a-zA-Z]+)*$')]);
     this.type = new FormControl('', [Validators.required]);
     this.email = new FormControl('', [Validators.required, Validators.email]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(8)]);
@@ -47,8 +47,13 @@ export class RegisterComponent implements OnInit {
   }
 
   public checkRegister(): void {
+    this.user.name = this.name.value;
+    this.user.surname = this.surname.value;
+    this.user.type = this.type.value;
     this.user.email = this.email.value;
     this.user.password = this.password.value;
-    console.log('User email --> ' + this.user.email + ' User password --> ' + this.user.password);
+    console.log('User name --> ' + this.user.name + ' User surname --> ' + this.user.surname
+      + ' User type --> ' + this.user.type + ' User email --> ' + this.user.email
+      + ' User password --> ' + this.user.password);
   }
 }
