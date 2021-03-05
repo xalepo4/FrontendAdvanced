@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="container">
+  <form class="needs-validation" [formGroup]="loginForm" (ngSubmit)="checkLogin()">
+    <div class="mb-3">
+      <label for="inputEmail" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="inputEmail" [formControl]="email">
+
+      <div *ngIf="loginForm.get('email').errors && (loginForm.get('email').touched || loginForm.get('email').dirty)">
+        <div class="text-danger" *ngIf="loginForm.get('email').errors.email">
+          Email has an invalid format
+        </div>
+        <div class="text-danger" *ngIf="loginForm.get('email').errors.required">
+          Email is required
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputPassword" class="form-label">Password</label>
+      <input type="password" class="form-control" id="inputPassword" [formControl]="password">
+
+      <div
+        *ngIf="loginForm.get('password').errors && (loginForm.get('password').touched || loginForm.get('password').dirty)">
+        <div class="text-danger" *ngIf="loginForm.get('password').errors.required">
+          Password is required
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+  </form>
+</div>
+
