@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../../shared/models/user';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {CheckPassword} from '../../shared/directives/checkPassword';
 
 @Component({
   selector: 'app-register',
@@ -6,10 +9,46 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  public user: User = new User();
 
-  constructor() { }
+  public name: FormControl;
+  public surname: FormControl;
+  public type: FormControl;
+  public email: FormControl;
+  public password: FormControl;
+  public confirmPassword: FormControl;
+  public registerForm: FormGroup;
 
-  ngOnInit(): void {
+  constructor(private formBuilder: FormBuilder) {
   }
 
+  ngOnInit(): void {
+    this.name = new FormControl('', [Validators.required, Validators.minLength(3),
+      Validators.maxLength(55), Validators.pattern('^[a-zA-Z ]*$')]);
+    this.surname = new FormControl('', [Validators.minLength(3),
+      Validators.maxLength(55)]);
+    this.type = new FormControl('', [Validators.required]);
+    this.email = new FormControl('', [Validators.required, Validators.email]);
+    this.password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+    this.confirmPassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
+
+    this.registerForm = this.formBuilder.group({
+      name: this.name,
+      surname: this.surname,
+      type: this.type,
+      email: this.email,
+      passwordGroup: this.formBuilder.group({
+        password: this.password,
+        confirmPassword: this.confirmPassword
+      }, {
+        validator: CheckPassword.checkInvalidPassword
+      })
+    });
+  }
+
+  public checkRegister(): void {
+    this.user.email = this.email.value;
+    this.user.password = this.password.value;
+    console.log('User email --> ' + this.user.email + ' User password --> ' + this.user.password);
+  }
 }
