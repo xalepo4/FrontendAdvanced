@@ -9,4 +9,13 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col">
+
+    </div>
+    <div class="col">
+      <button *ngIf="selectedActivity" class="btn btn-primary sign-up-btn" (click)="signUp()">Sign up</button>
+      <button *ngIf="selectedActivity" class="btn btn-primary favourite-btn">Save favourites</button>
+    </div>
+  </div>
 </div>

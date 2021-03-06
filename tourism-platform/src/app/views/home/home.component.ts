@@ -18,4 +18,8 @@ export class HomeComponent implements OnInit {
   showActivity(activity: Activity): void {
     this.selectedActivity = activity;
   }
+
+  signUp(): void {
+    this.selectedActivity.peopleRegistered = this.selectedActivity.peopleRegistered + 1;
+  }
 }
