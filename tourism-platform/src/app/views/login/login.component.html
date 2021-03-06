@@ -24,6 +24,10 @@
           Password is required
         </div>
       </div>
+
+      <div class="text-danger" *ngIf="!isUserValid">
+        User doesn't exist or password is incorrect
+      </div>
     </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
