@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivityService} from '../../shared/services/activity.service';
 
 @Component({
   selector: 'app-activity-list',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActivityListComponent implements OnInit {
 
-  constructor() { }
+  public activitiesList;
+
+  constructor(private activityService: ActivityService) {
+  }
 
   ngOnInit(): void {
+    this.activityService.getActivities().subscribe(
+      activities => {
+        this.activitiesList = activities;
+        console.log(this.activitiesList);
+      },
+      error => {
+        console.log('Fail getting activities');
+      }
+    );
+  }
+
+  onActivityClicked($event): void {
+    console.log($event);
   }
 
 }
