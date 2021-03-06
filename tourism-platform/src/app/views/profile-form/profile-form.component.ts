@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../shared/models/user';
 import {CheckNif} from '../../shared/directives/checkNif';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-profile-form',
@@ -9,7 +10,7 @@ import {CheckNif} from '../../shared/directives/checkNif';
   styleUrls: ['./profile-form.component.scss']
 })
 export class ProfileFormComponent implements OnInit {
-  public user: User = new User();
+  public currentUser: User;
 
   public name: FormControl;
   public surname: FormControl;
@@ -20,10 +21,12 @@ export class ProfileFormComponent implements OnInit {
   public aboutMe: FormControl;
   public profileForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {
   }
 
   ngOnInit(): void {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),
       Validators.maxLength(55), Validators.pattern('^[-a-zA-Z]+(\\s+[-a-zA-Z]+)*$')]);
     this.surname = new FormControl('', [Validators.minLength(3),
@@ -46,16 +49,30 @@ export class ProfileFormComponent implements OnInit {
   }
 
   checkProfile(): void {
-    this.user.name = this.name.value;
-    this.user.surname = this.surname.value;
-    this.user.birthDate = this.birthDate.value;
-    this.user.phone = this.phone.value;
-    this.user.nationality = this.nationality.value;
-    this.user.nif = this.nif.value;
-    this.user.aboutMe = this.aboutMe.value;
+    // check if currentUser is undefined
+    if (this.currentUser === undefined) {
+      console.log('User is undefined');
+      return;
+    }
 
-    console.log('Name: ' + this.user.name + ' Surname: ' + this.user.surname + ' Birth date: ' + this.user.birthDate +
-      ' Phone: ' + this.user.phone + ' Nationality: ' + this.user.nationality + ' Nif: ' + this.user.nif + ' ' +
-      'About me: ' + this.user.aboutMe);
+    this.currentUser.name = this.name.value;
+    this.currentUser.surname = this.surname.value;
+    this.currentUser.birthDate = this.birthDate.value;
+    this.currentUser.phone = this.phone.value;
+    this.currentUser.nationality = this.nationality.value;
+    this.currentUser.nif = this.nif.value;
+    this.currentUser.aboutMe = this.aboutMe.value;
+
+    console.log('Name: ' + this.currentUser.name + ' Surname: ' + this.currentUser.surname + ' Birth date: ' +
+      this.currentUser.birthDate + ' Phone: ' + this.currentUser.phone + ' Nationality: ' +
+      this.currentUser.nationality + ' Nif: ' + this.currentUser.nif + ' ' + 'About me: ' + this.currentUser.aboutMe);
+
+    this.userService.updateUser(this.currentUser).subscribe(
+      data => {
+        console.log(data);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 }
