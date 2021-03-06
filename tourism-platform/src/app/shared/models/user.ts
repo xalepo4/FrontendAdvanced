@@ -4,7 +4,7 @@ export class User {
   surname: string;
   birthDate: string;
   phone: string;
-  nationality: string;
+  nationality: 'ES' | 'FR' | 'IT' | 'PT';
   nif: string;
   aboutMe: string;
   type: 'tourist' | 'company';

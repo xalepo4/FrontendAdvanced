@@ -1,1 +1,46 @@
-<p>profile-form works!</p>
+<div class="container">
+  <form class="needs-validation" [formGroup]="profileForm" (ngSubmit)="checkProfile()">
+    <div class="mb-3">
+      <label for="inputName" class="form-label">Name</label>
+      <input type="text" class="form-control" id="inputName" [formControl]="name">
+    </div>
+
+    <div class="mb-3">
+      <label for="inputSurname" class="form-label">Surname</label>
+      <input type="text" class="form-control" id="inputSurname" [formControl]="surname">
+    </div>
+
+    <div class="mb-3">
+      <label for="inputBirthDate" class="form-label">Birth Date</label>
+      <input type="text" class="form-control" id="inputBirthDate" [formControl]="birthDate">
+    </div>
+
+    <div class="mb-3">
+      <label for="inputPhone" class="form-label">Phone</label>
+      <input type="text" class="form-control" id="inputPhone" [formControl]="phone">
+    </div>
+
+    <div class="mb-3">
+      <label for="selectNationality" class="form-label">Nationality</label>
+      <select class="form-control" id="selectNationality" [formControl]="nationality">
+        <option value="ES" selected>ES</option>
+        <option value="FR">FR</option>
+        <option value="IT">IT</option>
+        <option value="PT">PT</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputNif" class="form-label">NIF</label>
+      <input type="text" class="form-control" id="inputNif" [formControl]="nif">
+    </div>
+
+    <div class="mb-3">
+      <label for="inputAboutMe" class="form-label">About me</label>
+      <input type="text" class="form-control" id="inputAboutMe" [formControl]="aboutMe">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid">Save</button>
+  </form>
+</div>
+
