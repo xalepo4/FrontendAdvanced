@@ -3,21 +3,41 @@
     <div class="mb-3">
       <label for="inputName" class="form-label">Name</label>
       <input type="text" class="form-control" id="inputName" [formControl]="name">
+
+      <div class="text-danger"
+           *ngIf="profileForm.get('name').errors && (profileForm.get('name').touched || profileForm.get('name').dirty)">
+        Name has an invalid format
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="inputSurname" class="form-label">Surname</label>
       <input type="text" class="form-control" id="inputSurname" [formControl]="surname">
+
+      <div class="text-danger"
+           *ngIf="profileForm.get('surname').errors && (profileForm.get('surname').touched || profileForm.get('surname').dirty)">
+        Surname has an invalid format
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="inputBirthDate" class="form-label">Birth Date</label>
       <input type="text" class="form-control" id="inputBirthDate" [formControl]="birthDate">
+
+      <div class="text-danger"
+           *ngIf="profileForm.get('birthDate').errors && (profileForm.get('birthDate').touched || profileForm.get('birthDate').dirty)">
+        Birth date has an invalid format
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="inputPhone" class="form-label">Phone</label>
       <input type="text" class="form-control" id="inputPhone" [formControl]="phone">
+
+      <div class="text-danger"
+           *ngIf="profileForm.get('phone').errors && (profileForm.get('phone').touched || profileForm.get('phone').dirty)">
+        Phone has an invalid format
+      </div>
     </div>
 
     <div class="mb-3">
@@ -28,18 +48,36 @@
         <option value="IT">IT</option>
         <option value="PT">PT</option>
       </select>
+
+      <div class="text-danger"
+           *ngIf="profileForm.get('nationality').errors && (profileForm.get('nationality').touched
+           || profileForm.get('nationality').dirty)">
+        Nationality has an invalid format
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="inputNif" class="form-label">NIF</label>
       <input type="text" class="form-control" id="inputNif" [formControl]="nif">
+
+      <div class="text-danger"
+           *ngIf="profileForm.get('nif').errors && (profileForm.get('nif').touched
+           || profileForm.get('nif').dirty)">
+        Nif has an invalid format
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="inputAboutMe" class="form-label">About me</label>
       <input type="text" class="form-control" id="inputAboutMe" [formControl]="aboutMe">
-    </div>
 
+      <div class="text-danger"
+           *ngIf="profileForm.get('aboutMe').errors && (profileForm.get('aboutMe').touched
+           || profileForm.get('aboutMe').dirty)">
+        About me has an invalid format
+      </div>
+    </div>
+    
     <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid">Save</button>
   </form>
 </div>
