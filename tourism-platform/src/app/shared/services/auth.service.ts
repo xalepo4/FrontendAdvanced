@@ -12,7 +12,20 @@ export class AuthService {
 
   logIn(email: string, password: string): Observable<boolean> {
     return this.userService.getUserByEmail(email).pipe(map(user => {
-      return user ? user.password === password : false;
+      const loggedIn = user ? user.password === password : false;
+
+      if (loggedIn) {
+        // save currentUser to local storage
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      }
+
+      return loggedIn;
     }));
+  }
+
+  logOut(): void {
+    // remove currentUser from local storage
+    localStorage.removeItem('currentUser');
+
   }
 }
