@@ -6,7 +6,7 @@
 
       <div class="text-danger"
            *ngIf="registerForm.get('name').errors && (registerForm.get('name').touched || registerForm.get('name').dirty)">
-        Invalid name format
+        Name has an invalid format
       </div>
     </div>
 
@@ -16,7 +16,7 @@
 
       <div class="text-danger"
            *ngIf="registerForm.get('surname').errors && (registerForm.get('surname').touched || registerForm.get('surname').dirty)">
-        Invalid surname format
+        Surname has an invalid format
       </div>
     </div>
 
@@ -29,7 +29,7 @@
 
       <div class="text-danger"
            *ngIf="registerForm.get('type').errors && (registerForm.get('type').touched || registerForm.get('type').dirty)">
-        Invalid type format
+        Type has an invalid format
       </div>
     </div>
 
@@ -39,7 +39,7 @@
 
       <div class="text-danger"
            *ngIf="registerForm.get('email').errors && (registerForm.get('email').touched || registerForm.get('email').dirty)">
-        Invalid email format
+        Email has an invalid format
       </div>
     </div>
 
@@ -48,8 +48,10 @@
       <input type="password" class="form-control" id="inputPassword" [formControl]="password">
 
       <div class="text-danger"
-           *ngIf="registerForm.get('password').errors && (registerForm.get('password').touched || registerForm.get('password').dirty)">
-        Invalid password format
+           *ngIf="registerForm.get('passwordGroup').get('password').errors
+           && (registerForm.get('passwordGroup').get('password').touched
+           || registerForm.get('passwordGroup').get('password').dirty)">
+        Password has an invalid format
       </div>
     </div>
 
@@ -58,9 +60,10 @@
       <input type="password" class="form-control" id="inputRepeatedPassword" [formControl]="confirmPassword">
 
       <div class="text-danger"
-           *ngIf="registerForm.get('confirmPassword').errors && (registerForm.get('confirmPassword').touched
-           || registerForm.get('confirmPassword').dirty)">
-        Invalid password format
+           *ngIf="registerForm.get('passwordGroup').get('confirmPassword').errors
+           && (registerForm.get('passwordGroup').get('confirmPassword').touched
+           || registerForm.get('passwordGroup').get('confirmPassword').dirty)">
+        Password has an invalid format
       </div>
 
       <div class="text-danger" *ngIf="isUserRegistered">
