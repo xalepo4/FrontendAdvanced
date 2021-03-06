@@ -7,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+
   public showProfileInfo = true;
   public showProfileForm = false;
 
@@ -19,5 +20,10 @@ export class ProfileComponent implements OnInit {
   changeToProfileForm(): void {
     this.showProfileInfo = false;
     this.showProfileForm = true;
+  }
+
+  changeToInfoForm(): void {
+    this.showProfileInfo = true;
+    this.showProfileForm = false;
   }
 }

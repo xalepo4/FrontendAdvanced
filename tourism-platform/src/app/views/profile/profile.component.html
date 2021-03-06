@@ -5,7 +5,7 @@
         <app-profile-info></app-profile-info>
       </div>
       <div *ngIf="showProfileForm">
-        <app-profile-form></app-profile-form>
+        <app-profile-form (userUpdatedEvent)="changeToInfoForm()"></app-profile-form>
       </div>
     </div>
     <div class="col-md-2">

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../shared/models/user';
 import {CheckNif} from '../../shared/directives/checkNif';
@@ -10,6 +10,8 @@ import {UserService} from '../../shared/services/user.service';
   styleUrls: ['./profile-form.component.scss']
 })
 export class ProfileFormComponent implements OnInit {
+  @Output() userUpdatedEvent = new EventEmitter<any>();
+
   public currentUser: User;
 
   public name: FormControl;
@@ -69,7 +71,7 @@ export class ProfileFormComponent implements OnInit {
 
     this.userService.updateUser(this.currentUser).subscribe(
       data => {
-        console.log(data);
+        this.userUpdatedEvent.emit();
       }, error => {
         console.log(error);
       }
