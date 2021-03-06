@@ -1,1 +1,15 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <div *ngIf="showProfileInfo">
+        <app-profile-info></app-profile-info>
+      </div>
+      <div *ngIf="showProfileForm">
+        <app-profile-form></app-profile-form>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary" (click)="changeToProfileForm()">Update profile information</button>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  public showProfileInfo = true;
+  public showProfileForm = false;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  changeToProfileForm(): void {
+    this.showProfileInfo = false;
+    this.showProfileForm = true;
+  }
 }

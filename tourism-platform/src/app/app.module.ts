@@ -15,6 +15,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {InMemoryDataService} from './shared/services/in-memory-data.service';
+import { ProfileFormComponent } from './views/profile-form/profile-form.component';
+import { ProfileInfoComponent } from './views/profile-info/profile-info.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {InMemoryDataService} from './shared/services/in-memory-data.service';
     ProfileComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileFormComponent,
+    ProfileInfoComponent
   ],
   imports: [
     BrowserModule,
