@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../shared/models/user';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CheckPassword} from '../../shared/directives/checkPassword';
+import {RegisterService} from '../../shared/services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,9 @@ export class RegisterComponent implements OnInit {
   public confirmPassword: FormControl;
   public registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  public isUserRegistered = false;
+
+  constructor(private formBuilder: FormBuilder, private registerService: RegisterService) {
   }
 
   ngOnInit(): void {
@@ -52,8 +55,36 @@ export class RegisterComponent implements OnInit {
     this.user.type = this.type.value;
     this.user.email = this.email.value;
     this.user.password = this.password.value;
-    console.log('User name --> ' + this.user.name + ' User surname --> ' + this.user.surname
-      + ' User type --> ' + this.user.type + ' User email --> ' + this.user.email
-      + ' User password --> ' + this.user.password);
+
+    console.log('Name: ' + this.user.name + ' Surname: ' + this.user.surname
+      + ' Type: ' + this.user.type + ' Email: ' + this.user.email
+      + ' Password ' + this.user.password);
+
+    this.registerService.checkUserExist(this.user)
+      .subscribe(
+        alreadyRegistered => {
+          if (!alreadyRegistered) {
+            console.log('User not already registered');
+
+            // if not registered, register new user
+            this.registerService.register(this.user).subscribe(
+              success => {
+                console.log('User registered successfully');
+              },
+              error => {
+                console.log('Fail registering user');
+                console.log(error);
+              }
+            );
+          } else {
+            this.isUserRegistered = true;
+            console.log('User already registered');
+          }
+        },
+        error => {
+          console.log('Error checkig if user is already registered');
+          console.log(error);
+        }
+      );
   }
 }

@@ -49,6 +49,9 @@
           Password is required
         </div>
       </div>-->
+      <div class="text-danger" *ngIf="isUserRegistered">
+        User already registered
+      </div>
     </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Join Now</button>

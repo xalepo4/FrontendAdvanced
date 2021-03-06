@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
 
     this.authService.logIn(this.user.email , this.user.password)
       .subscribe(
-        data => {
-          this.isUserValid = data;
+        loggedIn => {
+          this.isUserValid = loggedIn;
           console.log('Log in status ' + this.isUserValid);
         },
         error => {
