@@ -7,6 +7,11 @@ export class CheckNif {
     const letters = 'TRWAGMYFPDXBNJZSQVHLCKET';
     const inputUppercase = control.value.toString().toUpperCase();
 
+    // if DNI is empty return as correct because is a not required field
+    if (inputUppercase === '') {
+      return null;
+    }
+
     if (!nifRexp.test(inputUppercase) && !nieRexp.test(inputUppercase)) {
       return {invalid: true};
     }

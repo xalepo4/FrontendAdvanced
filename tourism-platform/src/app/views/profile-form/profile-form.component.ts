@@ -46,6 +46,16 @@ export class ProfileFormComponent implements OnInit {
   }
 
   checkProfile(): void {
+    this.user.name = this.name.value;
+    this.user.surname = this.surname.value;
+    this.user.birthDate = this.birthDate.value;
+    this.user.phone = this.phone.value;
+    this.user.nationality = this.nationality.value;
+    this.user.nif = this.nif.value;
+    this.user.aboutMe = this.aboutMe.value;
 
+    console.log('Name: ' + this.user.name + ' Surname: ' + this.user.surname + ' Birth date: ' + this.user.birthDate +
+      ' Phone: ' + this.user.phone + ' Nationality: ' + this.user.nationality + ' Nif: ' + this.user.nif + ' ' +
+      'About me: ' + this.user.aboutMe);
   }
 }
