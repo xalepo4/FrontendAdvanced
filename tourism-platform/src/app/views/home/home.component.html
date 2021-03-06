@@ -1,10 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <app-activity-list></app-activity-list>
+      <app-activity-list (newActivityEvent)="showActivity($event)"></app-activity-list>
     </div>
     <div class="col">
-      <app-activity-detail></app-activity-detail>
+      <div *ngIf="selectedActivity">
+        <app-activity-detail [selectedActivity]="selectedActivity"></app-activity-detail>
+      </div>
     </div>
   </div>
 </div>
