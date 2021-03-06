@@ -4,51 +4,65 @@
       <label for="inputName" class="form-label">Name</label>
       <input type="text" class="form-control" id="inputName" [formControl]="name">
 
+      <div class="text-danger"
+           *ngIf="registerForm.get('name').errors && (registerForm.get('name').touched || registerForm.get('name').dirty)">
+        Invalid name format
+      </div>
+    </div>
+
+    <div class="mb-3">
       <label for="inputSurname" class="form-label">Surname</label>
       <input type="text" class="form-control" id="inputSurname" [formControl]="surname">
 
+      <div class="text-danger"
+           *ngIf="registerForm.get('surname').errors && (registerForm.get('surname').touched || registerForm.get('surname').dirty)">
+        Invalid surname format
+      </div>
+    </div>
+
+    <div class="mb-3">
       <label for="selectType" class="form-label">Type</label>
       <select class="form-control" id="selectType" [formControl]="type">
         <option value="tourist" selected>Tourist</option>
         <option value="company">Company</option>
       </select>
 
+      <div class="text-danger"
+           *ngIf="registerForm.get('type').errors && (registerForm.get('type').touched || registerForm.get('type').dirty)">
+        Invalid type format
+      </div>
+    </div>
+
+    <div class="mb-3">
       <label for="inputEmail" class="form-label">Email address</label>
       <input type="email" class="form-control" id="inputEmail" [formControl]="email">
 
-      <!--<div
-        *ngIf="registerForm.get('email').errors && (registerForm.get('email').touched || registerForm.get('email').dirty)">
-        <div class="text-danger" *ngIf="registerForm.get('email').errors.email">
-          Email has an invalid format
-        </div>
-        <div class="text-danger" *ngIf="registerForm.get('email').errors.required">
-          Email is required
-        </div>
-      </div>-->
+      <div class="text-danger"
+           *ngIf="registerForm.get('email').errors && (registerForm.get('email').touched || registerForm.get('email').dirty)">
+        Invalid email format
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="inputPassword" class="form-label">Password</label>
       <input type="password" class="form-control" id="inputPassword" [formControl]="password">
 
-      <!--<div
-        *ngIf="registerForm.get('password').errors && (registerForm.get('password').touched || registerForm.get('password').dirty)">
-        <div class="text-danger" *ngIf="registerForm.get('password').errors.required">
-          Password is required
-        </div>
-      </div>-->
+      <div class="text-danger"
+           *ngIf="registerForm.get('password').errors && (registerForm.get('password').touched || registerForm.get('password').dirty)">
+        Invalid password format
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="inputRepeatedPassword" class="form-label">Repeat password</label>
       <input type="password" class="form-control" id="inputRepeatedPassword" [formControl]="confirmPassword">
 
-      <!--<div
-        *ngIf="registerForm.get('confirmPassword').errors && (registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').dirty)">
-        <div class="text-danger" *ngIf="registerForm.get('confirmPassword').errors.required">
-          Password is required
-        </div>
-      </div>-->
+      <div class="text-danger"
+           *ngIf="registerForm.get('confirmPassword').errors && (registerForm.get('confirmPassword').touched
+           || registerForm.get('confirmPassword').dirty)">
+        Invalid password format
+      </div>
+
       <div class="text-danger" *ngIf="isUserRegistered">
         User already registered
       </div>
