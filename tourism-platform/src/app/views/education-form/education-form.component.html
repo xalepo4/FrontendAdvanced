@@ -17,14 +17,14 @@
     <div class="mb-3">
       <label for="selectLevel" class="form-label">Level</label>
       <select class="form-control" id="selectLevel" [formControl]="level">
-        <option value="grado" selected>Grado</option>
-        <option value="diplomado">Diplomado</option>
-        <option value="licenciado">Licenciado</option>
-        <option value="ingeniero">Ingeniero</option>
-        <option value="master">Master</option>
-        <option value="doctorado">Doctorado</option>
-        <option value="grado superior">Grado Superior</option>
-        <option value="grado medio">Grado medio</option>
+        <option *ngIf="type.value === 'titulo universitario'" value="grado" selected>Grado</option>
+        <option *ngIf="type.value === 'titulo universitario'" value="diplomado">Diplomado</option>
+        <option *ngIf="type.value === 'titulo universitario'" value="licenciado">Licenciado</option>
+        <option *ngIf="type.value === 'titulo universitario'" value="ingeniero">Ingeniero</option>
+        <option *ngIf="type.value === 'titulo universitario'" value="master">Master</option>
+        <option *ngIf="type.value === 'titulo universitario'" value="doctorado">Doctorado</option>
+        <option *ngIf="type.value === 'ciclo formativo'" value="grado superior">Grado Superior</option>
+        <option *ngIf="type.value === 'ciclo formativo'" value="grado medio">Grado medio</option>
       </select>
 
       <div class="text-danger"
