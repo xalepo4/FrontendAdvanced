@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../shared/models/user';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   public isUserValid = true;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -36,11 +37,12 @@ export class LoginComponent implements OnInit {
 
     console.log('Email: ' + this.user.email + ' Password: ' + this.user.password);
 
-    this.authService.logIn(this.user.email , this.user.password)
+    this.authService.logIn(this.user.email, this.user.password)
       .subscribe(
         loggedIn => {
           this.isUserValid = loggedIn;
           console.log('Log in status ' + this.isUserValid);
+          this.router.navigateByUrl('/home');
         },
         error => {
           this.isUserValid = false;

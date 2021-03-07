@@ -3,6 +3,7 @@ import {User} from '../../shared/models/user';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CheckPassword} from '../../shared/directives/checkPassword';
 import {RegisterService} from '../../shared/services/register.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
 
   public isUserRegistered = false;
 
-  constructor(private formBuilder: FormBuilder, private registerService: RegisterService) {
+  constructor(private formBuilder: FormBuilder, private registerService: RegisterService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -70,6 +71,7 @@ export class RegisterComponent implements OnInit {
             this.registerService.register(this.user).subscribe(
               success => {
                 console.log('User registered successfully');
+                this.router.navigateByUrl('/home');
               },
               error => {
                 console.log('Fail registering user');
@@ -82,7 +84,7 @@ export class RegisterComponent implements OnInit {
           }
         },
         error => {
-          console.log('Error checkig if user is already registered');
+          console.log('Error checking if user is already registered');
           console.log(error);
         }
       );

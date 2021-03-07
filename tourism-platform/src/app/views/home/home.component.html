@@ -15,10 +15,12 @@
 
     </div>
     <div class="col">
-      <button *ngIf="selectedActivity && authService.isUserLoggedIn()" class="btn btn-primary sign-up-btn"
+      <button *ngIf="selectedActivity && authService.isUserLoggedIn() && authService.isUserTourist()"
+              class="btn btn-primary sign-up-btn"
               (click)="signUp()">Sign up
       </button>
-      <button *ngIf="selectedActivity && authService.isUserLoggedIn()" class="btn btn-primary favourite-btn">Save
+      <button *ngIf="selectedActivity && authService.isUserLoggedIn() && authService.isUserTourist()"
+              class="btn btn-primary favourite-btn">Save
         favourites
       </button>
     </div>

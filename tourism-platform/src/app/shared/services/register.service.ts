@@ -26,6 +26,12 @@ export class RegisterService {
     // add user to the server
     return this.userService.addUser(user).pipe(map(
       data => {
+        // create a random id when register
+        const id = Math.floor(Math.random() * (50 - 1)) + 1;
+
+        localStorage.setItem('currentUser', JSON.stringify(id));
+        localStorage.setItem('userType', user.type);
+
         return true;
       },
       error => {
