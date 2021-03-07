@@ -1,1 +1,72 @@
-<p>education-form works!</p>
+<div class="container">
+  <form class="needs-validation" [formGroup]="educationForm" (ngSubmit)="checkEducation()">
+    <div class="mb-3">
+      <label for="selectType" class="form-label">Type</label>
+      <select class="form-control" id="selectType" [formControl]="type">
+        <option value="titulo universitario" selected>Titulo Universitario</option>
+        <option value="ciclo formativo">Ciclo Formativo</option>
+      </select>
+
+      <div class="text-danger"
+           *ngIf="educationForm.get('type').errors && (educationForm.get('type').touched
+           || educationForm.get('type').dirty)">
+        Type has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="selectLevel" class="form-label">Level</label>
+      <select class="form-control" id="selectLevel" [formControl]="level">
+        <option value="grado" selected>Grado</option>
+        <option value="diplomado">Diplomado</option>
+        <option value="licenciado">Licenciado</option>
+        <option value="ingeniero">Ingeniero</option>
+        <option value="master">Master</option>
+        <option value="doctorado">Doctorado</option>
+        <option value="grado superior">Grado Superior</option>
+        <option value="grado medio">Grado medio</option>
+      </select>
+
+      <div class="text-danger"
+           *ngIf="educationForm.get('level').errors && (educationForm.get('level').touched
+           || educationForm.get('level').dirty)">
+        Level has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputName" class="form-label">Name</label>
+      <input type="text" class="form-control" id="inputName" [formControl]="name">
+
+      <div class="text-danger"
+           *ngIf="educationForm.get('name').errors && (educationForm.get('name').touched || educationForm.get('name').dirty)">
+        Name has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputUniversity" class="form-label">University</label>
+      <input type="text" class="form-control" id="inputUniversity" [formControl]="university">
+
+      <div class="text-danger"
+           *ngIf="educationForm.get('university').errors && (educationForm.get('university').touched
+           || educationForm.get('university').dirty)">
+        University has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputFinishDate" class="form-label">Finish Date</label>
+      <input type="text" class="form-control" id="inputFinishDate" [formControl]="finishDate">
+
+      <div class="text-danger"
+           *ngIf="educationForm.get('finishDate').errors && (educationForm.get('finishDate').touched
+           || educationForm.get('finishDate').dirty)">
+        Finish date has an invalid format
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-save" [disabled]="!educationForm.valid">Save</button>
+  </form>
+</div>
+
