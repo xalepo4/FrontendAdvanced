@@ -16,8 +16,7 @@
     </div>
     <div class="col">
       <button *ngIf="selectedActivity && authService.isUserLoggedIn() && authService.isUserTourist()"
-              class="btn btn-primary sign-up-btn"
-              (click)="signUp()">Sign up
+              class="btn btn-primary sign-up-btn" [disabled]="checkIfUserIsSubscribed()" (click)="signUp()">Sign up
       </button>
       <button *ngIf="selectedActivity && authService.isUserLoggedIn() && authService.isUserTourist()"
               class="btn btn-primary favourite-btn">Save

@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   @Input() selectedActivity?: Activity;
   public activitiesList: Activity[];
   private currentUser: User;
+  public saveEnabled = true;
 
   constructor(private activityService: ActivityService, private userService: UserService, public authService: AuthService) {
   }
@@ -74,5 +75,18 @@ export class HomeComponent implements OnInit {
         console.log('Error updating user');
       }
     );
+  }
+
+  checkIfUserIsSubscribed(): boolean {
+    if (this.currentUser.subscribedActivities === undefined) {
+      return false;
+    }
+
+    for (const activity of this.currentUser.subscribedActivities) {
+      if (activity.id === this.selectedActivity.id) {
+        return true;
+      }
+    }
+    return false;
   }
 }
