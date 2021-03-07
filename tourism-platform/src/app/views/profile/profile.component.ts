@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
   }
 
   changeToEducationInfo(): void {
-    this.showProfileInfo = true;
+    this.showEducationInfo = true;
     this.showEducationForm = false;
   }
 }

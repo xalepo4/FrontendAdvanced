@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {User} from '../../shared/models/user';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Education} from '../../shared/models/education';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-education-form',
@@ -20,11 +21,20 @@ export class EducationFormComponent implements OnInit {
   public finishDate: FormControl;
   public educationForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    this.userService.getUser(storedCurrentUser).subscribe(
+      user => {
+        this.currentUser = user;
+        console.log(this.currentUser);
+      },
+      error => {
+        console.log('Error getting user');
+      });
 
     this.type = new FormControl('', [Validators.required]);
     this.level = new FormControl('', [Validators.required]);
@@ -58,17 +68,22 @@ export class EducationFormComponent implements OnInit {
       finishDate: this.finishDate.value,
     };
 
-    this.currentUser.education.push(education);
+    // add education field if not exist, otherwise push new education
+    if (this.currentUser.education === undefined) {
+      this.currentUser.education = [education];
+    } else {
+      this.currentUser.education.push(education);
+    }
 
     console.log('Type: ' + education.type + ' Level: ' + education.level + ' name: ' + education.name +
       ' University: ' + education.university + ' Finish Date: ' + education.finishDate);
 
-    /*this.userService.updateUser(this.currentUser).subscribe(
+    this.userService.updateUser(this.currentUser).subscribe(
       data => {
-        this.userUpdatedEvent.emit();
+        this.educationUpdatedEvent.emit();
       }, error => {
         console.log(error);
       }
-    );*/
+    );
   }
 }

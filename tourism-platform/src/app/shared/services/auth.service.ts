@@ -16,7 +16,7 @@ export class AuthService {
 
       if (loggedIn) {
         // save currentUser to local storage
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('currentUser', JSON.stringify(user.id));
       }
 
       return loggedIn;

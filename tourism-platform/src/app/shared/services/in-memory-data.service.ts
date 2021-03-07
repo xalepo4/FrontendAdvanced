@@ -24,7 +24,8 @@ export class InMemoryDataService implements InMemoryDbService {
         surname: 'garcia',
         type: 'company',
         email: 'paula@uoc.edu',
-        password: '123456789'
+        password: '123456789',
+        education: []
       }
     ];
 

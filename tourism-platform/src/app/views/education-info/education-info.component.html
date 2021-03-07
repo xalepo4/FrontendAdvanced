@@ -10,16 +10,16 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let education of educationList">
-    <td>{{education.type}}</td>
-    <td>{{education.level}}</td>
-    <td>{{education.name}}</td>
-    <td>{{education.university}}</td>
-    <td>{{education.finishDate}}</td>
-    <td>
-      <button class="btn btn-primary" (click)="onEducationUpdate(education)">Update</button>
-      <button class="btn btn-primary" (click)="onEducationDelete(education)">Delete</button>
-    </td>
-  </tr>
+    <tr *ngFor="let education of educationList">
+      <td>{{education.type}}</td>
+      <td>{{education.level}}</td>
+      <td>{{education.name}}</td>
+      <td>{{education.university}}</td>
+      <td>{{education.finishDate}}</td>
+      <td>
+        <button class="btn btn-primary btn-update" (click)="onEducationUpdate(education)">Update</button>
+        <button class="btn btn-primary btn-delete" (click)="onEducationDelete(education)">Delete</button>
+      </td>
+    </tr>
   </tbody>
 </table>

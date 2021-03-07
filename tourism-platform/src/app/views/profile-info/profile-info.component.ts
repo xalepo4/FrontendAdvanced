@@ -17,9 +17,9 @@ export class ProfileInfoComponent implements OnInit {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     if (storedCurrentUser !== undefined) {
-      console.log('Get user with id ' + storedCurrentUser.id);
+      console.log('Get user with id ' + storedCurrentUser);
 
-      this.userService.getUser(storedCurrentUser.id).subscribe(
+      this.userService.getUser(storedCurrentUser).subscribe(
         user => {
           this.currentUser = user;
           console.log(this.currentUser);

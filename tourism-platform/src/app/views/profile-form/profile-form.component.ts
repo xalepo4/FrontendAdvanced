@@ -27,7 +27,16 @@ export class ProfileFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    this.userService.getUser(storedCurrentUser).subscribe(
+      user => {
+        this.currentUser = user;
+        console.log(this.currentUser);
+      },
+      error => {
+        console.log('Error getting user');
+      });
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),
       Validators.maxLength(55), Validators.pattern('^[-a-zA-Z]+(\\s+[-a-zA-Z]+)*$')]);
