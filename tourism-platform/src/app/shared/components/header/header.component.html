@@ -8,14 +8,27 @@
       <h2>Tourism platform</h2>
     </div>
     <div class="col">
-      <button type="button" class="btn btn-primary" routerLink="/login">Sign in</button>
-      <button type="button" class="btn btn-primary" routerLink="/register">Join now</button>
-      <button type="button" class="btn btn-primary" routerLink="/home">Home</button>
-      <button type="button" class="btn btn-primary" routerLink="/admin">Admin</button>
-      <button type="button" class="btn btn-primary">Favourites</button>
-      <button type="button" class="btn btn-primary" routerLink="/my-activities">My activities</button>
-      <button type="button" class="btn btn-primary" routerLink="/profile">Profile</button>
-      <button type="button" class="btn btn-primary" (click)="authService.logOut()">Logout</button>
+      <button *ngIf="!authService.isUserLoggedIn()" type="button" class="btn btn-primary" routerLink="/login">Sign in
+      </button>
+      <button *ngIf="!authService.isUserLoggedIn()" type="button" class="btn btn-primary" routerLink="/register">Join
+        now
+      </button>
+      <button *ngIf="authService.isUserLoggedIn()" type="button" class="btn btn-primary" routerLink="/home">Home
+      </button>
+      <button *ngIf="authService.isUserLoggedIn() && authService.isUserTourist()" type="button" class="btn btn-primary"
+              routerLink="/admin">Admin
+      </button>
+      <button *ngIf="authService.isUserLoggedIn() && authService.isUserTourist()" type="button" class="btn btn-primary">
+        Favourites
+      </button>
+      <button *ngIf="authService.isUserLoggedIn() && authService.isUserTourist()" type="button" class="btn btn-primary"
+              routerLink="/my-activities">My activities
+      </button>
+      <button *ngIf="authService.isUserLoggedIn()" type="button" class="btn btn-primary" routerLink="/profile">Profile
+      </button>
+      <button *ngIf="authService.isUserLoggedIn()" type="button" class="btn btn-primary" (click)="authService.logOut()">
+        Logout
+      </button>
     </div>
   </div>
 </div>

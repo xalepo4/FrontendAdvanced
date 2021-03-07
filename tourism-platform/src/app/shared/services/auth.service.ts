@@ -17,6 +17,7 @@ export class AuthService {
       if (loggedIn) {
         // save currentUser to local storage
         localStorage.setItem('currentUser', JSON.stringify(user.id));
+        localStorage.setItem('userType', user.type);
       }
 
       return loggedIn;
@@ -26,6 +27,18 @@ export class AuthService {
   logOut(): void {
     // remove currentUser from local storage
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('userType');
+  }
 
+  isUserLoggedIn(): boolean {
+    return localStorage.getItem('currentUser') !== undefined;
+  }
+
+  isUserTourist(): boolean {
+    return localStorage.getItem('userType') === 'tourist';
+  }
+
+  isUserCompany(): boolean {
+    return localStorage.getItem('userType') === 'company';
   }
 }
