@@ -56,10 +56,10 @@ export class HomeComponent implements OnInit {
     );
 
     // if current user doesn't have any activity, add it, otherwise push it to the list
-    if (this.currentUser.activities === undefined) {
-      this.currentUser.activities = [this.selectedActivity];
+    if (this.currentUser.subscribedActivities === undefined) {
+      this.currentUser.subscribedActivities = [this.selectedActivity];
     } else {
-      this.currentUser.activities.push(this.selectedActivity);
+      this.currentUser.subscribedActivities.push(this.selectedActivity);
     }
 
     // update user with subscribed activity

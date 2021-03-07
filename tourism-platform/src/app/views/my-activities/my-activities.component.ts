@@ -23,7 +23,7 @@ export class MyActivitiesComponent implements OnInit {
     this.userService.getUser(storedCurrentUser).subscribe(
       user => {
         this.currentUser = user;
-        this.activitiesList = user.activities;
+        this.activitiesList = user.subscribedActivities;
         console.log(this.currentUser);
       },
       error => {
@@ -52,7 +52,7 @@ export class MyActivitiesComponent implements OnInit {
     this.activitiesList.splice(index, 1);
 
     // set activities to user
-    this.currentUser.activities = this.activitiesList;
+    this.currentUser.subscribedActivities = this.activitiesList;
 
     // set selected activity to null for hide detail
     this.selectedActivity = null;
