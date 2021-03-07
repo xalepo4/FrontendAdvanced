@@ -1,18 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Activity} from '../../shared/models/activity';
-import {ActivityService} from '../../shared/services/activity.service';
-import {User} from '../../shared/models/user';
 import {UserService} from '../../shared/services/user.service';
+import {User} from '../../shared/models/user';
+import {ActivityService} from '../../shared/services/activity.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-my-activities',
+  templateUrl: './my-activities.component.html',
+  styleUrls: ['./my-activities.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class MyActivitiesComponent implements OnInit {
   @Input() selectedActivity?: Activity;
-  public activitiesList: Activity[];
   private currentUser: User;
+  public activitiesList: Activity[];
 
   constructor(private activityService: ActivityService, private userService: UserService) {
   }
@@ -23,28 +23,20 @@ export class HomeComponent implements OnInit {
     this.userService.getUser(storedCurrentUser).subscribe(
       user => {
         this.currentUser = user;
+        this.activitiesList = user.activities;
         console.log(this.currentUser);
       },
       error => {
         console.log('Error getting user');
       });
-
-    this.activityService.getActivities().subscribe(
-      activities => {
-        this.activitiesList = activities;
-      },
-      error => {
-        console.log('Fail getting activities');
-      }
-    );
   }
 
   showActivity(activity: Activity): void {
     this.selectedActivity = activity;
   }
 
-  signUp(): void {
-    this.selectedActivity.peopleRegistered = this.selectedActivity.peopleRegistered + 1;
+  cancelActivity(): void {
+    this.selectedActivity.peopleRegistered = this.selectedActivity.peopleRegistered - 1;
 
     this.activityService.updateActivity(this.selectedActivity).subscribe(
       data => {
@@ -55,14 +47,14 @@ export class HomeComponent implements OnInit {
       }
     );
 
-    // if current user doesn't have any activity, add it, otherwise push it to the list
-    if (this.currentUser.activities === undefined) {
-      this.currentUser.activities = [this.selectedActivity];
-    } else {
-      this.currentUser.activities.push(this.selectedActivity);
-    }
+    // get activity index and delete it
+    const index = this.activitiesList.indexOf(this.selectedActivity, 0);
+    this.activitiesList.splice(index, 1);
 
-    // update user with subscribed activity
+    // set activities to user
+    this.currentUser.activities = this.activitiesList;
+
+    // update user with unsubscribed activity
     this.userService.updateUser(this.currentUser).subscribe(
       data => {
         console.log('User updated successfully');

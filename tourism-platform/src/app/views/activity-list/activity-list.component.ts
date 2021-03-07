@@ -1,5 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ActivityService} from '../../shared/services/activity.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Activity} from '../../shared/models/activity';
 
 @Component({
@@ -9,21 +8,13 @@ import {Activity} from '../../shared/models/activity';
 })
 export class ActivityListComponent implements OnInit {
   @Output() newActivityEvent = new EventEmitter<Activity>();
+  @Input() activitiesList: Activity[];
 
-  public activitiesList: Activity[];
-
-  constructor(private activityService: ActivityService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.activityService.getActivities().subscribe(
-      activities => {
-        this.activitiesList = activities;
-      },
-      error => {
-        console.log('Fail getting activities');
-      }
-    );
+
   }
 
   onActivityClicked(activity: Activity): void {

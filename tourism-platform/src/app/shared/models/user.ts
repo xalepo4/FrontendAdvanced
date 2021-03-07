@@ -1,4 +1,5 @@
 import {Education} from './education';
+import {Activity} from './activity';
 
 export class User {
   id: number;
@@ -12,5 +13,6 @@ export class User {
   type: 'tourist' | 'company';
   email: string;
   password: string;
+  activities: Activity[];
   education: Education[];
 }

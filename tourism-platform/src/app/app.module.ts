@@ -19,6 +19,7 @@ import { ProfileFormComponent } from './views/profile-form/profile-form.componen
 import { ProfileInfoComponent } from './views/profile-info/profile-info.component';
 import { EducationInfoComponent } from './views/education-info/education-info.component';
 import { EducationFormComponent } from './views/education-form/education-form.component';
+import { MyActivitiesComponent } from './views/my-activities/my-activities.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { EducationFormComponent } from './views/education-form/education-form.co
     ProfileFormComponent,
     ProfileInfoComponent,
     EducationInfoComponent,
-    EducationFormComponent
+    EducationFormComponent,
+    MyActivitiesComponent
   ],
   imports: [
     BrowserModule,
