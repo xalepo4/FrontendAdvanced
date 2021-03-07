@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Education} from '../../shared/models/education';
 import {User} from '../../shared/models/user';
 import {UserService} from '../../shared/services/user.service';
@@ -9,6 +9,8 @@ import {UserService} from '../../shared/services/user.service';
   styleUrls: ['./education-info.component.scss']
 })
 export class EducationInfoComponent implements OnInit {
+  @Output() educationNeedToUpdateEvent = new EventEmitter<any>();
+
   private currentUser: User;
   public educationList;
 
@@ -32,7 +34,7 @@ export class EducationInfoComponent implements OnInit {
   }
 
   onEducationUpdate(education: Education): void {
-
+    this.educationNeedToUpdateEvent.emit(education);
   }
 
   onEducationDelete(position: number): void {

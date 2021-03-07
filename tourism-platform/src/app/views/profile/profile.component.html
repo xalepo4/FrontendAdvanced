@@ -15,7 +15,7 @@
   <div class="row">
     <div class="col">
       <div *ngIf="showEducationInfo">
-        <app-education-info></app-education-info>
+        <app-education-info (educationNeedToUpdateEvent)="changeToEducationForm()"></app-education-info>
       </div>
       <div *ngIf="showEducationForm">
         <app-education-form (educationUpdatedEvent)="changeToEducationInfo()"></app-education-form>
