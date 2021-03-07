@@ -17,6 +17,5 @@ export class User {
   companyDescription: string;
   cif: string;
   education: Education[];
-  publishedActivities: Activity[];
   subscribedActivities: Activity[];
 }

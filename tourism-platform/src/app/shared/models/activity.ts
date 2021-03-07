@@ -8,4 +8,5 @@ export class Activity {
   price: number;
   date: Date;
   peopleRegistered: number;
+  companyId: number;
 }

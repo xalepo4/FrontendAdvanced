@@ -3,6 +3,7 @@ import {Activity} from '../../shared/models/activity';
 import {ActivityService} from '../../shared/services/activity.service';
 import {User} from '../../shared/models/user';
 import {UserService} from '../../shared/services/user.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,20 +15,22 @@ export class HomeComponent implements OnInit {
   public activitiesList: Activity[];
   private currentUser: User;
 
-  constructor(private activityService: ActivityService, private userService: UserService) {
+  constructor(private activityService: ActivityService, private userService: UserService, public authService: AuthService) {
   }
 
   ngOnInit(): void {
-    const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (this.authService.isUserLoggedIn()) {
+      const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.userService.getUser(storedCurrentUser).subscribe(
-      user => {
-        this.currentUser = user;
-        console.log(this.currentUser);
-      },
-      error => {
-        console.log('Error getting user');
-      });
+      this.userService.getUser(storedCurrentUser).subscribe(
+        user => {
+          this.currentUser = user;
+          console.log(this.currentUser);
+        },
+        error => {
+          console.log('Error getting user');
+        });
+    }
 
     this.activityService.getActivities().subscribe(
       activities => {

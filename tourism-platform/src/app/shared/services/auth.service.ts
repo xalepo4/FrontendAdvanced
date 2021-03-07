@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
-    return localStorage.getItem('currentUser') !== undefined;
+    return localStorage.getItem('currentUser') != null;
   }
 
   isUserTourist(): boolean {
