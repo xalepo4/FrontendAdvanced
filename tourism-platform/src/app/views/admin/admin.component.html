@@ -1,7 +1,15 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div *ngIf="showActivityCrud" class="col">
       <app-activity-crud></app-activity-crud>
+    </div>
+    <div *ngIf="showActivityForm" class="col">
+      <app-activity-form (activityUpdatedEvent)="changeToActivityCrud()"></app-activity-form>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="showActivityCrud" class="col">
+      <button class="btn btn-primary" (click)="changeToActivityForm()">New activity</button>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -6,10 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+  public showActivityCrud = true;
+  public showActivityForm = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  changeToActivityForm(): void {
+    this.showActivityCrud = false;
+    this.showActivityForm = true;
+  }
+
+  changeToActivityCrud(): void {
+    this.showActivityCrud = true;
+    this.showActivityForm = false;
   }
 
 }

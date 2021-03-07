@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Activity} from '../../shared/models/activity';
 
 @Component({
   selector: 'app-activity-crud',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./activity-crud.component.scss']
 })
 export class ActivityCrudComponent implements OnInit {
+  public activityList: Activity[];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  onActivityUpdate(activity: Activity): void {
+
+  }
+
+  onActivityDelete(position: number): void {
+
   }
 
 }

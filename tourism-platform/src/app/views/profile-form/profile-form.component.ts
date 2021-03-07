@@ -50,10 +50,10 @@ export class ProfileFormComponent implements OnInit {
     this.phone = new FormControl('', [Validators.pattern('^[0-9]*$')]);
     this.nationality = new FormControl('');
     this.nif = new FormControl('', [CheckNif.checkInvalidNif]);
-    this.aboutMe = new FormControl('', [Validators.pattern('^[a-zA-Z]*$')]);
+    this.aboutMe = new FormControl('', [Validators.pattern('^[a-zA-Z ]*$')]);
     this.companyName = new FormControl('', [Validators.required, Validators.minLength(3),
       Validators.maxLength(255), Validators.pattern('^[-a-zA-Z]+(\\s+[-a-zA-Z]+)*$')]);
-    this.companyDescription = new FormControl('', [Validators.pattern('^[a-zA-Z]*$')]);
+    this.companyDescription = new FormControl('', [Validators.pattern('^[a-zA-Z ]*$')]);
     this.cif = new FormControl('', [Validators.required]);
 
     this.profileForm = this.formBuilder.group({

@@ -1,1 +1,110 @@
-<p>activity-form works!</p>
+<div class="container">
+  <form class="needs-validation" [formGroup]="activityForm" (ngSubmit)="checkActivity()">
+    <div class="mb-3">
+      <label for="inputName" class="form-label">Name</label>
+      <input type="text" class="form-control" id="inputName" [formControl]="name">
+
+      <div class="text-danger"
+           *ngIf="activityForm.get('name').errors && (activityForm.get('name').touched || activityForm.get('name').dirty)">
+        Name has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="selectCategory" class="form-label">Category</label>
+      <select class="form-control" id="selectCategory" [formControl]="category">
+        <option value="cultura y patrimonio" selected>Cultura y patrimonio</option>
+        <option value="enoturismo">Enoturismo</option>
+        <option value="playas">Playas</option>
+      </select>
+
+      <div class="text-danger"
+           *ngIf="activityForm.get('category').errors && (activityForm.get('category').touched
+           || activityForm.get('category').dirty)">
+        Category has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="selectSubcategory" class="form-label">Subcategory</label>
+      <select class="form-control" id="selectSubcategory" [formControl]="subcategory">
+        <option *ngIf="category.value === 'cultura y patrimonio' || category.value === 'playas'"
+                value="concierto">Concierto
+        </option>
+        <option *ngIf="category.value === 'cultura y patrimonio'" value="espectaculo">Espectaculo</option>
+        <option value="excursion">Excursion</option>
+        <option *ngIf="category.value === 'cultura y patrimonio'" value="festivales">Festivales</option>
+        <option *ngIf="category.value === 'cultura y patrimonio' || category.value === 'enoturismo'"
+                value="visita guiada">Visita guiada
+        </option>
+        <option *ngIf="category.value === 'cultura y patrimonio'" value="museo">Museo</option>
+        <option *ngIf="category.value === 'cultura y patrimonio'" value="monumento">Monumento</option>
+        <option *ngIf="category.value === 'enoturismo'" value="bodega">Bodega</option>
+        <option *ngIf="category.value === 'enoturismo'" value="cata de productos">Cata de productos</option>
+        <option *ngIf="category.value === 'enoturismo'" value="museo del vino">Museo del vino</option>
+        <option *ngIf="category.value === 'playas'" value="actividad nautica">Actividad nautica</option>
+        <option *ngIf="category.value === 'playas'" value="cala">Cala</option>
+        <option *ngIf="category.value === 'playas'" value="taller">Taller</option>
+      </select>
+
+      <div class="text-danger"
+           *ngIf="activityForm.get('subcategory').errors && (activityForm.get('subcategory').touched
+           || activityForm.get('subcategory').dirty)">
+        Subcategory has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputDescription" class="form-label">Description</label>
+      <input type="text" class="form-control" id="inputDescription" [formControl]="description">
+
+      <div class="text-danger"
+           *ngIf="activityForm.get('description').errors && (activityForm.get('description').touched
+           || activityForm.get('description').dirty)">
+        Description has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="selectLanguage" class="form-label">Language</label>
+      <select class="form-control" id="selectLanguage" [formControl]="language">
+        <option value="ingles" selected>Ingles</option>
+        <option value="catalan">Frances</option>
+        <option value="español">Español</option>
+        <option value="frances">Frances</option>
+        <option value="aleman">Aleman</option>
+      </select>
+
+      <div class="text-danger"
+           *ngIf="activityForm.get('language').errors && (activityForm.get('language').touched
+           || activityForm.get('language').dirty)">
+        Language has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputDate" class="form-label">Date</label>
+      <input type="text" class="form-control" id="inputDate" [formControl]="date">
+
+      <div class="text-danger"
+           *ngIf="activityForm.get('date').errors && (activityForm.get('date').touched
+           || activityForm.get('date').dirty)">
+        Date has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputPrice" class="form-label">Price</label>
+      <input type="text" class="form-control" id="inputPrice" [formControl]="price">
+
+      <div class="text-danger"
+           *ngIf="activityForm.get('price').errors && (activityForm.get('price').touched
+           || activityForm.get('price').dirty)">
+        Price has an invalid format
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-save" [disabled]="!activityForm.valid">Save</button>
+  </form>
+</div>
+
