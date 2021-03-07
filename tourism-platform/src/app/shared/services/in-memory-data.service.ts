@@ -14,7 +14,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 1,
         name: 'xavi',
         surname: 'ledesma',
-        type: 'tourist',
+        type: 'company',
         email: 'xaviledesma@uoc.edu',
         password: '123456789',
         education: [
@@ -48,7 +48,7 @@ export class InMemoryDataService implements InMemoryDbService {
         language: 'ES',
         price: 12,
         date: '23/09/2020',
-        peopleRegistered: 14
+        companyId: 1
       },
       {
         id: 2,
@@ -59,7 +59,8 @@ export class InMemoryDataService implements InMemoryDbService {
         language: 'ES',
         price: 12,
         date: '25/09/2020',
-        peopleRegistered: 1
+        peopleRegistered: 1,
+        companyId: 2
       }
     ];
 

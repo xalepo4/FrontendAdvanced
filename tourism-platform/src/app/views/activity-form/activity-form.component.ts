@@ -27,6 +27,10 @@ export class ActivityFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // set company id for list activities and set 0 registered people
+    this.activity.companyId = JSON.parse(localStorage.getItem('currentUser'));
+    this.activity.peopleRegistered = 0;
+
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),
       Validators.maxLength(55)]);
     this.category = new FormControl('', [Validators.required]);
