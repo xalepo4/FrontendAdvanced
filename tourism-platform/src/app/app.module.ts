@@ -20,6 +20,9 @@ import { ProfileInfoComponent } from './views/profile-info/profile-info.componen
 import { EducationInfoComponent } from './views/education-info/education-info.component';
 import { EducationFormComponent } from './views/education-form/education-form.component';
 import { MyActivitiesComponent } from './views/my-activities/my-activities.component';
+import { ActivityFormComponent } from './views/activity-form/activity-form.component';
+import { ActivityCrudComponent } from './views/activity-crud/activity-crud.component';
+import { AdminComponent } from './views/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { MyActivitiesComponent } from './views/my-activities/my-activities.compo
     ProfileInfoComponent,
     EducationInfoComponent,
     EducationFormComponent,
-    MyActivitiesComponent
+    MyActivitiesComponent,
+    ActivityFormComponent,
+    ActivityCrudComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
