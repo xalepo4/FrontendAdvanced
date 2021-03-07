@@ -36,8 +36,13 @@ export class EducationInfoComponent implements OnInit {
   }
 
   onEducationDelete(position: number): void {
+    // remove education object
     this.educationList.splice(position, 1);
+
+    // set new list to current user
     this.currentUser.education = this.educationList;
+
+    // update current user
     this.userService.updateUser(this.currentUser).subscribe(
       data => {
         console.log('Education deleted successfully');
