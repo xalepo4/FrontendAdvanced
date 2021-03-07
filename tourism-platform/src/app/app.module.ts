@@ -17,6 +17,8 @@ import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {InMemoryDataService} from './shared/services/in-memory-data.service';
 import { ProfileFormComponent } from './views/profile-form/profile-form.component';
 import { ProfileInfoComponent } from './views/profile-info/profile-info.component';
+import { EducationInfoComponent } from './views/education-info/education-info.component';
+import { EducationFormComponent } from './views/education-form/education-form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ProfileInfoComponent } from './views/profile-info/profile-info.componen
     LoginComponent,
     RegisterComponent,
     ProfileFormComponent,
-    ProfileInfoComponent
+    ProfileInfoComponent,
+    EducationInfoComponent,
+    EducationFormComponent
   ],
   imports: [
     BrowserModule,

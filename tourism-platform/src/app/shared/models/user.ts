@@ -1,3 +1,5 @@
+import {Education} from './education';
+
 export class User {
   id: number;
   name: string;
@@ -10,4 +12,5 @@ export class User {
   type: 'tourist' | 'company';
   email: string;
   password: string;
+  education: Education[];
 }

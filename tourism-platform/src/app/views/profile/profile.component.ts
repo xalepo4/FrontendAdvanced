@@ -6,10 +6,11 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-
   public showProfileInfo = true;
   public showProfileForm = false;
+
+  public showEducationInfo = true;
+  public showEducationForm = false;
 
   constructor() {
   }
@@ -22,8 +23,18 @@ export class ProfileComponent implements OnInit {
     this.showProfileForm = true;
   }
 
-  changeToInfoForm(): void {
+  changeToProfileInfo(): void {
     this.showProfileInfo = true;
     this.showProfileForm = false;
+  }
+
+  changeToEducationForm(): void {
+    this.showEducationInfo = false;
+    this.showEducationForm = true;
+  }
+
+  changeToEducationInfo(): void {
+    this.showProfileInfo = true;
+    this.showEducationForm = false;
   }
 }

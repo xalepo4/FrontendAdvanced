@@ -5,11 +5,26 @@
         <app-profile-info></app-profile-info>
       </div>
       <div *ngIf="showProfileForm">
-        <app-profile-form (userUpdatedEvent)="changeToInfoForm()"></app-profile-form>
+        <app-profile-form (userUpdatedEvent)="changeToProfileInfo()"></app-profile-form>
       </div>
     </div>
     <div class="col-md-2">
       <button class="btn btn-primary" (click)="changeToProfileForm()">Update profile information</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div *ngIf="showEducationInfo">
+        <app-education-info></app-education-info>
+      </div>
+      <div *ngIf="showEducationForm">
+        <app-education-form (educationUpdatedEvent)="changeToEducationInfo()"></app-education-form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary" (click)="changeToEducationForm()">New education</button>
     </div>
   </div>
 </div>
