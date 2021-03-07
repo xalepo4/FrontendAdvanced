@@ -6,14 +6,17 @@ import {HomeComponent} from './views/home/home.component';
 import {ProfileComponent} from './views/profile/profile.component';
 import {MyActivitiesComponent} from './views/my-activities/my-activities.component';
 import {AdminComponent} from './views/admin/admin.component';
+import {AuthGuard} from './shared/guards/auth.guard';
+import {CompanyGuard} from './shared/guards/company.guard';
+import {TouristGuard} from './shared/guards/tourist.guard';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'admin', component: AdminComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'my-activities', component: MyActivitiesComponent},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard, CompanyGuard]},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'my-activities', component: MyActivitiesComponent, canActivate: [AuthGuard, TouristGuard]},
   {path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 
