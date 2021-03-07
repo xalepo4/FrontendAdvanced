@@ -13,6 +13,9 @@ export class User {
   type: 'tourist' | 'company';
   email: string;
   password: string;
+  companyName: string;
+  companyDescription: string;
+  cif: string;
   activities: Activity[];
   education: Education[];
 }

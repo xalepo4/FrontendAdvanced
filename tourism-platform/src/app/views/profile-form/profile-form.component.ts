@@ -21,6 +21,10 @@ export class ProfileFormComponent implements OnInit {
   public nationality: FormControl;
   public nif: FormControl;
   public aboutMe: FormControl;
+  public companyName: FormControl;
+  public companyDescription: FormControl;
+  public cif: FormControl;
+
   public profileForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) {
@@ -47,6 +51,10 @@ export class ProfileFormComponent implements OnInit {
     this.nationality = new FormControl('');
     this.nif = new FormControl('', [CheckNif.checkInvalidNif]);
     this.aboutMe = new FormControl('', [Validators.pattern('^[a-zA-Z]*$')]);
+    this.companyName = new FormControl('', [Validators.required, Validators.minLength(3),
+      Validators.maxLength(255), Validators.pattern('^[-a-zA-Z]+(\\s+[-a-zA-Z]+)*$')]);
+    this.companyDescription = new FormControl('', [Validators.pattern('^[a-zA-Z]*$')]);
+    this.cif = new FormControl('', [Validators.required]);
 
     this.profileForm = this.formBuilder.group({
       name: this.name,
@@ -55,7 +63,10 @@ export class ProfileFormComponent implements OnInit {
       phone: this.phone,
       nationality: this.nationality,
       nif: this.nif,
-      aboutMe: this.aboutMe
+      aboutMe: this.aboutMe,
+      companyName: this.companyName,
+      companyDescription: this.companyDescription,
+      cif: this.cif
     });
   }
 
@@ -76,7 +87,8 @@ export class ProfileFormComponent implements OnInit {
 
     console.log('Name: ' + this.currentUser.name + ' Surname: ' + this.currentUser.surname + ' Birth date: ' +
       this.currentUser.birthDate + ' Phone: ' + this.currentUser.phone + ' Nationality: ' +
-      this.currentUser.nationality + ' Nif: ' + this.currentUser.nif + ' ' + 'About me: ' + this.currentUser.aboutMe);
+      this.currentUser.nationality + ' Nif: ' + this.currentUser.nif + ' ' + 'About me: ' + this.currentUser.aboutMe +
+      ' Company name: ' + this.companyName + ' Company description: ' + this.companyDescription + ' CIF: ' + this.cif);
 
     this.userService.updateUser(this.currentUser).subscribe(
       data => {
