@@ -54,6 +54,9 @@ export class MyActivitiesComponent implements OnInit {
     // set activities to user
     this.currentUser.activities = this.activitiesList;
 
+    // set selected activity to null for hide detail
+    this.selectedActivity = null;
+
     // update user with unsubscribed activity
     this.userService.updateUser(this.currentUser).subscribe(
       data => {
