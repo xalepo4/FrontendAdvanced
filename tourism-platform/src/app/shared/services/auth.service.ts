@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {UserService} from './user.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   logIn(email: string, password: string): Observable<boolean> {
@@ -28,6 +29,9 @@ export class AuthService {
     // remove currentUser from local storage
     localStorage.removeItem('currentUser');
     localStorage.removeItem('userType');
+
+    // redirect to home
+    this.router.navigateByUrl('/home');
   }
 
   isUserLoggedIn(): boolean {
