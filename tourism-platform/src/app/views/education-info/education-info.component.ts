@@ -9,6 +9,7 @@ import {UserService} from '../../shared/services/user.service';
   styleUrls: ['./education-info.component.scss']
 })
 export class EducationInfoComponent implements OnInit {
+  private currentUser: User;
   public educationList;
 
   constructor(private userService: UserService) {
@@ -20,6 +21,7 @@ export class EducationInfoComponent implements OnInit {
     if (storedCurrentUser !== undefined) {
       this.userService.getUser(storedCurrentUser).subscribe(
         user => {
+          this.currentUser = user;
           this.educationList = user.education;
           console.log(user);
         },
@@ -33,7 +35,15 @@ export class EducationInfoComponent implements OnInit {
 
   }
 
-  onEducationDelete(education: Education): void {
-
+  onEducationDelete(position: number): void {
+    this.educationList.splice(position, 1);
+    this.currentUser.education = this.educationList;
+    this.userService.updateUser(this.currentUser).subscribe(
+      data => {
+        console.log('Education deleted successfully');
+      }, error => {
+        console.log('Error updating user');
+      }
+    );
   }
 }

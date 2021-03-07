@@ -16,7 +16,16 @@ export class InMemoryDataService implements InMemoryDbService {
         surname: 'ledesma',
         type: 'tourist',
         email: 'xaviledesma@uoc.edu',
-        password: '123456789'
+        password: '123456789',
+        education: [
+          {
+            type: 'titulo universitario',
+            level: 'grado',
+            name: 'sistemas tic',
+            university: 'UPC',
+            finishDate: '01/01/2018'
+          }
+        ]
       },
       {
         id: 2,
