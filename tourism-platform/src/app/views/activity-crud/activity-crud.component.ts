@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Activity} from '../../shared/models/activity';
 import {ActivityService} from '../../shared/services/activity.service';
 
@@ -8,6 +8,8 @@ import {ActivityService} from '../../shared/services/activity.service';
   styleUrls: ['./activity-crud.component.scss']
 })
 export class ActivityCrudComponent implements OnInit {
+  @Output() activityNeedToUpdateEvent = new EventEmitter<any>();
+
   public activityList: Activity[];
 
   constructor(private activityService: ActivityService) {
@@ -35,11 +37,20 @@ export class ActivityCrudComponent implements OnInit {
   }
 
   onActivityUpdate(activity: Activity): void {
-
+    this.activityNeedToUpdateEvent.emit(activity);
   }
 
-  onActivityDelete(position: number): void {
+  onActivityDelete(position: number, activity: Activity): void {
+    // remove activity object
+    this.activityList.splice(position, 1);
 
+    // delete activity
+    this.activityService.deleteActivity(activity).subscribe(
+      data => {
+        console.log('Activity deleted successfully');
+      }, error => {
+        console.log('Error deleting activity');
+      }
+    );
   }
-
 }

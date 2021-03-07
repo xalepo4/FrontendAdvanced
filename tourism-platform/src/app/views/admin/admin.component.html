@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div *ngIf="showActivityCrud" class="col">
-      <app-activity-crud></app-activity-crud>
+      <app-activity-crud (activityNeedToUpdateEvent)="changeToActivityForm()"></app-activity-crud>
     </div>
     <div *ngIf="showActivityForm" class="col">
       <app-activity-form (activityUpdatedEvent)="changeToActivityCrud()"></app-activity-form>
