@@ -77,8 +77,8 @@
         About me has an invalid format
       </div>
     </div>
-    
-    <div class="mb-3">
+
+    <div *ngIf="authService.isUserCompany()" class="mb-3">
       <label for="inputCompanyName" class="form-label">Company Name</label>
       <input type="text" class="form-control" id="inputCompanyName" [formControl]="companyName">
 
@@ -89,7 +89,7 @@
       </div>
     </div>
 
-    <div class="mb-3">
+    <div *ngIf="authService.isUserCompany()" class="mb-3">
       <label for="inputCompanyDescription" class="form-label">Company Description</label>
       <input type="text" class="form-control" id="inputCompanyDescription" [formControl]="companyDescription">
 
@@ -100,7 +100,7 @@
       </div>
     </div>
 
-    <div class="mb-3">
+    <div *ngIf="authService.isUserCompany()" class="mb-3">
       <label for="inputCif" class="form-label">CIF</label>
       <input type="text" class="form-control" id="inputCif" [formControl]="cif">
 

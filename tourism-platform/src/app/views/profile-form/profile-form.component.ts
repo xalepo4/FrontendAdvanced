@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../shared/models/user';
 import {CheckNif} from '../../shared/directives/checkNif';
 import {UserService} from '../../shared/services/user.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-profile-form',
@@ -27,7 +28,7 @@ export class ProfileFormComponent implements OnInit {
 
   public profileForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, public authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -64,10 +65,14 @@ export class ProfileFormComponent implements OnInit {
       nationality: this.nationality,
       nif: this.nif,
       aboutMe: this.aboutMe,
-      companyName: this.companyName,
-      companyDescription: this.companyDescription,
-      cif: this.cif
     });
+
+    // Add additional fields if user is a company
+    if (this.authService.isUserCompany()) {
+      this.profileForm.addControl('companyName', this.companyName);
+      this.profileForm.addControl('companyDescription', this.companyDescription);
+      this.profileForm.addControl('cif', this.cif);
+    }
   }
 
   checkProfile(): void {
@@ -85,10 +90,17 @@ export class ProfileFormComponent implements OnInit {
     this.currentUser.nif = this.nif.value;
     this.currentUser.aboutMe = this.aboutMe.value;
 
+    if (this.authService.isUserCompany()) {
+      this.currentUser.companyName = this.companyName.value;
+      this.currentUser.companyDescription = this.companyDescription.value;
+      this.currentUser.cif = this.cif.value;
+    }
+
     console.log('Name: ' + this.currentUser.name + ' Surname: ' + this.currentUser.surname + ' Birth date: ' +
       this.currentUser.birthDate + ' Phone: ' + this.currentUser.phone + ' Nationality: ' +
       this.currentUser.nationality + ' Nif: ' + this.currentUser.nif + ' ' + 'About me: ' + this.currentUser.aboutMe +
-      ' Company name: ' + this.companyName + ' Company description: ' + this.companyDescription + ' CIF: ' + this.cif);
+      ' Company name: ' + this.currentUser.companyName + ' Company description: ' + this.currentUser.companyDescription
+      + ' CIF: ' + this.currentUser.cif);
 
     this.userService.updateUser(this.currentUser).subscribe(
       data => {

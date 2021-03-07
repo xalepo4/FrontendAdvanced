@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../shared/services/user.service';
 import {User} from '../../shared/models/user';
+import {AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -10,7 +11,7 @@ import {User} from '../../shared/models/user';
 export class ProfileInfoComponent implements OnInit {
   public currentUser: User;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, public authService: AuthService) {
   }
 
   ngOnInit(): void {
