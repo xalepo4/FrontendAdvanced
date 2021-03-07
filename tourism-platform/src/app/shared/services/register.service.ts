@@ -25,13 +25,9 @@ export class RegisterService {
   register(user: User): Observable<boolean> {
     // add user to the server
     return this.userService.addUser(user).pipe(map(
-      data => {
-        // create a random id when register
-        const id = Math.floor(Math.random() * (50 - 1)) + 1;
-
-        localStorage.setItem('currentUser', JSON.stringify(id));
-        localStorage.setItem('userType', user.type);
-
+      addedUser => {
+        localStorage.setItem('currentUser', JSON.stringify(addedUser.id));
+        localStorage.setItem('userType', addedUser.type);
         return true;
       },
       error => {

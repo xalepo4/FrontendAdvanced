@@ -71,6 +71,6 @@ export class InMemoryDataService implements InMemoryDbService {
   }
 
   getId(activities: Activity[]): number {
-    return activities.length > 0 ? Math.max(...activities.map(user => user.id)) + 1 : 1;
+    return activities.length > 0 ? Math.max(...activities.map(activity => activity.id)) + 1 : 1;
   }
 }
