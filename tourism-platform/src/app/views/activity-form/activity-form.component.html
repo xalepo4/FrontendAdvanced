@@ -13,7 +13,8 @@
     <div class="mb-3">
       <label for="selectCategory" class="form-label">Category</label>
       <select class="form-control" id="selectCategory" [formControl]="category">
-        <option value="cultura y patrimonio" selected>Cultura y patrimonio</option>
+        <option value="">Please select</option>
+        <option value="cultura y patrimonio">Cultura y patrimonio</option>
         <option value="enoturismo">Enoturismo</option>
         <option value="playas">Playas</option>
       </select>
@@ -28,11 +29,14 @@
     <div class="mb-3">
       <label for="selectSubcategory" class="form-label">Subcategory</label>
       <select class="form-control" id="selectSubcategory" [formControl]="subcategory">
+        <option value="">Please select</option>
         <option *ngIf="category.value === 'cultura y patrimonio' || category.value === 'playas'"
                 value="concierto">Concierto
         </option>
         <option *ngIf="category.value === 'cultura y patrimonio'" value="espectaculo">Espectaculo</option>
-        <option value="excursion">Excursion</option>
+        <option *ngIf="category.value === 'cultura y patrimonio' || category.value === 'enoturismo'
+         || category.value === 'playas'" value="excursion">Excursion
+        </option>
         <option *ngIf="category.value === 'cultura y patrimonio'" value="festivales">Festivales</option>
         <option *ngIf="category.value === 'cultura y patrimonio' || category.value === 'enoturismo'"
                 value="visita guiada">Visita guiada
@@ -68,7 +72,8 @@
     <div class="mb-3">
       <label for="selectLanguage" class="form-label">Language</label>
       <select class="form-control" id="selectLanguage" [formControl]="language">
-        <option value="ingles" selected>Ingles</option>
+        <option value="">Please select</option>
+        <option value="ingles">Ingles</option>
         <option value="catalan">Frances</option>
         <option value="español">Español</option>
         <option value="frances">Frances</option>

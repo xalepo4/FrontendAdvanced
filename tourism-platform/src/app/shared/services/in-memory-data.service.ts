@@ -48,6 +48,7 @@ export class InMemoryDataService implements InMemoryDbService {
         language: 'ES',
         price: 12,
         date: '23/09/2020',
+        peopleRegistered: 14,
         companyId: 1
       },
       {
