@@ -15,7 +15,7 @@
       </button>
       <button *ngIf="authService.isUserLoggedIn()" type="button" class="btn btn-primary" routerLink="/home">Home
       </button>
-      <button *ngIf="authService.isUserLoggedIn() && authService.isUserTourist()" type="button" class="btn btn-primary"
+      <button *ngIf="authService.isUserLoggedIn() && authService.isUserCompany()" type="button" class="btn btn-primary"
               routerLink="/admin">Admin
       </button>
       <button *ngIf="authService.isUserLoggedIn() && authService.isUserTourist()" type="button" class="btn btn-primary">
