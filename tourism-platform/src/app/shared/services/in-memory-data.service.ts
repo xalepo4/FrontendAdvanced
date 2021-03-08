@@ -32,7 +32,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 2,
         name: 'paula',
         surname: 'garcia',
-        type: 'company',
+        type: 'tourist',
         email: 'paula@uoc.edu',
         password: '123456789',
         education: []
