@@ -15,10 +15,11 @@
   <div class="row">
     <div class="col">
       <div *ngIf="showEducationInfo">
-        <app-education-info (educationNeedToUpdateEvent)="changeToEducationForm()"></app-education-info>
+        <app-education-info (educationNeedToUpdateEvent)="educationNeedToBeUpdated($event)"></app-education-info>
       </div>
       <div *ngIf="showEducationForm">
-        <app-education-form (educationUpdatedEvent)="changeToEducationInfo()"></app-education-form>
+        <app-education-form [educationToBeUpdated]="educationToBeUpdated"
+                            (educationEditionFinished)="changeToEducationInfo()"></app-education-form>
       </div>
     </div>
   </div>

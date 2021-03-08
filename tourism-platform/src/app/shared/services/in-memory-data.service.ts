@@ -19,6 +19,7 @@ export class InMemoryDataService implements InMemoryDbService {
         password: '123456789',
         education: [
           {
+            id: 1,
             type: 'titulo universitario',
             level: 'grado',
             name: 'sistemas tic',

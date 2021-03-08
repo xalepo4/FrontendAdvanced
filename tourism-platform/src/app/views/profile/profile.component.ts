@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Education} from '../../shared/models/education';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +12,8 @@ export class ProfileComponent implements OnInit {
 
   public showEducationInfo = true;
   public showEducationForm = false;
+
+  public educationToBeUpdated: Education;
 
   constructor() {
   }
@@ -29,12 +32,26 @@ export class ProfileComponent implements OnInit {
   }
 
   changeToEducationForm(): void {
+    // set null activity to be updated
+    this.educationToBeUpdated = null;
+
     this.showEducationInfo = false;
     this.showEducationForm = true;
   }
 
   changeToEducationInfo(): void {
+    // set null activity to be updated
+    this.educationToBeUpdated = null;
+
     this.showEducationInfo = true;
     this.showEducationForm = false;
+  }
+
+  educationNeedToBeUpdated(education: Education): void {
+    // set education to update
+    this.educationToBeUpdated = education;
+
+    this.showEducationInfo = false;
+    this.showEducationForm = true;
   }
 }

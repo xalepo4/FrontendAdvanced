@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../../shared/models/user';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Education} from '../../shared/models/education';
@@ -10,7 +10,8 @@ import {UserService} from '../../shared/services/user.service';
   styleUrls: ['./education-form.component.scss']
 })
 export class EducationFormComponent implements OnInit {
-  @Output() educationUpdatedEvent = new EventEmitter<any>();
+  @Input() educationToBeUpdated: Education;
+  @Output() educationEditionFinished = new EventEmitter<any>();
 
   public currentUser: User;
 
@@ -60,7 +61,17 @@ export class EducationFormComponent implements OnInit {
       return;
     }
 
+    // check if we add or update education
+    if (this.educationToBeUpdated == null) {
+      this.addEducation();
+    } else {
+      this.updateEducation();
+    }
+  }
+
+  addEducation(): void {
     const education: Education = {
+      id: Math.floor(Math.random() * (50 - 1 + 1)) + 1,
       type: this.type.value,
       level: this.level.value,
       name: this.name.value,
@@ -80,7 +91,28 @@ export class EducationFormComponent implements OnInit {
 
     this.userService.updateUser(this.currentUser).subscribe(
       data => {
-        this.educationUpdatedEvent.emit();
+        this.educationEditionFinished.emit();
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  updateEducation(): void {
+    // search education object and set new values
+    for (const education of this.currentUser.education) {
+      if (education.id === this.educationToBeUpdated.id) {
+        education.type = this.type.value;
+        education.level = this.level.value;
+        education.name = this.name.value;
+        education.university = this.university.value;
+        education.finishDate = this.finishDate.value;
+      }
+    }
+
+    this.userService.updateUser(this.currentUser).subscribe(
+      data => {
+        this.educationEditionFinished.emit();
       }, error => {
         console.log(error);
       }
