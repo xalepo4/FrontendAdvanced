@@ -9,7 +9,7 @@
       </div>
     </div>
     <div *ngIf="showProfileInfo" class="col-md-2">
-      <button class="btn btn-primary" (click)="changeToProfileForm()">Update profile information</button>
+      <button (click)="changeToProfileForm()" class="btn btn-primary">Update profile information</button>
     </div>
   </div>
   <div class="row">
@@ -18,14 +18,14 @@
         <app-education-info (educationNeedToUpdateEvent)="educationNeedToBeUpdated($event)"></app-education-info>
       </div>
       <div *ngIf="showEducationForm">
-        <app-education-form [educationToBeUpdated]="educationToBeUpdated"
-                            (educationEditionFinished)="changeToEducationInfo()"></app-education-form>
+        <app-education-form (educationEditionFinished)="changeToEducationInfo()"
+                            [educationToBeUpdated]="educationToBeUpdated"></app-education-form>
       </div>
     </div>
   </div>
   <div class="row">
     <div *ngIf="showEducationInfo" class="col">
-      <button class="btn btn-primary" (click)="changeToEducationForm()">New education</button>
+      <button (click)="changeToEducationForm()" class="btn btn-primary">New education</button>
     </div>
   </div>
 </div>

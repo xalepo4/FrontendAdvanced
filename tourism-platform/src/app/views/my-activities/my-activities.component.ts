@@ -11,8 +11,8 @@ import {ActivityService} from '../../shared/services/activity.service';
 })
 export class MyActivitiesComponent implements OnInit {
   @Input() selectedActivity?: Activity;
-  private currentUser: User;
   public activitiesList: Activity[];
+  private currentUser: User;
 
   constructor(private activityService: ActivityService, private userService: UserService) {
   }

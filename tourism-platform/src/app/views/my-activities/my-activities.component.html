@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <app-activity-list [activitiesList]="activitiesList" (newActivityEvent)="showActivity($event)"></app-activity-list>
+      <app-activity-list (newActivityEvent)="showActivity($event)"
+                         [activitiesList]="activitiesList"></app-activity-list>
     </div>
     <div class="col">
       <div *ngIf="selectedActivity">
@@ -14,7 +15,7 @@
 
     </div>
     <div class="col">
-      <button *ngIf="selectedActivity" class="btn btn-primary cancel-btn" (click)="cancelActivity()">Cancel</button>
+      <button (click)="cancelActivity()" *ngIf="selectedActivity" class="btn btn-primary cancel-btn">Cancel</button>
     </div>
   </div>
 </div>

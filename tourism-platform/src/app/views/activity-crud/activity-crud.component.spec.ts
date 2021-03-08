@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ActivityCrudComponent } from './activity-crud.component';
+import {ActivityCrudComponent} from './activity-crud.component';
 
 describe('ActivityCrudComponent', () => {
   let component: ActivityCrudComponent;
@@ -8,9 +8,9 @@ describe('ActivityCrudComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActivityCrudComponent ]
+      declarations: [ActivityCrudComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

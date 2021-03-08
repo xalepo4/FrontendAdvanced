@@ -1,48 +1,48 @@
 <div class="container">
-  <form class="needs-validation" [formGroup]="profileForm" (ngSubmit)="checkProfile()">
+  <form (ngSubmit)="checkProfile()" [formGroup]="profileForm" class="needs-validation">
     <div class="mb-3">
-      <label for="inputName" class="form-label">Name</label>
-      <input type="text" class="form-control" id="inputName" [formControl]="name">
+      <label class="form-label" for="inputName">Name</label>
+      <input [formControl]="name" class="form-control" id="inputName" type="text">
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('name').errors && (profileForm.get('name').touched || profileForm.get('name').dirty)">
+      <div *ngIf="profileForm.get('name').errors && (profileForm.get('name').touched || profileForm.get('name').dirty)"
+           class="text-danger">
         Name has an invalid format
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="inputSurname" class="form-label">Surname</label>
-      <input type="text" class="form-control" id="inputSurname" [formControl]="surname">
+      <label class="form-label" for="inputSurname">Surname</label>
+      <input [formControl]="surname" class="form-control" id="inputSurname" type="text">
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('surname').errors && (profileForm.get('surname').touched || profileForm.get('surname').dirty)">
+      <div *ngIf="profileForm.get('surname').errors && (profileForm.get('surname').touched || profileForm.get('surname').dirty)"
+           class="text-danger">
         Surname has an invalid format
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="inputBirthDate" class="form-label">Birth Date</label>
-      <input type="text" class="form-control" id="inputBirthDate" [formControl]="birthDate">
+      <label class="form-label" for="inputBirthDate">Birth Date</label>
+      <input [formControl]="birthDate" class="form-control" id="inputBirthDate" type="text">
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('birthDate').errors && (profileForm.get('birthDate').touched || profileForm.get('birthDate').dirty)">
+      <div *ngIf="profileForm.get('birthDate').errors && (profileForm.get('birthDate').touched || profileForm.get('birthDate').dirty)"
+           class="text-danger">
         Birth date has an invalid format
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="inputPhone" class="form-label">Phone</label>
-      <input type="text" class="form-control" id="inputPhone" [formControl]="phone">
+      <label class="form-label" for="inputPhone">Phone</label>
+      <input [formControl]="phone" class="form-control" id="inputPhone" type="text">
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('phone').errors && (profileForm.get('phone').touched || profileForm.get('phone').dirty)">
+      <div *ngIf="profileForm.get('phone').errors && (profileForm.get('phone').touched || profileForm.get('phone').dirty)"
+           class="text-danger">
         Phone has an invalid format
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="selectNationality" class="form-label">Nationality</label>
-      <select class="form-control" id="selectNationality" [formControl]="nationality">
+      <label class="form-label" for="selectNationality">Nationality</label>
+      <select [formControl]="nationality" class="form-control" id="selectNationality">
         <option value="">Please select</option>
         <option value="ES">ES</option>
         <option value="FR">FR</option>
@@ -50,69 +50,69 @@
         <option value="PT">PT</option>
       </select>
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('nationality').errors && (profileForm.get('nationality').touched
-           || profileForm.get('nationality').dirty)">
+      <div *ngIf="profileForm.get('nationality').errors && (profileForm.get('nationality').touched
+           || profileForm.get('nationality').dirty)"
+           class="text-danger">
         Nationality has an invalid format
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="inputNif" class="form-label">NIF</label>
-      <input type="text" class="form-control" id="inputNif" [formControl]="nif">
+      <label class="form-label" for="inputNif">NIF</label>
+      <input [formControl]="nif" class="form-control" id="inputNif" type="text">
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('nif').errors && (profileForm.get('nif').touched
-           || profileForm.get('nif').dirty)">
+      <div *ngIf="profileForm.get('nif').errors && (profileForm.get('nif').touched
+           || profileForm.get('nif').dirty)"
+           class="text-danger">
         Nif has an invalid format
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="inputAboutMe" class="form-label">About me</label>
-      <input type="text" class="form-control" id="inputAboutMe" [formControl]="aboutMe">
+      <label class="form-label" for="inputAboutMe">About me</label>
+      <input [formControl]="aboutMe" class="form-control" id="inputAboutMe" type="text">
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('aboutMe').errors && (profileForm.get('aboutMe').touched
-           || profileForm.get('aboutMe').dirty)">
+      <div *ngIf="profileForm.get('aboutMe').errors && (profileForm.get('aboutMe').touched
+           || profileForm.get('aboutMe').dirty)"
+           class="text-danger">
         About me has an invalid format
       </div>
     </div>
 
     <div *ngIf="authService.isUserCompany()" class="mb-3">
-      <label for="inputCompanyName" class="form-label">Company Name</label>
-      <input type="text" class="form-control" id="inputCompanyName" [formControl]="companyName">
+      <label class="form-label" for="inputCompanyName">Company Name</label>
+      <input [formControl]="companyName" class="form-control" id="inputCompanyName" type="text">
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('companyName').errors && (profileForm.get('companyName').touched
-           || profileForm.get('companyName').dirty)">
+      <div *ngIf="profileForm.get('companyName').errors && (profileForm.get('companyName').touched
+           || profileForm.get('companyName').dirty)"
+           class="text-danger">
         Company name has an invalid format
       </div>
     </div>
 
     <div *ngIf="authService.isUserCompany()" class="mb-3">
-      <label for="inputCompanyDescription" class="form-label">Company Description</label>
-      <input type="text" class="form-control" id="inputCompanyDescription" [formControl]="companyDescription">
+      <label class="form-label" for="inputCompanyDescription">Company Description</label>
+      <input [formControl]="companyDescription" class="form-control" id="inputCompanyDescription" type="text">
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('companyDescription').errors && (profileForm.get('companyDescription').touched
-           || profileForm.get('companyDescription').dirty)">
+      <div *ngIf="profileForm.get('companyDescription').errors && (profileForm.get('companyDescription').touched
+           || profileForm.get('companyDescription').dirty)"
+           class="text-danger">
         Company description has an invalid format
       </div>
     </div>
 
     <div *ngIf="authService.isUserCompany()" class="mb-3">
-      <label for="inputCif" class="form-label">CIF</label>
-      <input type="text" class="form-control" id="inputCif" [formControl]="cif">
+      <label class="form-label" for="inputCif">CIF</label>
+      <input [formControl]="cif" class="form-control" id="inputCif" type="text">
 
-      <div class="text-danger"
-           *ngIf="profileForm.get('cif').errors && (profileForm.get('cif').touched
-           || profileForm.get('cif').dirty)">
+      <div *ngIf="profileForm.get('cif').errors && (profileForm.get('cif').touched
+           || profileForm.get('cif').dirty)"
+           class="text-danger">
         Cif has an invalid format
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-save" [disabled]="!profileForm.valid">Save</button>
+    <button [disabled]="!profileForm.valid" class="btn btn-primary btn-save" type="submit">Save</button>
   </form>
 </div>
 

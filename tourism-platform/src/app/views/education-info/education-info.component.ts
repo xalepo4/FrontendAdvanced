@@ -10,9 +10,8 @@ import {UserService} from '../../shared/services/user.service';
 })
 export class EducationInfoComponent implements OnInit {
   @Output() educationNeedToUpdateEvent = new EventEmitter<any>();
-
-  private currentUser: User;
   public educationList;
+  private currentUser: User;
 
   constructor(private userService: UserService) {
   }

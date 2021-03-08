@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <app-activity-list [activitiesList]="activitiesList"
-                         (newActivityEvent)="showActivity($event)"></app-activity-list>
+      <app-activity-list (newActivityEvent)="showActivity($event)"
+                         [activitiesList]="activitiesList"></app-activity-list>
     </div>
     <div class="col">
       <div *ngIf="selectedActivity">
@@ -15,8 +15,8 @@
 
     </div>
     <div class="col">
-      <button *ngIf="selectedActivity && authService.isUserLoggedIn() && authService.isUserTourist()"
-              class="btn btn-primary sign-up-btn" [disabled]="checkIfUserIsSubscribed()" (click)="signUp()">Sign up
+      <button (click)="signUp()"
+              *ngIf="selectedActivity && authService.isUserLoggedIn() && authService.isUserTourist()" [disabled]="checkIfUserIsSubscribed()" class="btn btn-primary sign-up-btn">Sign up
       </button>
       <button *ngIf="selectedActivity && authService.isUserLoggedIn() && authService.isUserTourist()"
               class="btn btn-primary favourite-btn">Save
