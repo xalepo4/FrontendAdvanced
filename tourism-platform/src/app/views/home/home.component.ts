@@ -13,8 +13,8 @@ import {AuthService} from '../../shared/services/auth.service';
 export class HomeComponent implements OnInit {
   @Input() selectedActivity?: Activity;
   public activitiesList: Activity[];
-  private currentUser: User;
   public saveEnabled = true;
+  private currentUser: User;
 
   constructor(private activityService: ActivityService, private userService: UserService, public authService: AuthService) {
   }
