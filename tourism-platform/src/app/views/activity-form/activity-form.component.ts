@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Activity} from '../../shared/models/activity';
 import {ActivityService} from '../../shared/services/activity.service';
@@ -9,9 +9,8 @@ import {ActivityService} from '../../shared/services/activity.service';
   styleUrls: ['./activity-form.component.scss']
 })
 export class ActivityFormComponent implements OnInit {
+  @Input() activityToBeUpdated;
   @Output() activityUpdatedEvent = new EventEmitter<any>();
-
-  private activity = new Activity();
 
   public name: FormControl;
   public category: FormControl;
@@ -27,10 +26,6 @@ export class ActivityFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // set company id for list activities and set 0 registered people
-    this.activity.companyId = JSON.parse(localStorage.getItem('currentUser'));
-    this.activity.peopleRegistered = 0;
-
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),
       Validators.maxLength(55)]);
     this.category = new FormControl('', [Validators.required]);
@@ -52,26 +47,70 @@ export class ActivityFormComponent implements OnInit {
   }
 
   checkActivity(): void {
-    this.activity.name = this.name.value;
-    this.activity.category = this.category.value;
-    this.activity.subcategory = this.subcategory.value;
-    this.activity.description = this.description.value;
-    this.activity.language = this.language.value;
-    this.activity.date = this.date.value;
-    this.activity.price = this.price.value;
+    if (this.activityToBeUpdated == null) {
+      this.addActivity();
+    } else {
+      this.updateActivity();
+    }
+  }
 
-    console.log('Name: ' + this.activity.name + ' Category: ' + this.activity.category
-      + ' Subcategory: ' + this.activity.subcategory + ' Description: ' + this.activity.description
-      + ' Language ' + this.activity.language + ' Date: ' + this.activity.language + ' Price: ' + this.activity.price);
+  addActivity(): void {
+    const activity = new Activity();
+
+    activity.name = this.name.value;
+    activity.category = this.category.value;
+    activity.subcategory = this.subcategory.value;
+    activity.description = this.description.value;
+    activity.language = this.language.value;
+    activity.date = this.date.value;
+    activity.price = this.price.value;
+
+    // set company id for list activities and set 0 registered people
+    activity.companyId = JSON.parse(localStorage.getItem('currentUser'));
+    activity.peopleRegistered = 0;
+
+    console.log('Name: ' + activity.name + ' Category: ' + activity.category + ' Subcategory: ' + activity.subcategory
+      + ' Description: ' + activity.description + ' Language ' + activity.language + ' Date: '
+      + activity.language + ' Price: ' + activity.price);
 
 
-    this.activityService.addActivity(this.activity).subscribe(
+    this.activityService.addActivity(activity).subscribe(
       data => {
         console.log('Activity added successfully');
         this.activityUpdatedEvent.emit();
       },
       error => {
         console.log('Error adding activity');
+      }
+    );
+  }
+
+  updateActivity(): void {
+    this.activityToBeUpdated.name = this.name.value;
+    this.activityToBeUpdated.category = this.category.value;
+    this.activityToBeUpdated.subcategory = this.subcategory.value;
+    this.activityToBeUpdated.description = this.description.value;
+    this.activityToBeUpdated.language = this.language.value;
+    this.activityToBeUpdated.date = this.date.value;
+    this.activityToBeUpdated.price = this.price.value;
+
+    // set company id for list activities and set 0 registered people
+    this.activityToBeUpdated.companyId = JSON.parse(localStorage.getItem('currentUser'));
+    this.activityToBeUpdated.peopleRegistered = 0;
+
+    console.log('Name: ' + this.activityToBeUpdated.name + ' Category: ' + this.activityToBeUpdated.category
+      + ' Subcategory: ' + this.activityToBeUpdated.subcategory + ' Description: ' + this.activityToBeUpdated.description
+      + ' Language ' + this.activityToBeUpdated.language + ' Date: ' + this.activityToBeUpdated.language
+      + ' Price: ' + this.activityToBeUpdated.price);
+
+
+    this.activityService.updateActivity(this.activityToBeUpdated).subscribe(
+      data => {
+        console.log('Activity udpated successfully');
+        this.activityUpdatedEvent.emit();
+      },
+      error => {
+        console.log('Error updating activity');
       }
     );
   }
