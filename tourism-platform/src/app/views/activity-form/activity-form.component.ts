@@ -10,7 +10,7 @@ import {ActivityService} from '../../shared/services/activity.service';
 })
 export class ActivityFormComponent implements OnInit {
   @Input() activityToBeUpdated;
-  @Output() activityUpdatedEvent = new EventEmitter<any>();
+  @Output() activityEditionFinished = new EventEmitter<any>();
 
   public name: FormControl;
   public category: FormControl;
@@ -47,6 +47,7 @@ export class ActivityFormComponent implements OnInit {
   }
 
   checkActivity(): void {
+    // check if we add or update activity
     if (this.activityToBeUpdated == null) {
       this.addActivity();
     } else {
@@ -77,7 +78,7 @@ export class ActivityFormComponent implements OnInit {
     this.activityService.addActivity(activity).subscribe(
       data => {
         console.log('Activity added successfully');
-        this.activityUpdatedEvent.emit();
+        this.activityEditionFinished.emit();
       },
       error => {
         console.log('Error adding activity');
@@ -107,7 +108,7 @@ export class ActivityFormComponent implements OnInit {
     this.activityService.updateActivity(this.activityToBeUpdated).subscribe(
       data => {
         console.log('Activity udpated successfully');
-        this.activityUpdatedEvent.emit();
+        this.activityEditionFinished.emit();
       },
       error => {
         console.log('Error updating activity');
