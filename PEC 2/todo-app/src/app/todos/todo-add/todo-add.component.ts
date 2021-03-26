@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
-import {createTodo} from '../todo.actions';
+import {createTodo} from '../actions/todo.actions';
 
 @Component({
   selector: 'app-todo-add',

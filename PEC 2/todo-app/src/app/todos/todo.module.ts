@@ -4,13 +4,14 @@ import {TodoListComponent} from './todo-list/todo-list.component';
 import {TodoListItemComponent} from './todo-list-item/todo-list-item.component';
 import {TodoAddComponent} from './todo-add/todo-add.component';
 import {ReactiveFormsModule} from '@angular/forms';
-
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [TodoListComponent, TodoListItemComponent, TodoAddComponent],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [TodoListItemComponent, TodoListComponent, TodoAddComponent]
 })
