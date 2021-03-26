@@ -38,3 +38,7 @@ export const getAllTodosError = createAction(
 export const completeAllTodos = createAction(
   '[TODOS] Complete all todos'
 );
+
+export const deleteCompletedTodos = createAction(
+  '[TODOS] Delete completed todos'
+);

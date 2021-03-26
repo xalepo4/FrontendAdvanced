@@ -3,7 +3,7 @@ import {Todo} from '../models/todo.model';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
 import {TodoService} from '../services/todo.service';
-import {completeAllTodos, completeTodo, getAllTodos} from '../actions';
+import {completeAllTodos, completeTodo, deleteCompletedTodos, getAllTodos} from '../actions';
 
 @Component({
   selector: 'app-todo-list',
@@ -30,5 +30,9 @@ export class TodoListComponent implements OnInit {
 
   completeAllTask(): void {
     this.store.dispatch(completeAllTodos());
+  }
+
+  deleteCompletedTasks(): void {
+    this.store.dispatch(deleteCompletedTodos());
   }
 }

@@ -3,7 +3,7 @@ import {createReducer, on} from '@ngrx/store';
 import {
   completeAllTodos,
   completeTodo,
-  createTodo,
+  createTodo, deleteCompletedTodos,
   deleteTodo,
   editTodo,
   getAllTodos,
@@ -129,6 +129,12 @@ const _todoReducer = createReducer(
         done: true
       };
     })]
+  })),
+  on(deleteCompletedTodos, state => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    todos: [...state.todos.filter(todo => todo.done === false)]
   }))
 );
 

@@ -5,8 +5,13 @@
     </div>
   </div>
   <div class="row">
-    <div class="col">
+    <div class="col-2">
       <button (click)="completeAllTask()" class="btn btn-success" type="button" *ngIf="todos.length">Complete all
+      </button>
+    </div>
+    <div class="col-2">
+      <button (click)="deleteCompletedTasks()" class="btn btn-danger" type="button" *ngIf="todos.length">Delete
+        completed
       </button>
     </div>
   </div>
