@@ -1,0 +1,25 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Type</th>
+    <th scope="col">Level</th>
+    <th scope="col">Name</th>
+    <th scope="col">University</th>
+    <th scope="col">Finish date</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let education of educationList; let pos = index">
+    <td>{{education.type}}</td>
+    <td>{{education.level}}</td>
+    <td>{{education.name}}</td>
+    <td>{{education.university}}</td>
+    <td>{{education.finishDate}}</td>
+    <td>
+      <button (click)="onEducationUpdate(education)" class="btn btn-primary btn-update">Update</button>
+      <button (click)="onEducationDelete(pos)" class="btn btn-primary btn-delete">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

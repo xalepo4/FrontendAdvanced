@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <app-activity-list (newActivityEvent)="showActivity($event)"
+                         [activitiesList]="activitiesList"></app-activity-list>
+    </div>
+    <div class="col">
+      <div *ngIf="selectedActivity">
+        <app-activity-detail [selectedActivity]="selectedActivity"></app-activity-detail>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+
+    </div>
+    <div class="col">
+      <button (click)="cancelActivity()" *ngIf="selectedActivity" class="btn btn-primary cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div>

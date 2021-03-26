@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <app-activity-list (newActivityEvent)="showActivity($event)"
+                         [activitiesList]="activitiesList"></app-activity-list>
+    </div>
+    <div class="col">
+      <div *ngIf="selectedActivity">
+        <app-activity-detail [selectedActivity]="selectedActivity"></app-activity-detail>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+
+    </div>
+    <div class="col">
+      <button (click)="signUp()"
+              *ngIf="selectedActivity && authService.isUserLoggedIn() && authService.isUserTourist()" [disabled]="checkIfUserIsSubscribed()" class="btn btn-primary sign-up-btn">Sign up
+      </button>
+      <button *ngIf="selectedActivity && authService.isUserLoggedIn() && authService.isUserTourist()"
+              class="btn btn-primary favourite-btn">Save
+        favourites
+      </button>
+    </div>
+  </div>
+</div>

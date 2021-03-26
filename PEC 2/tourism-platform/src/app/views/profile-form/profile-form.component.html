@@ -1,0 +1,118 @@
+<div class="container">
+  <form (ngSubmit)="checkProfile()" [formGroup]="profileForm" class="needs-validation">
+    <div class="mb-3">
+      <label class="form-label" for="inputName">Name</label>
+      <input [formControl]="name" class="form-control" id="inputName" type="text">
+
+      <div *ngIf="profileForm.get('name').errors && (profileForm.get('name').touched || profileForm.get('name').dirty)"
+           class="text-danger">
+        Name has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="inputSurname">Surname</label>
+      <input [formControl]="surname" class="form-control" id="inputSurname" type="text">
+
+      <div *ngIf="profileForm.get('surname').errors && (profileForm.get('surname').touched || profileForm.get('surname').dirty)"
+           class="text-danger">
+        Surname has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="inputBirthDate">Birth Date</label>
+      <input [formControl]="birthDate" class="form-control" id="inputBirthDate" type="text">
+
+      <div *ngIf="profileForm.get('birthDate').errors && (profileForm.get('birthDate').touched || profileForm.get('birthDate').dirty)"
+           class="text-danger">
+        Birth date has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="inputPhone">Phone</label>
+      <input [formControl]="phone" class="form-control" id="inputPhone" type="text">
+
+      <div *ngIf="profileForm.get('phone').errors && (profileForm.get('phone').touched || profileForm.get('phone').dirty)"
+           class="text-danger">
+        Phone has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="selectNationality">Nationality</label>
+      <select [formControl]="nationality" class="form-control" id="selectNationality">
+        <option value="">Please select</option>
+        <option value="ES">ES</option>
+        <option value="FR">FR</option>
+        <option value="IT">IT</option>
+        <option value="PT">PT</option>
+      </select>
+
+      <div *ngIf="profileForm.get('nationality').errors && (profileForm.get('nationality').touched
+           || profileForm.get('nationality').dirty)"
+           class="text-danger">
+        Nationality has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="inputNif">NIF</label>
+      <input [formControl]="nif" class="form-control" id="inputNif" type="text">
+
+      <div *ngIf="profileForm.get('nif').errors && (profileForm.get('nif').touched
+           || profileForm.get('nif').dirty)"
+           class="text-danger">
+        Nif has an invalid format
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="inputAboutMe">About me</label>
+      <input [formControl]="aboutMe" class="form-control" id="inputAboutMe" type="text">
+
+      <div *ngIf="profileForm.get('aboutMe').errors && (profileForm.get('aboutMe').touched
+           || profileForm.get('aboutMe').dirty)"
+           class="text-danger">
+        About me has an invalid format
+      </div>
+    </div>
+
+    <div *ngIf="authService.isUserCompany()" class="mb-3">
+      <label class="form-label" for="inputCompanyName">Company Name</label>
+      <input [formControl]="companyName" class="form-control" id="inputCompanyName" type="text">
+
+      <div *ngIf="profileForm.get('companyName').errors && (profileForm.get('companyName').touched
+           || profileForm.get('companyName').dirty)"
+           class="text-danger">
+        Company name has an invalid format
+      </div>
+    </div>
+
+    <div *ngIf="authService.isUserCompany()" class="mb-3">
+      <label class="form-label" for="inputCompanyDescription">Company Description</label>
+      <input [formControl]="companyDescription" class="form-control" id="inputCompanyDescription" type="text">
+
+      <div *ngIf="profileForm.get('companyDescription').errors && (profileForm.get('companyDescription').touched
+           || profileForm.get('companyDescription').dirty)"
+           class="text-danger">
+        Company description has an invalid format
+      </div>
+    </div>
+
+    <div *ngIf="authService.isUserCompany()" class="mb-3">
+      <label class="form-label" for="inputCif">CIF</label>
+      <input [formControl]="cif" class="form-control" id="inputCif" type="text">
+
+      <div *ngIf="profileForm.get('cif').errors && (profileForm.get('cif').touched
+           || profileForm.get('cif').dirty)"
+           class="text-danger">
+        Cif has an invalid format
+      </div>
+    </div>
+
+    <button [disabled]="!profileForm.valid" class="btn btn-primary btn-save" type="submit">Save</button>
+  </form>
+</div>
+

@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <div *ngIf="showProfileInfo">
+        <app-profile-info></app-profile-info>
+      </div>
+      <div *ngIf="showProfileForm">
+        <app-profile-form (userUpdatedEvent)="changeToProfileInfo()"></app-profile-form>
+      </div>
+    </div>
+    <div *ngIf="showProfileInfo" class="col-md-2">
+      <button (click)="changeToProfileForm()" class="btn btn-primary">Update profile information</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div *ngIf="showEducationInfo">
+        <app-education-info (educationNeedToUpdateEvent)="educationNeedToBeUpdated($event)"></app-education-info>
+      </div>
+      <div *ngIf="showEducationForm">
+        <app-education-form (educationEditionFinished)="changeToEducationInfo()"
+                            [educationToBeUpdated]="educationToBeUpdated"></app-education-form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="showEducationInfo" class="col">
+      <button (click)="changeToEducationForm()" class="btn btn-primary">New education</button>
+    </div>
+  </div>
+</div>

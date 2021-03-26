@@ -1,0 +1,36 @@
+<div class="container">
+  <form (ngSubmit)="checkLogin()" [formGroup]="loginForm" class="needs-validation">
+    <div class="mb-3">
+      <label class="form-label" for="inputEmail">Email address</label>
+      <input [formControl]="email" class="form-control" id="inputEmail" type="email">
+
+      <div *ngIf="loginForm.get('email').errors && (loginForm.get('email').touched || loginForm.get('email').dirty)">
+        <div *ngIf="loginForm.get('email').errors.email" class="text-danger">
+          Email has an invalid format
+        </div>
+        <div *ngIf="loginForm.get('email').errors.required" class="text-danger">
+          Email is required
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="inputPassword">Password</label>
+      <input [formControl]="password" class="form-control" id="inputPassword" type="password">
+
+      <div
+        *ngIf="loginForm.get('password').errors && (loginForm.get('password').touched || loginForm.get('password').dirty)">
+        <div *ngIf="loginForm.get('password').errors.required" class="text-danger">
+          Password is required
+        </div>
+      </div>
+
+      <div *ngIf="!isUserValid" class="text-danger">
+        User doesn't exist or password is incorrect
+      </div>
+    </div>
+
+    <button [disabled]="!loginForm.valid" class="btn btn-primary" type="submit">Login</button>
+  </form>
+</div>
+

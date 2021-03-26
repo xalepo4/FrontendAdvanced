@@ -1,0 +1,29 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Category</th>
+    <th scope="col">Subcategory</th>
+    <th scope="col">Description</th>
+    <th scope="col">Language</th>
+    <th scope="col">Date</th>
+    <th scope="col">Price</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let activity of activityList; let pos = index">
+    <td>{{activity.name}}</td>
+    <td>{{activity.category}}</td>
+    <td>{{activity.subcategory}}</td>
+    <td>{{activity.description}}</td>
+    <td>{{activity.language}}</td>
+    <td>{{activity.date}}</td>
+    <td>{{activity.price}}</td>
+    <td>
+      <button (click)="onActivityUpdate(activity)" class="btn btn-primary btn-update">Update</button>
+      <button (click)="onActivityDelete(pos, activity)" class="btn btn-primary btn-delete">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,45 @@
+<table *ngIf="currentUser" class="table">
+  <tbody>
+  <tr>
+    <th scope="row">Name</th>
+    <td>{{currentUser.name}}</td>
+  </tr>
+  <tr>
+    <th scope="row">Surname</th>
+    <td>{{currentUser.surname}}</td>
+  </tr>
+  <tr>
+    <th scope="row">Birth Date</th>
+    <td>{{currentUser.birthDate}}</td>
+  </tr>
+  <tr>
+    <th scope="row">Phone</th>
+    <td>{{currentUser.phone}}</td>
+  </tr>
+  <tr>
+    <th scope="row">Nationality</th>
+    <td>{{currentUser.nationality}}</td>
+  </tr>
+  <tr>
+    <th scope="row">NIF</th>
+    <td>{{currentUser.nif}}</td>
+  </tr>
+  <tr>
+    <th scope="row">About me</th>
+    <td>{{currentUser.aboutMe}}</td>
+  </tr>
+  <tr *ngIf="authService.isUserCompany()">
+    <th scope="row">Company Name</th>
+    <td>{{currentUser.companyName}}</td>
+  </tr>
+  <tr *ngIf="authService.isUserCompany()">
+    <th scope="row">Company Description</th>
+    <td>{{currentUser.companyDescription}}</td>
+  </tr>
+  <tr *ngIf="authService.isUserCompany()">
+    <th scope="row">CIF</th>
+    <td>{{currentUser.cif}}</td>
+  </tr>
+
+  </tbody>
+</table>
