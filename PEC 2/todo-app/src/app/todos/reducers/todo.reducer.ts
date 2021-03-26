@@ -1,6 +1,15 @@
 import {Todo} from '../models/todo.model';
 import {createReducer, on} from '@ngrx/store';
-import {completeTodo, createTodo, deleteTodo, editTodo, getAllTodos, getAllTodosError, getAllTodosSuccess} from '../actions';
+import {
+  completeAllTodos,
+  completeTodo,
+  createTodo,
+  deleteTodo,
+  editTodo,
+  getAllTodos,
+  getAllTodosError,
+  getAllTodosSuccess
+} from '../actions';
 
 /*export const initialState: Todo[] = [new Todo('Terminar práctica 2')];*/
 
@@ -109,6 +118,17 @@ const _todoReducer = createReducer(
       status: payload.status,
       message: payload.message
     }
+  })),
+  on(completeAllTodos, state => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    todos: [...state.todos.map((todo) => {
+      return {
+        ...todo,
+        done: true
+      };
+    })]
   }))
 );
 

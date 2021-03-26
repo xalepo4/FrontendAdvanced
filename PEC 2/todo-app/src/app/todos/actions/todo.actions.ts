@@ -34,3 +34,7 @@ export const getAllTodosError = createAction(
   '[TODOS] Get all error',
   props<{ payload: any }>()
 );
+
+export const completeAllTodos = createAction(
+  '[TODOS] Complete all todos'
+);

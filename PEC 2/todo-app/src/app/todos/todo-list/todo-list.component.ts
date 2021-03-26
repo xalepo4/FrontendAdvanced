@@ -3,7 +3,7 @@ import {Todo} from '../models/todo.model';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
 import {TodoService} from '../services/todo.service';
-import {getAllTodos} from '../actions';
+import {completeAllTodos, completeTodo, getAllTodos} from '../actions';
 
 @Component({
   selector: 'app-todo-list',
@@ -26,5 +26,9 @@ export class TodoListComponent implements OnInit {
 
     this.store.dispatch(getAllTodos());
     // this.todoService.getAllTodos().subscribe((todos) => console.log(todos));
+  }
+
+  completeAllTask(): void {
+    this.store.dispatch(completeAllTodos());
   }
 }
