@@ -13,6 +13,16 @@ import {ProfileModule} from './profile/profile.module';
 import {HeaderComponent} from './shared/components/header/header.component';
 import {FooterComponent} from './shared/components/footer/footer.component';
 
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+
+import {environment} from '../environments/environment';
+import {appReducers} from './app.reducer';
+import {ActivitiesEffects} from './activities/effects';
+import {LoginEffects} from './login/effects';
+import {ProfileEffects} from './profile/effects';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +38,13 @@ import {FooterComponent} from './shared/components/footer/footer.component';
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {dataEncapsulation: false}
-    )
+    ),
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([ActivitiesEffects, LoginEffects, ProfileEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

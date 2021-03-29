@@ -1,4 +1,4 @@
-import {Activity} from '../models/activity';
+import {User} from '../models/user';
 import {createReducer, on} from '@ngrx/store';
 /*import {
   completeAllTodos,
@@ -11,22 +11,22 @@ import {createReducer, on} from '@ngrx/store';
   getAllTodosSuccess
 } from '../actions';*/
 
-export interface ActivityState {
-  activities: Activity[];
+export interface ProfileState {
+  users: User[];
   loading: boolean;
   loaded: boolean;
   error: any;
 }
 
-export const initialState: ActivityState = {
-  activities: [],
+export const initialState: ProfileState = {
+  users: [],
   loading: false,
   loaded: false,
   error: null
 };
 
 
-const _activityReducer = createReducer(
+const _profileReducer = createReducer(
   initialState,
   /*on(createTodo, (state, {title}) => ({
     ...state,
@@ -111,6 +111,6 @@ const _activityReducer = createReducer(
   }))*/
 );
 
-export function activityReducer(state, action) {
-  return _activityReducer(state, action);
+export function profileReducer(state, action) {
+  return _profileReducer(state, action);
 }
