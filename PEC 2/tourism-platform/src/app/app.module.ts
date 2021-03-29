@@ -19,6 +19,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 import {environment} from '../environments/environment';
 import {appReducers} from './app.reducer';
+
 import {ActivitiesEffects} from './activities/effects';
 import {LoginEffects} from './login/effects';
 import {ProfileEffects} from './profile/effects';

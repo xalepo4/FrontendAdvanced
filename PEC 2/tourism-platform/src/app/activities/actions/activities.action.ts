@@ -1,44 +1,21 @@
 import {createAction, props} from '@ngrx/store';
 import {Activity} from '../models/activity';
 
-/*export const createTodo = createAction(
-  '[TODO] Create todo',
-  props<{ title: string }>()
+export const createActivity = createAction(
+  '[ACTIVITY] Create activity',
+  props<{ activity: Activity }>()
 );
 
-export const completeTodo = createAction(
-  '[TODO] Complete todo',
+export const updateActivity = createAction(
+  '[ACTIVITY] Update activity',
+  props<{ activity: Activity }>()
+);
+
+export const deleteActivity = createAction(
+  '[ACTIVITY] Delete activity',
   props<{ id: number }>()
 );
 
-export const editTodo = createAction(
-  '[TODO] Edit todo',
-  props<{ id: number, title: string }>()
+export const getAllActivities = createAction(
+  '[ACTIVITIES] Get all activities'
 );
-
-export const deleteTodo = createAction(
-  '[TODO] Delete todo',
-  props<{ id: number }>()
-);
-
-export const getAllTodos = createAction(
-  '[TODOS] Get all'
-);
-
-export const getAllTodosSuccess = createAction(
-  '[TODOS] Get all success',
-  props<{ todos: Todo[] }>()
-);
-
-export const getAllTodosError = createAction(
-  '[TODOS] Get all error',
-  props<{ payload: any }>()
-);
-
-export const completeAllTodos = createAction(
-  '[TODOS] Complete all todos'
-);
-
-export const deleteCompletedTodos = createAction(
-  '[TODOS] Delete completed todos'
-);*/

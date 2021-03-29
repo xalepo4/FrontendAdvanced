@@ -1,15 +1,6 @@
 import {Activity} from '../models/activity';
+import {createActivity, updateActivity, deleteActivity, getAllActivities} from '../actions';
 import {createReducer, on} from '@ngrx/store';
-/*import {
-  completeAllTodos,
-  completeTodo,
-  createTodo, deleteCompletedTodos,
-  deleteTodo,
-  editTodo,
-  getAllTodos,
-  getAllTodosError,
-  getAllTodosSuccess
-} from '../actions';*/
 
 export interface ActivityState {
   activities: Activity[];
@@ -25,90 +16,33 @@ export const initialState: ActivityState = {
   error: null
 };
 
-
 const _activityReducer = createReducer(
   initialState,
-  /*on(createTodo, (state, {title}) => ({
+  on(createActivity, (state, {activity}) => ({
     ...state,
     loading: false,
     loaded: false,
-    todos: [...state.todos, new Todo(title)]
+    activities: [...state.activities, activity]
   })),
-
-  on(completeTodo, (state, {id}) => ({
+  on(updateActivity, (state, {activity}) => ({
     ...state,
     loading: false,
     loaded: false,
-    todos: [...state.todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          done: true,
-        };
+    todos: [...state.activities.map((currentActivity) => {
+      if (currentActivity.id === activity.id) {
+        return activity;
       } else {
-        return todo;
+        return currentActivity;
       }
     })]
   })),
-
-  on(editTodo, (state, {id, title}) => ({
+  on(deleteActivity, (state, {id}) => ({
     ...state,
     loading: false,
     loaded: false,
-    todos: [...state.todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          title
-        };
-      } else {
-        return todo;
-      }
-    })]
+    todos: [...state.activities.filter(activity => activity.id !== id)]
   })),
-
-  on(deleteTodo, (state, {id}) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.filter(todo => todo.id !== id)]
-  })),
-
-  on(getAllTodos, state => ({...state, loading: true})),
-  on(getAllTodosSuccess, (state, {todos}) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    todos: [...todos]
-  })),
-  on(getAllTodosError, (state, {payload}) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: {
-      url: payload.url,
-      status: payload.status,
-      message: payload.message
-    }
-  })),
-  on(completeAllTodos, state => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.map((todo) => {
-      return {
-        ...todo,
-        done: true
-      };
-    })]
-  })),
-
-  on(deleteCompletedTodos, state => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.filter(todo => todo.done === false)]
-  }))*/
+  on(getAllActivities, state => ({...state, loading: true}))
 );
 
 export function activityReducer(state, action) {
