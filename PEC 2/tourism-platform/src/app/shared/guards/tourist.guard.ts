@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import {LoginService} from '../../login/services/login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TouristGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: LoginService, private router: Router) {
   }
 
   canActivate(): boolean {

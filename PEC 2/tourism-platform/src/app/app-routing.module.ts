@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from './views/login/login.component';
-import {RegisterComponent} from './views/register/register.component';
-import {HomeComponent} from './views/home/home.component';
-import {ProfileComponent} from './views/profile/profile.component';
-import {MyActivitiesComponent} from './views/my-activities/my-activities.component';
-import {AdminComponent} from './views/admin/admin.component';
+import {LoginComponent} from './login/components/login/login.component';
+import {RegisterComponent} from './login/components/register/register.component';
+import {HomeComponent} from './activities/components/home/home.component';
+import {ProfileComponent} from './profile/components/profile/profile.component';
+import {MyActivitiesComponent} from './activities/components/my-activities/my-activities.component';
+import {AdminComponent} from './activities/components/admin/admin.component';
 import {AuthGuard} from './shared/guards/auth.guard';
 import {CompanyGuard} from './shared/guards/company.guard';
 import {TouristGuard} from './shared/guards/tourist.guard';

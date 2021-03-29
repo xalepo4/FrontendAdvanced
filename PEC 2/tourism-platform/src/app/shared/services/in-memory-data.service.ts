@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {InMemoryDbService} from 'angular-in-memory-web-api';
-import {User} from '../models/user';
-import {Activity} from '../models/activity';
+import {User} from '../../profile/models/user';
+import {Activity} from '../../activities/models/activity';
 
 
 @Injectable({
