@@ -1,9 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Activity} from '../../models/activity';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../app.reducer';
-import {getAllActivities} from '../../actions';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -15,17 +11,10 @@ export class AdminComponent implements OnInit {
   public showActivityForm = false;
   public activityToBeUpdated: Activity;
 
-  public loadedActivities: Activity[];
-
-  constructor(private store: Store<AppState>) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.store.select('activitiesApp').subscribe(activitiesResponse => {
-      this.loadedActivities = activitiesResponse.activities;
-    });
-
-    this.store.dispatch(getAllActivities());
   }
 
   changeToActivityForm(): void {
