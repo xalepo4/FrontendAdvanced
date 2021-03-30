@@ -4,6 +4,9 @@ import {ActivityService} from '../../services/activity.service';
 import {User} from '../../../profile/models/user';
 import {UserService} from '../../../profile/services/user.service';
 import {LoginService} from '../../../login/services/login.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {getAllActivities} from '../../actions';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +19,8 @@ export class HomeComponent implements OnInit {
   public saveEnabled = true;
   private currentUser: User;
 
-  constructor(private activityService: ActivityService, private userService: UserService, public authService: LoginService) {
+  constructor(private store: Store<AppState>, private activityService: ActivityService, private userService: UserService,
+              public authService: LoginService) {
   }
 
   ngOnInit(): void {
@@ -33,14 +37,11 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    this.activityService.getActivities().subscribe(
-      activities => {
-        this.activitiesList = activities;
-      },
-      error => {
-        console.log('Fail getting activities');
-      }
-    );
+    this.store.select('activitiesApp').subscribe(activitiesResponse => {
+      this.activitiesList = activitiesResponse.activities;
+    });
+
+    this.store.dispatch(getAllActivities());
   }
 
   showActivity(activity: Activity): void {
