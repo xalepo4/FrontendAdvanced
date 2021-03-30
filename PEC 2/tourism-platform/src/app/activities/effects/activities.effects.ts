@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {ActivityService} from '../services/activity.service';
-// import {getAllTodos, getAllTodosError, getAllTodosSuccess} from '../actions';
+import {getAllActivities, getAllActivitiesError, getAllActivitiesSuccess} from '../actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 
@@ -14,15 +14,15 @@ export class ActivitiesEffects {
   ) {
   }
 
-  /*getTodos$ = createEffect(() =>
+  getActivities$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getAllTodos),
+      ofType(getAllActivities),
       mergeMap(() =>
-        this.todosService.getAllTodos().pipe(
-          map((todos) => getAllTodosSuccess({todos: todos})),
-          catchError((err) => of(getAllTodosError({payload: err})))
+        this.activitiesService.getActivities().pipe(
+          map((activities) => getAllActivitiesSuccess({activities: activities})),
+          catchError((err) => of(getAllActivitiesError({payload: err})))
         )
       )
     )
-  );*/
+  );
 }

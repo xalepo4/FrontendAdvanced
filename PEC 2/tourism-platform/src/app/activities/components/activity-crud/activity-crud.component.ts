@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Activity} from '../../models/activity';
 import {ActivityService} from '../../services/activity.service';
 
@@ -7,7 +7,8 @@ import {ActivityService} from '../../services/activity.service';
   templateUrl: './activity-crud.component.html',
   styleUrls: ['./activity-crud.component.scss']
 })
-export class ActivityCrudComponent implements OnInit {
+export class ActivityCrudComponent implements OnInit, OnChanges {
+  @Input() loadedActivities;
   @Output() activityNeedToUpdateEvent = new EventEmitter<any>();
 
   public activityList: Activity[];
@@ -16,24 +17,18 @@ export class ActivityCrudComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.activityService.getActivities().subscribe(
-      activities => {
-        for (const activity of activities) {
-          if (activity.companyId === storedCurrentUser) {
-            if (this.activityList === undefined) {
-              this.activityList = [activity];
-            } else {
-              this.activityList.push(activity);
-            }
-          }
-        }
-      },
-      error => {
-        console.log('Error getting activities');
+    this.activityList = [];
+
+    for (const activity of this.loadedActivities) {
+      if (activity.companyId === storedCurrentUser) {
+        this.activityList.push(activity);
       }
-    );
+    }
   }
 
   onActivityUpdate(activity: Activity): void {

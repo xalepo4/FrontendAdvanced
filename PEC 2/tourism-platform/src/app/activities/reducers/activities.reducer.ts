@@ -1,5 +1,12 @@
 import {Activity} from '../models/activity';
-import {createActivity, updateActivity, deleteActivity, getAllActivities} from '../actions';
+import {
+  createActivity,
+  updateActivity,
+  deleteActivity,
+  getAllActivities,
+  getAllActivitiesSuccess,
+  getAllActivitiesError,
+} from '../actions';
 import {createReducer, on} from '@ngrx/store';
 
 export interface ActivityState {
@@ -28,7 +35,7 @@ const _activityReducer = createReducer(
     ...state,
     loading: false,
     loaded: false,
-    todos: [...state.activities.map((currentActivity) => {
+    activities: [...state.activities.map((currentActivity) => {
       if (currentActivity.id === activity.id) {
         return activity;
       } else {
@@ -40,9 +47,25 @@ const _activityReducer = createReducer(
     ...state,
     loading: false,
     loaded: false,
-    todos: [...state.activities.filter(activity => activity.id !== id)]
+    activities: [...state.activities.filter(activity => activity.id !== id)]
   })),
-  on(getAllActivities, state => ({...state, loading: true}))
+  on(getAllActivities, state => ({...state, loading: true})),
+  on(getAllActivitiesSuccess, (state, {activities}) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    activities: [...activities]
+  })),
+  on(getAllActivitiesError, (state, {payload}) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: {
+      url: payload.url,
+      status: payload.status,
+      message: payload.message
+    }
+  })),
 );
 
 export function activityReducer(state, action) {

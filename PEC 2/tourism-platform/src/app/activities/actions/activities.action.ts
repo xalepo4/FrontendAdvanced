@@ -19,3 +19,13 @@ export const deleteActivity = createAction(
 export const getAllActivities = createAction(
   '[ACTIVITIES] Get all activities'
 );
+
+export const getAllActivitiesSuccess = createAction(
+  '[ACTIVITIES] Get all activities success',
+  props<{ activities: Activity[] }>()
+);
+
+export const getAllActivitiesError = createAction(
+  '[TODOS] Get all activities error',
+  props<{ payload: any }>()
+);
