@@ -51,7 +51,13 @@ const _activityReducer = createReducer(
     ...state,
     loading: false,
     loaded: true,
-    activities: [...state.activities, activity]
+    activities: [...state.activities.map((act) => {
+      if (act.id === activity.id) {
+        return act;
+      } else {
+        return activity;
+      }
+    })]
   })),
   on(updateActivityError, (state, {payload}) => ({
     ...state,
