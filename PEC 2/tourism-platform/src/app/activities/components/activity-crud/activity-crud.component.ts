@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Activity} from '../../models/activity';
-import {ActivityService} from '../../services/activity.service';
-import {getAllActivities} from '../../actions';
+import {deleteActivity, getAllActivities} from '../../actions';
 import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
 
@@ -15,7 +14,7 @@ export class ActivityCrudComponent implements OnInit {
 
   public activityList: Activity[];
 
-  constructor(private store: Store<AppState>, private activityService: ActivityService) {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -43,12 +42,6 @@ export class ActivityCrudComponent implements OnInit {
     this.activityList.splice(position, 1);
 
     // delete activity
-    this.activityService.deleteActivity(activity).subscribe(
-      data => {
-        console.log('Activity deleted successfully');
-      }, error => {
-        console.log('Error deleting activity');
-      }
-    );
+    this.store.dispatch(deleteActivity({activity}));
   }
 }

@@ -10,7 +10,10 @@ import {
   addActivityError,
   updateActivity,
   updateActivityError,
-  updateActivitySuccess
+  updateActivitySuccess,
+  deleteActivity,
+  deleteActivitySuccess,
+  deleteActivityError
 } from '../actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -52,9 +55,21 @@ export class ActivitiesEffects {
     this.actions$.pipe(
       ofType(updateActivity),
       mergeMap((action) =>
-        this.activitiesService.updateActivity(action.activity).pipe(
+        this.activitiesService.deleteActivity(action.activity).pipe(
           map((activity) => updateActivitySuccess({activity: action.activity})),
           catchError((err) => of(updateActivityError({payload: err})))
+        )
+      )
+    )
+  );
+
+  deleteActivity = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteActivity),
+      mergeMap((action) =>
+        this.activitiesService.updateActivity(action.activity).pipe(
+          map((activity) => deleteActivitySuccess({activity: action.activity})),
+          catchError((err) => of(deleteActivityError({payload: err})))
         )
       )
     )

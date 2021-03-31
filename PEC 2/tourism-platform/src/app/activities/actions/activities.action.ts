@@ -33,7 +33,17 @@ export const updateActivityError = createAction(
 
 export const deleteActivity = createAction(
   '[ACTIVITY] Delete activity',
-  props<{ id: number }>()
+  props<{ activity: Activity }>()
+);
+
+export const deleteActivitySuccess = createAction(
+  '[ACTIVITY] Delete activity success',
+  props<{ activity: Activity }>()
+);
+
+export const deleteActivityError = createAction(
+  '[ACTIVITY] Delete activity error',
+  props<{ payload: any }>()
 );
 
 export const getAllActivities = createAction(

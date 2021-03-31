@@ -7,6 +7,8 @@ import {
   updateActivitySuccess,
   updateActivityError,
   deleteActivity,
+  deleteActivitySuccess,
+  deleteActivityError,
   getAllActivities,
   getAllActivitiesSuccess,
   getAllActivitiesError,
@@ -69,11 +71,22 @@ const _activityReducer = createReducer(
       message: payload.message
     }
   })),
-  on(deleteActivity, (state, {id}) => ({
+  on(deleteActivity, state => ({...state, loading: true})),
+  on(deleteActivitySuccess, (state, {activity}) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    activities: [...state.activities.filter(act => act.id !== activity.id)]
+  })),
+  on(deleteActivityError, (state, {payload}) => ({
     ...state,
     loading: false,
     loaded: false,
-    activities: [...state.activities.filter(activity => activity.id !== id)]
+    error: {
+      url: payload.url,
+      status: payload.status,
+      message: payload.message
+    }
   })),
   on(getAllActivities, state => ({...state, loading: true})),
   on(getAllActivitiesSuccess, (state, {activities}) => ({
