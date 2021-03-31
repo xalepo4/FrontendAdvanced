@@ -1,7 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Activity} from '../../models/activity';
-import {ActivityService} from '../../services/activity.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app.reducer';
+import {addActivity, updateActivity} from '../../actions';
 
 @Component({
   selector: 'app-activity-form',
@@ -9,7 +11,7 @@ import {ActivityService} from '../../services/activity.service';
   styleUrls: ['./activity-form.component.scss']
 })
 export class ActivityFormComponent implements OnInit {
-  @Input() activityToBeUpdated;
+  @Input() activityToBeUpdated: Activity;
   @Output() activityEditionFinished = new EventEmitter<any>();
 
   public name: FormControl;
@@ -22,10 +24,16 @@ export class ActivityFormComponent implements OnInit {
 
   public activityForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private activityService: ActivityService) {
+  constructor(private store: Store<AppState>, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    /*this.store.select('activitiesApp').subscribe(activitiesResponse => {
+      console.log('here');
+      console.log(activitiesResponse);
+      // this.activityEditionFinished.emit();
+    });*/
+
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),
       Validators.maxLength(55)]);
     this.category = new FormControl('', [Validators.required]);
@@ -74,45 +82,30 @@ export class ActivityFormComponent implements OnInit {
       + ' Description: ' + activity.description + ' Language ' + activity.language + ' Date: '
       + activity.language + ' Price: ' + activity.price);
 
-
-    this.activityService.addActivity(activity).subscribe(
-      data => {
-        console.log('Activity added successfully');
-        this.activityEditionFinished.emit();
-      },
-      error => {
-        console.log('Error adding activity');
-      }
-    );
+    this.store.dispatch(addActivity({activity}));
   }
 
   updateActivity(): void {
-    this.activityToBeUpdated.name = this.name.value;
-    this.activityToBeUpdated.category = this.category.value;
-    this.activityToBeUpdated.subcategory = this.subcategory.value;
-    this.activityToBeUpdated.description = this.description.value;
-    this.activityToBeUpdated.language = this.language.value;
-    this.activityToBeUpdated.date = this.date.value;
-    this.activityToBeUpdated.price = this.price.value;
+    const activity = new Activity();
+
+    activity.id = this.activityToBeUpdated.id;
+    activity.name = this.name.value;
+    activity.category = this.category.value;
+    activity.subcategory = this.subcategory.value;
+    activity.description = this.description.value;
+    activity.language = this.language.value;
+    activity.date = this.date.value;
+    activity.price = this.price.value;
 
     // set company id for list activities and set 0 registered people
-    this.activityToBeUpdated.companyId = JSON.parse(localStorage.getItem('currentUser'));
-    this.activityToBeUpdated.peopleRegistered = 0;
+    activity.companyId = JSON.parse(localStorage.getItem('currentUser'));
+    activity.peopleRegistered = 0;
 
     console.log('Name: ' + this.activityToBeUpdated.name + ' Category: ' + this.activityToBeUpdated.category
       + ' Subcategory: ' + this.activityToBeUpdated.subcategory + ' Description: ' + this.activityToBeUpdated.description
       + ' Language ' + this.activityToBeUpdated.language + ' Date: ' + this.activityToBeUpdated.language
       + ' Price: ' + this.activityToBeUpdated.price);
 
-
-    this.activityService.updateActivity(this.activityToBeUpdated).subscribe(
-      data => {
-        console.log('Activity udpated successfully');
-        this.activityEditionFinished.emit();
-      },
-      error => {
-        console.log('Error updating activity');
-      }
-    );
+    this.store.dispatch(updateActivity({activity}));
   }
 }

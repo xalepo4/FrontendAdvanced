@@ -1,7 +1,11 @@
 import {Activity} from '../models/activity';
 import {
-  createActivity,
+  addActivity,
+  addActivitySuccess,
+  addActivityError,
   updateActivity,
+  updateActivitySuccess,
+  updateActivityError,
   deleteActivity,
   getAllActivities,
   getAllActivitiesSuccess,
@@ -25,23 +29,39 @@ export const initialState: ActivityState = {
 
 const _activityReducer = createReducer(
   initialState,
-  on(createActivity, (state, {activity}) => ({
+  on(addActivity, state => ({...state, loading: true})),
+  on(addActivitySuccess, (state, {activity}) => ({
     ...state,
     loading: false,
-    loaded: false,
+    loaded: true,
     activities: [...state.activities, activity]
   })),
-  on(updateActivity, (state, {activity}) => ({
+  on(addActivityError, (state, {payload}) => ({
     ...state,
     loading: false,
     loaded: false,
-    activities: [...state.activities.map((currentActivity) => {
-      if (currentActivity.id === activity.id) {
-        return activity;
-      } else {
-        return currentActivity;
-      }
-    })]
+    error: {
+      url: payload.url,
+      status: payload.status,
+      message: payload.message
+    }
+  })),
+  on(updateActivity, state => ({...state, loading: true})),
+  on(updateActivitySuccess, (state, {activity}) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    activities: [...state.activities, activity]
+  })),
+  on(updateActivityError, (state, {payload}) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: {
+      url: payload.url,
+      status: payload.status,
+      message: payload.message
+    }
   })),
   on(deleteActivity, (state, {id}) => ({
     ...state,
