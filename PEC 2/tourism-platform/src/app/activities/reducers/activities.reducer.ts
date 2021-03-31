@@ -12,6 +12,8 @@ import {
   getAllActivities,
   getAllActivitiesSuccess,
   getAllActivitiesError,
+  increaseActivityCounter,
+  decreaseActivityCounter
 } from '../actions';
 import {createReducer, on} from '@ngrx/store';
 
@@ -105,6 +107,36 @@ const _activityReducer = createReducer(
       message: payload.message
     }
   })),
+  on(increaseActivityCounter, (state, {activity}) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    activities: [...state.activities.map((act) => {
+      if (act.id === activity.id) {
+        return {
+          ...act,
+          peopleRegistered: act.peopleRegistered + 1
+        };
+      } else {
+        return act;
+      }
+    })]
+  })),
+  on(decreaseActivityCounter, (state, {activity}) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    activities: [...state.activities.map((act) => {
+      if (act.id === activity.id) {
+        return {
+          ...act,
+          peopleRegistered: act.peopleRegistered - 1
+        };
+      } else {
+        return act;
+      }
+    })]
+  }))
 );
 
 export function activityReducer(state, action) {

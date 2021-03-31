@@ -1,12 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Activity} from '../../models/activity';
-import {ActivityService} from '../../services/activity.service';
 import {User} from '../../../profile/models/user';
 import {UserService} from '../../../profile/services/user.service';
 import {LoginService} from '../../../login/services/login.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
-import {getAllActivities} from '../../actions';
+import {getAllActivities, increaseActivityCounter} from '../../actions';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +18,7 @@ export class HomeComponent implements OnInit {
   public saveEnabled = true;
   private currentUser: User;
 
-  constructor(private store: Store<AppState>, private activityService: ActivityService, private userService: UserService,
+  constructor(private store: Store<AppState>, private userService: UserService,
               public authService: LoginService) {
   }
 
@@ -38,6 +37,7 @@ export class HomeComponent implements OnInit {
     }
 
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
+      console.log(activitiesResponse);
       this.activitiesList = activitiesResponse.activities;
     });
 
@@ -49,16 +49,7 @@ export class HomeComponent implements OnInit {
   }
 
   signUp(): void {
-    this.selectedActivity.peopleRegistered = this.selectedActivity.peopleRegistered + 1;
-
-    this.activityService.updateActivity(this.selectedActivity).subscribe(
-      data => {
-        console.log('Activity updated successfully');
-      },
-      error => {
-        console.log('Error updating activity');
-      }
-    );
+    this.store.dispatch(increaseActivityCounter({activity: this.selectedActivity}));
 
     // if current user doesn't have any activity, add it, otherwise push it to the list
     if (this.currentUser.subscribedActivities === undefined) {
