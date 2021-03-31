@@ -59,13 +59,3 @@ export const getAllActivitiesError = createAction(
   '[ACTIVITY] Get all activities error',
   props<{ payload: any }>()
 );
-
-export const increaseActivityCounter = createAction(
-  '[ACTIVITY] Increase activity counter',
-  props<{ activity: Activity }>()
-);
-
-export const decreaseActivityCounter = createAction(
-  '[ACTIVITY] Decrease activity counter',
-  props<{ activity: Activity }>()
-);

@@ -13,8 +13,7 @@ import {
   updateActivitySuccess,
   deleteActivity,
   deleteActivitySuccess,
-  deleteActivityError,
-  increaseActivityCounter, decreaseActivityCounter
+  deleteActivityError
 } from '../actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -52,11 +51,9 @@ export class ActivitiesEffects {
     )
   );
 
-  updateActivity = createEffect(() =>
+  updateActivity$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateActivity),
-      ofType(increaseActivityCounter),
-      ofType(decreaseActivityCounter),
       mergeMap((action) =>
         this.activitiesService.updateActivity(action.activity).pipe(
           map((activity) => updateActivitySuccess({activity: action.activity})),
@@ -66,7 +63,7 @@ export class ActivitiesEffects {
     )
   );
 
-  deleteActivity = createEffect(() =>
+  deleteActivity$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteActivity),
       mergeMap((action) =>

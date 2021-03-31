@@ -5,7 +5,7 @@ import {UserService} from '../../../profile/services/user.service';
 import {LoginService} from '../../../login/services/login.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
-import {getAllActivities, increaseActivityCounter} from '../../actions';
+import {getAllActivities, updateActivity} from '../../actions';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +38,14 @@ export class HomeComponent implements OnInit {
 
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
       console.log(activitiesResponse);
+
+      // update activities list
       this.activitiesList = activitiesResponse.activities;
+
+      // update selected activity
+      if (this.selectedActivity !== undefined) {
+        this.selectedActivity = this.activitiesList.find(act => act.id === this.selectedActivity.id);
+      }
     });
 
     this.store.dispatch(getAllActivities());
@@ -49,13 +56,16 @@ export class HomeComponent implements OnInit {
   }
 
   signUp(): void {
-    this.store.dispatch(increaseActivityCounter({activity: this.selectedActivity}));
+    const activity = {...this.selectedActivity};
+    activity.peopleRegistered += 1;
+
+    this.store.dispatch(updateActivity({activity}));
 
     // if current user doesn't have any activity, add it, otherwise push it to the list
     if (this.currentUser.subscribedActivities === undefined) {
-      this.currentUser.subscribedActivities = [this.selectedActivity];
+      this.currentUser.subscribedActivities = [activity];
     } else {
-      this.currentUser.subscribedActivities.push(this.selectedActivity);
+      this.currentUser.subscribedActivities.push(activity);
     }
 
     // update user with subscribed activity
