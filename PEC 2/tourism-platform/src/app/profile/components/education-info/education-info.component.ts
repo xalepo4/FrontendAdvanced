@@ -2,6 +2,9 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Education} from '../../models/education';
 import {User} from '../../models/user';
 import {UserService} from '../../services/user.service';
+import {AppState} from '../../../app.reducer';
+import {Store} from '@ngrx/store';
+import {getUser} from '../../actions';
 
 @Component({
   selector: 'app-education-info',
@@ -13,22 +16,22 @@ export class EducationInfoComponent implements OnInit {
   public educationList;
   private currentUser: User;
 
-  constructor(private userService: UserService) {
+  constructor(private store: Store<AppState>, private userService: UserService) {
   }
 
   ngOnInit(): void {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
+    this.store.select('profileApp').subscribe(profileResponse => {
+      if (profileResponse.user !== null) {
+        this.currentUser = profileResponse.user;
+        this.educationList = profileResponse.user.education;
+        console.log(profileResponse.user);
+      }
+    });
+
     if (storedCurrentUser !== undefined) {
-      this.userService.getUser(storedCurrentUser).subscribe(
-        user => {
-          this.currentUser = user;
-          this.educationList = user.education;
-          console.log(user);
-        },
-        error => {
-          console.log('Error getting user');
-        });
+      this.store.dispatch(getUser({userId: storedCurrentUser}));
     }
   }
 
