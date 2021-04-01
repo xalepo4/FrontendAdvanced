@@ -3,14 +3,14 @@ import {createReducer, on} from '@ngrx/store';
 import {getUser, getUserSuccess, getUserError, updateUser, updateUserSuccess, updateUserError} from '../actions';
 
 export interface ProfileState {
-  users: User[];
+  user: User;
   loading: boolean;
   loaded: boolean;
   error: any;
 }
 
 export const initialState: ProfileState = {
-  users: [],
+  user: null,
   loading: false,
   loaded: false,
   error: null
@@ -28,7 +28,7 @@ const _profileReducer = createReducer(
     ...state,
     loading: false,
     loaded: true,
-    users: [...state.users, user]
+    user: user
   })),
   on(getUserError, (state, {payload}) => ({
     ...state,
@@ -49,13 +49,7 @@ const _profileReducer = createReducer(
     ...state,
     loading: false,
     loaded: true,
-    users: [...state.users.map((usr) => {
-      if (usr.id === user.id) {
-        return user;
-      } else {
-        return usr;
-      }
-    })]
+    user: user
   })),
   on(updateUserError, (state, {payload}) => ({
     ...state,

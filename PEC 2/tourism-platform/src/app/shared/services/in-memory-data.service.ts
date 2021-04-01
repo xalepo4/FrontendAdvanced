@@ -35,7 +35,16 @@ export class InMemoryDataService implements InMemoryDbService {
         type: 'tourist',
         email: 'paula@uoc.edu',
         password: '123456789',
-        education: []
+        education: [
+          {
+            id: 2,
+            type: 'titulo universitario',
+            level: 'grado',
+            name: 'sistemas tic',
+            university: 'UPC',
+            finishDate: '01/01/2018'
+          }
+        ]
       }
     ];
 

@@ -2,7 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../../models/user';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Education} from '../../models/education';
-import {UserService} from '../../services/user.service';
+import {AppState} from '../../../app.reducer';
+import {Store} from '@ngrx/store';
+import {getUser, updateUser} from '../../actions';
 
 @Component({
   selector: 'app-education-form',
@@ -22,20 +24,27 @@ export class EducationFormComponent implements OnInit {
   public finishDate: FormControl;
   public educationForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private store: Store<AppState>, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.userService.getUser(storedCurrentUser).subscribe(
-      user => {
-        this.currentUser = user;
-        console.log(this.currentUser);
-      },
-      error => {
-        console.log('Error getting user');
-      });
+    this.store.select('profileApp').subscribe(profileResponse => {
+      console.log('here');
+      console.log(profileResponse);
+      this.currentUser = profileResponse.user;
+
+      /*this.userService.updateUser(this.currentUser).subscribe(
+        data => {
+          this.educationEditionFinished.emit();
+        }, error => {
+          console.log(error);
+        }
+      );*/
+    });
+
+    this.store.dispatch(getUser({userId: storedCurrentUser}));
 
     this.type = new FormControl('', [Validators.required]);
     this.level = new FormControl('', [Validators.required]);
@@ -79,43 +88,67 @@ export class EducationFormComponent implements OnInit {
       finishDate: this.finishDate.value,
     };
 
-    // add education field if not exist, otherwise push new education
-    if (this.currentUser.education === undefined) {
-      this.currentUser.education = [education];
-    } else {
-      this.currentUser.education.push(education);
-    }
+    const user = new User();
+
+    user.id = this.currentUser.id;
+    user.name = this.currentUser.name;
+    user.surname = this.currentUser.surname;
+    user.birthDate = this.currentUser.birthDate;
+    user.phone = this.currentUser.phone;
+    user.nationality = this.currentUser.nationality;
+    user.nif = this.currentUser.nif;
+    user.aboutMe = this.currentUser.aboutMe;
+    user.type = this.currentUser.type;
+    user.email = this.currentUser.email;
+    user.password = this.currentUser.password;
+    user.companyName = this.currentUser.companyName;
+    user.companyDescription = this.currentUser.companyDescription;
+    user.cif = this.currentUser.cif;
+    user.education = [...this.currentUser.education, education];
+    user.subscribedActivities = this.currentUser.subscribedActivities;
 
     console.log('Type: ' + education.type + ' Level: ' + education.level + ' name: ' + education.name +
       ' University: ' + education.university + ' Finish Date: ' + education.finishDate);
 
-    this.userService.updateUser(this.currentUser).subscribe(
-      data => {
-        this.educationEditionFinished.emit();
-      }, error => {
-        console.log(error);
-      }
-    );
+    this.store.dispatch(updateUser({user: user}));
   }
 
   updateEducation(): void {
-    // search education object and set new values
-    for (const education of this.currentUser.education) {
-      if (education.id === this.educationToBeUpdated.id) {
-        education.type = this.type.value;
-        education.level = this.level.value;
-        education.name = this.name.value;
-        education.university = this.university.value;
-        education.finishDate = this.finishDate.value;
-      }
-    }
+    const user = new User();
 
-    this.userService.updateUser(this.currentUser).subscribe(
-      data => {
-        this.educationEditionFinished.emit();
-      }, error => {
-        console.log(error);
+    user.id = this.currentUser.id;
+    user.name = this.currentUser.name;
+    user.surname = this.currentUser.surname;
+    user.birthDate = this.currentUser.birthDate;
+    user.phone = this.currentUser.phone;
+    user.nationality = this.currentUser.nationality;
+    user.nif = this.currentUser.nif;
+    user.aboutMe = this.currentUser.aboutMe;
+    user.type = this.currentUser.type;
+    user.email = this.currentUser.email;
+    user.password = this.currentUser.password;
+    user.companyName = this.currentUser.companyName;
+    user.companyDescription = this.currentUser.companyDescription;
+    user.cif = this.currentUser.cif;
+    user.subscribedActivities = this.currentUser.subscribedActivities;
+
+    const newEducation = new Education();
+
+    newEducation.type = this.type.value;
+    newEducation.level = this.level.value;
+    newEducation.name = this.name.value;
+    newEducation.university = this.university.value;
+    newEducation.finishDate = this.finishDate.value;
+
+    user.education = [...this.currentUser.education.map((edu) => {
+      if (edu.id === this.educationToBeUpdated.id) {
+        newEducation.id = edu.id;
+        return newEducation;
+      } else {
+        return edu;
       }
-    );
+    })];
+
+    this.store.dispatch(updateUser({user: user}));
   }
 }
