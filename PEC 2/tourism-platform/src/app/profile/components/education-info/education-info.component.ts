@@ -1,10 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Education} from '../../models/education';
 import {User} from '../../models/user';
-import {UserService} from '../../services/user.service';
 import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
-import {getUser} from '../../actions';
+import {getUser, updateUser} from '../../actions';
 
 @Component({
   selector: 'app-education-info',
@@ -16,7 +15,7 @@ export class EducationInfoComponent implements OnInit {
   public educationList;
   private currentUser: User;
 
-  constructor(private store: Store<AppState>, private userService: UserService) {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -39,20 +38,28 @@ export class EducationInfoComponent implements OnInit {
     this.educationNeedToUpdateEvent.emit(education);
   }
 
-  onEducationDelete(position: number): void {
-    // remove education object
-    this.educationList.splice(position, 1);
+  onEducationDelete(education: Education): void {
+    const newEducationList = [...this.educationList.filter(edu => edu.id !== education.id)];
 
-    // set new list to current user
-    this.currentUser.education = this.educationList;
+    const user = new User();
 
-    // update current user
-    this.userService.updateUser(this.currentUser).subscribe(
-      data => {
-        console.log('Education deleted successfully');
-      }, error => {
-        console.log('Error updating user');
-      }
-    );
+    user.id = this.currentUser.id;
+    user.name = this.currentUser.name;
+    user.surname = this.currentUser.surname;
+    user.birthDate = this.currentUser.birthDate;
+    user.phone = this.currentUser.phone;
+    user.nationality = this.currentUser.nationality;
+    user.nif = this.currentUser.nif;
+    user.aboutMe = this.currentUser.aboutMe;
+    user.type = this.currentUser.type;
+    user.email = this.currentUser.email;
+    user.password = this.currentUser.password;
+    user.companyName = this.currentUser.companyName;
+    user.companyDescription = this.currentUser.companyDescription;
+    user.education = newEducationList;
+    user.cif = this.currentUser.cif;
+    user.subscribedActivities = this.currentUser.subscribedActivities;
+
+    this.store.dispatch(updateUser({user: user}));
   }
 }

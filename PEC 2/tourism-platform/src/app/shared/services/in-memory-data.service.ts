@@ -43,6 +43,14 @@ export class InMemoryDataService implements InMemoryDbService {
             name: 'sistemas tic',
             university: 'UPC',
             finishDate: '01/01/2018'
+          },
+          {
+            id: 3,
+            type: 'titulo universitario',
+            level: 'grado',
+            name: 'sistemas toc',
+            university: 'UOC',
+            finishDate: '01/01/2018'
           }
         ]
       }
