@@ -28,11 +28,10 @@ export class ActivityFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.store.select('activitiesApp').subscribe(activitiesResponse => {
+    this.store.select('activitiesApp').subscribe(activitiesResponse => {
       console.log('here');
       console.log(activitiesResponse);
-      // this.activityEditionFinished.emit();
-    });*/
+    });
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),
       Validators.maxLength(55)]);

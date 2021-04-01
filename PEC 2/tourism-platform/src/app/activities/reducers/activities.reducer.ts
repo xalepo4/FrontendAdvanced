@@ -31,7 +31,11 @@ export const initialState: ActivityState = {
 
 const _activityReducer = createReducer(
   initialState,
-  on(addActivity, state => ({...state, loading: true})),
+  on(addActivity, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+  })),
   on(addActivitySuccess, (state, {activity}) => ({
     ...state,
     loading: false,
@@ -48,7 +52,11 @@ const _activityReducer = createReducer(
       message: payload.message
     }
   })),
-  on(updateActivity, state => ({...state, loading: true})),
+  on(updateActivity, state => ({
+    ...state,
+    loading: true,
+    loaded: false
+  })),
   on(updateActivitySuccess, (state, {activity}) => ({
     ...state,
     loading: false,
@@ -71,7 +79,11 @@ const _activityReducer = createReducer(
       message: payload.message
     }
   })),
-  on(deleteActivity, state => ({...state, loading: true})),
+  on(deleteActivity, state => ({
+    ...state,
+    loading: true,
+    loaded: false
+  })),
   on(deleteActivitySuccess, (state, {activity}) => ({
     ...state,
     loading: false,
@@ -88,7 +100,11 @@ const _activityReducer = createReducer(
       message: payload.message
     }
   })),
-  on(getAllActivities, state => ({...state, loading: true})),
+  on(getAllActivities, state => ({
+    ...state,
+    loading: true,
+    loaded: false
+  })),
   on(getAllActivitiesSuccess, (state, {activities}) => ({
     ...state,
     loading: false,

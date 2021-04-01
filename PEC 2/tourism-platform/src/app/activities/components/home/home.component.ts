@@ -37,8 +37,6 @@ export class HomeComponent implements OnInit {
     }
 
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
-      console.log(activitiesResponse);
-
       // update activities list
       this.activitiesList = activitiesResponse.activities;
 
