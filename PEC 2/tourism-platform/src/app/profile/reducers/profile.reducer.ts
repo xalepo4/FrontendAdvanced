@@ -1,15 +1,6 @@
 import {User} from '../models/user';
 import {createReducer, on} from '@ngrx/store';
-/*import {
-  completeAllTodos,
-  completeTodo,
-  createTodo, deleteCompletedTodos,
-  deleteTodo,
-  editTodo,
-  getAllTodos,
-  getAllTodosError,
-  getAllTodosSuccess
-} from '../actions';*/
+import {getUser, getUserSuccess, getUserError, updateUser, updateUserSuccess, updateUserError} from '../actions';
 
 export interface ProfileState {
   users: User[];
@@ -28,60 +19,18 @@ export const initialState: ProfileState = {
 
 const _profileReducer = createReducer(
   initialState,
-  /*on(createTodo, (state, {title}) => ({
+  on(getUser, state => ({
     ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos, new Todo(title)]
+    loading: true,
+    loaded: false
   })),
-
-  on(completeTodo, (state, {id}) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          done: true,
-        };
-      } else {
-        return todo;
-      }
-    })]
-  })),
-
-  on(editTodo, (state, {id, title}) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          title
-        };
-      } else {
-        return todo;
-      }
-    })]
-  })),
-
-  on(deleteTodo, (state, {id}) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.filter(todo => todo.id !== id)]
-  })),
-
-  on(getAllTodos, state => ({...state, loading: true})),
-  on(getAllTodosSuccess, (state, {todos}) => ({
+  on(getUserSuccess, (state, {user}) => ({
     ...state,
     loading: false,
     loaded: true,
-    todos: [...todos]
+    users: [...state.users, user]
   })),
-  on(getAllTodosError, (state, {payload}) => ({
+  on(getUserError, (state, {payload}) => ({
     ...state,
     loading: false,
     loaded: false,
@@ -91,24 +40,33 @@ const _profileReducer = createReducer(
       message: payload.message
     }
   })),
-  on(completeAllTodos, state => ({
+  on(updateUser, state => ({
+    ...state,
+    loading: true,
+    loaded: false
+  })),
+  on(updateUserSuccess, (state, {user}) => ({
     ...state,
     loading: false,
-    loaded: false,
-    todos: [...state.todos.map((todo) => {
-      return {
-        ...todo,
-        done: true
-      };
+    loaded: true,
+    users: [...state.users.map((usr) => {
+      if (usr.id === user.id) {
+        return user;
+      } else {
+        return usr;
+      }
     })]
   })),
-
-  on(deleteCompletedTodos, state => ({
+  on(updateUserError, (state, {payload}) => ({
     ...state,
     loading: false,
     loaded: false,
-    todos: [...state.todos.filter(todo => todo.done === false)]
-  }))*/
+    error: {
+      url: payload.url,
+      status: payload.status,
+      message: payload.message
+    }
+  })),
 );
 
 export function profileReducer(state, action) {

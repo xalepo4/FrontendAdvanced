@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {UserService} from '../services/user.service';
-// import {getAllTodos, getAllTodosError, getAllTodosSuccess} from '../actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {of} from 'rxjs';
+import {getUser, getUserError, getUserSuccess, updateUser, updateUserError, updateUserSuccess} from '../actions';
 
 @Injectable()
 export class ProfileEffects {
@@ -14,15 +14,28 @@ export class ProfileEffects {
   ) {
   }
 
-  /*getTodos$ = createEffect(() =>
+  getUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getAllTodos),
-      mergeMap(() =>
-        this.todosService.getAllTodos().pipe(
-          map((todos) => getAllTodosSuccess({todos: todos})),
-          catchError((err) => of(getAllTodosError({payload: err})))
+      ofType(getUser),
+      mergeMap((action) =>
+        this.userService.getUser(action.userId).pipe(
+          map((user) => getUserSuccess({user: user})),
+          catchError((err) => of(getUserError({payload: err})))
         )
       )
     )
-  );*/
+  );
+
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateUser),
+      mergeMap((action) =>
+        this.userService.updateUser(action.user).pipe(
+          map((user) => updateUserSuccess({user: action.user})),
+          catchError((err) => of(updateUserError({payload: err})))
+        )
+      )
+    )
+  );
+
 }
