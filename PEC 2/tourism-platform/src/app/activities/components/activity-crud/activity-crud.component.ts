@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Activity} from '../../models/activity';
 import {deleteActivity, getAllActivities} from '../../actions';
 import {AppState} from '../../../app.reducer';
