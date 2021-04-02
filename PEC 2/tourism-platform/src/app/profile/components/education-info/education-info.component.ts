@@ -22,8 +22,6 @@ export class EducationInfoComponent implements OnInit {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.store.select('profileApp').subscribe(profileResponse => {
-      console.log(profileResponse);
-
       if (profileResponse.loaded || profileResponse.updated) {
         this.currentUser = profileResponse.user;
         this.educationList = profileResponse.user.education;

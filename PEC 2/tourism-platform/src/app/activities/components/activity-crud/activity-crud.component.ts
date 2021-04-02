@@ -21,12 +21,8 @@ export class ActivityCrudComponent implements OnInit {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
-      this.activityList = [];
-
-      for (const activity of activitiesResponse.activities) {
-        if (activity.companyId === storedCurrentUser) {
-          this.activityList.push(activity);
-        }
+      if (activitiesResponse.loaded) {
+        this.activityList = [...activitiesResponse.activities.filter(act => act.companyId === storedCurrentUser)];
       }
     });
 
