@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Activity} from '../../models/activity';
-import {UserService} from '../../../profile/services/user.service';
 import {User} from '../../../profile/models/user';
 import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
 import {updateActivity} from '../../actions';
+import {getUser, updateUser} from '../../../profile/actions';
 
 @Component({
   selector: 'app-my-activities',
@@ -16,21 +16,21 @@ export class MyActivitiesComponent implements OnInit {
   public activitiesList: Activity[];
   private currentUser: User;
 
-  constructor(private store: Store<AppState>, private userService: UserService) {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.userService.getUser(storedCurrentUser).subscribe(
-      user => {
-        this.currentUser = user;
-        this.activitiesList = user.subscribedActivities;
+    this.store.select('profileApp').subscribe(profileResponse => {
+      if (profileResponse.loaded || profileResponse.updated) {
+        this.currentUser = profileResponse.user;
+        this.activitiesList = profileResponse.user.subscribedActivities;
         console.log(this.currentUser);
-      },
-      error => {
-        console.log('Error getting user');
-      });
+      }
+    });
+
+    this.store.dispatch(getUser({userId: storedCurrentUser}));
   }
 
   showActivity(activity: Activity): void {
@@ -41,26 +41,15 @@ export class MyActivitiesComponent implements OnInit {
     const activity = {...this.selectedActivity};
     activity.peopleRegistered -= 1;
 
-    this.store.dispatch(updateActivity({activity}));
+    this.store.dispatch(updateActivity({activity: activity}));
 
-    // get activity index and delete it
-    const index = this.activitiesList.indexOf(this.selectedActivity, 0);
-    this.activitiesList.splice(index, 1);
-
-    // set activities to user
-    this.currentUser.subscribedActivities = this.activitiesList;
+    const user = {...this.currentUser};
+    user.subscribedActivities = [...this.currentUser.subscribedActivities.filter(act => act.id !== activity.id)];
 
     // set selected activity to null for hide detail
     this.selectedActivity = null;
 
     // update user with unsubscribed activity
-    this.userService.updateUser(this.currentUser).subscribe(
-      data => {
-        console.log('User updated successfully');
-      },
-      error => {
-        console.log('Error updating user');
-      }
-    );
+    this.store.dispatch(updateUser({user: user}));
   }
 }

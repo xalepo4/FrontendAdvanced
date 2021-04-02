@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
       const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
       this.store.select('profileApp').subscribe(profileResponse => {
-        if (profileResponse.loaded) {
+        if (profileResponse.loaded || profileResponse.updated) {
           this.currentUser = profileResponse.user;
           console.log(this.currentUser);
         }
@@ -36,12 +36,14 @@ export class HomeComponent implements OnInit {
     }
 
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
-      // update activities list
-      this.activitiesList = activitiesResponse.activities;
+      if (activitiesResponse.loaded || activitiesResponse.updated) {
+        // update activities list
+        this.activitiesList = activitiesResponse.activities;
 
-      // update selected activity
-      if (this.selectedActivity !== undefined) {
-        this.selectedActivity = this.activitiesList.find(act => act.id === this.selectedActivity.id);
+        // update selected activity
+        if (this.selectedActivity !== undefined) {
+          this.selectedActivity = this.activitiesList.find(act => act.id === this.selectedActivity.id);
+        }
       }
     });
 
@@ -63,7 +65,7 @@ export class HomeComponent implements OnInit {
     if (user.subscribedActivities === undefined) {
       user.subscribedActivities = [activity];
     } else {
-      user.subscribedActivities.push(activity);
+      user.subscribedActivities = [...this.currentUser.subscribedActivities, activity];
     }
 
     this.store.dispatch(updateUser({user: user}));
