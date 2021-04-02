@@ -12,7 +12,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let activity of activityList; let pos = index">
+  <tr *ngFor="let activity of activityList">
     <td>{{activity.name}}</td>
     <td>{{activity.category}}</td>
     <td>{{activity.subcategory}}</td>
@@ -22,7 +22,7 @@
     <td>{{activity.price}}</td>
     <td>
       <button (click)="onActivityUpdate(activity)" class="btn btn-primary btn-update">Update</button>
-      <button (click)="onActivityDelete(pos, activity)" class="btn btn-primary btn-delete">Delete</button>
+      <button (click)="onActivityDelete(activity)" class="btn btn-primary btn-delete">Delete</button>
     </td>
   </tr>
   </tbody>

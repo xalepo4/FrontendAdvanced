@@ -89,21 +89,21 @@ const _activityReducer = createReducer(
   })),
   on(deleteActivity, state => ({
     ...state,
-    loading: true,
+    loading: false,
     loaded: false,
-    updating: false,
+    updating: true,
     updated: false,
   })),
   on(deleteActivitySuccess, (state, {activity}) => ({
     ...state,
-    loading: false,
-    loaded: true,
+    updating: false,
+    updated: true,
     activities: [...state.activities.filter(act => act.id !== activity.id)]
   })),
   on(deleteActivityError, (state, {payload}) => ({
     ...state,
-    loading: false,
-    loaded: false,
+    updating: false,
+    updated: false,
     error: {
       url: payload.url,
       status: payload.status,

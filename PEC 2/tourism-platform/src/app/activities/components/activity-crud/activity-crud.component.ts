@@ -21,7 +21,7 @@ export class ActivityCrudComponent implements OnInit {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
-      if (activitiesResponse.loaded) {
+      if (activitiesResponse.loaded || activitiesResponse.updated) {
         this.activityList = [...activitiesResponse.activities.filter(act => act.companyId === storedCurrentUser)];
       }
     });
@@ -33,10 +33,7 @@ export class ActivityCrudComponent implements OnInit {
     this.activityNeedToUpdateEvent.emit(activity);
   }
 
-  onActivityDelete(position: number, activity: Activity): void {
-    // remove activity object
-    this.activityList.splice(position, 1);
-
+  onActivityDelete(activity: Activity): void {
     // delete activity
     this.store.dispatch(deleteActivity({activity}));
   }
