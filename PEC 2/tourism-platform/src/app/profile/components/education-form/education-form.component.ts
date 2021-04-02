@@ -31,7 +31,9 @@ export class EducationFormComponent implements OnInit {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.store.select('profileApp').subscribe(profileResponse => {
-      this.currentUser = profileResponse.user;
+      if (profileResponse.loaded) {
+        this.currentUser = profileResponse.user;
+      }
 
       if (profileResponse.updated) {
         this.educationEditionFinished.emit();
