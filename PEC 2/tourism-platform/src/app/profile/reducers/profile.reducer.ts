@@ -6,6 +6,8 @@ export interface ProfileState {
   user: User;
   loading: boolean;
   loaded: boolean;
+  updating: boolean;
+  updated: boolean;
   error: any;
 }
 
@@ -13,6 +15,8 @@ export const initialState: ProfileState = {
   user: null,
   loading: false,
   loaded: false,
+  updating: false,
+  updated: false,
   error: null
 };
 
@@ -22,7 +26,9 @@ const _profileReducer = createReducer(
   on(getUser, state => ({
     ...state,
     loading: true,
-    loaded: false
+    loaded: false,
+    updating: false,
+    updated: false
   })),
   on(getUserSuccess, (state, {user}) => ({
     ...state,
@@ -42,19 +48,23 @@ const _profileReducer = createReducer(
   })),
   on(updateUser, state => ({
     ...state,
-    loading: true,
-    loaded: false
+    loading: false,
+    loaded: false,
+    updating: true,
+    updated: false
   })),
   on(updateUserSuccess, (state, {user}) => ({
     ...state,
     loading: false,
-    loaded: true,
+    loaded: false,
+    updating: false,
+    updated: true,
     user: user
   })),
   on(updateUserError, (state, {payload}) => ({
     ...state,
-    loading: false,
-    loaded: false,
+    updating: false,
+    updated: false,
     error: {
       url: payload.url,
       status: payload.status,

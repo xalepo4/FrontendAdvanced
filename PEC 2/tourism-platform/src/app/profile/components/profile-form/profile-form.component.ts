@@ -2,7 +2,6 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../models/user';
 import {CheckNif} from '../../../shared/directives/checkNif';
-import {UserService} from '../../services/user.service';
 import {LoginService} from '../../../login/services/login.service';
 import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
@@ -31,18 +30,18 @@ export class ProfileFormComponent implements OnInit {
 
   public profileForm: FormGroup;
 
-  constructor(private store: Store<AppState>, private formBuilder: FormBuilder, private userService: UserService, public authService: LoginService) {
+  constructor(private store: Store<AppState>, private formBuilder: FormBuilder, public authService: LoginService) {
   }
 
   ngOnInit(): void {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.store.select('profileApp').subscribe(profileResponse => {
-      console.log('here');
-      console.log(profileResponse);
       this.currentUser = profileResponse.user;
 
-      // this.userUpdatedEvent.emit();
+      if (profileResponse.updated) {
+        this.userUpdatedEvent.emit();
+      }
     });
 
     this.store.dispatch(getUser({userId: storedCurrentUser}));
@@ -96,6 +95,11 @@ export class ProfileFormComponent implements OnInit {
     user.nationality = this.nationality.value;
     user.nif = this.nif.value;
     user.aboutMe = this.aboutMe.value;
+    user.type = this.currentUser.type;
+    user.email = this.currentUser.email;
+    user.password = this.currentUser.password;
+    user.education = this.currentUser.education;
+    user.subscribedActivities = this.currentUser.subscribedActivities;
 
     if (this.authService.isUserCompany()) {
       user.companyName = this.companyName.value;

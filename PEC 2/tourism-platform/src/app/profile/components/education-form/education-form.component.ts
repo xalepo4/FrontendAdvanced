@@ -31,17 +31,11 @@ export class EducationFormComponent implements OnInit {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.store.select('profileApp').subscribe(profileResponse => {
-      console.log('here');
-      console.log(profileResponse);
       this.currentUser = profileResponse.user;
 
-      /*this.userService.updateUser(this.currentUser).subscribe(
-        data => {
-          this.educationEditionFinished.emit();
-        }, error => {
-          console.log(error);
-        }
-      );*/
+      if (profileResponse.updated) {
+        this.educationEditionFinished.emit();
+      }
     });
 
     this.store.dispatch(getUser({userId: storedCurrentUser}));
