@@ -4,6 +4,9 @@ import {User} from '../../models/user';
 import {CheckNif} from '../../../shared/directives/checkNif';
 import {UserService} from '../../services/user.service';
 import {LoginService} from '../../../login/services/login.service';
+import {AppState} from '../../../app.reducer';
+import {Store} from '@ngrx/store';
+import {getUser, updateUser} from '../../actions';
 
 @Component({
   selector: 'app-profile-form',
@@ -28,20 +31,21 @@ export class ProfileFormComponent implements OnInit {
 
   public profileForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, public authService: LoginService) {
+  constructor(private store: Store<AppState>, private formBuilder: FormBuilder, private userService: UserService, public authService: LoginService) {
   }
 
   ngOnInit(): void {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.userService.getUser(storedCurrentUser).subscribe(
-      user => {
-        this.currentUser = user;
-        console.log(this.currentUser);
-      },
-      error => {
-        console.log('Error getting user');
-      });
+    this.store.select('profileApp').subscribe(profileResponse => {
+      console.log('here');
+      console.log(profileResponse);
+      this.currentUser = profileResponse.user;
+
+      // this.userUpdatedEvent.emit();
+    });
+
+    this.store.dispatch(getUser({userId: storedCurrentUser}));
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),
       Validators.maxLength(55), Validators.pattern('^[-a-zA-Z]+(\\s+[-a-zA-Z]+)*$')]);
@@ -82,32 +86,27 @@ export class ProfileFormComponent implements OnInit {
       return;
     }
 
-    this.currentUser.name = this.name.value;
-    this.currentUser.surname = this.surname.value;
-    this.currentUser.birthDate = this.birthDate.value;
-    this.currentUser.phone = this.phone.value;
-    this.currentUser.nationality = this.nationality.value;
-    this.currentUser.nif = this.nif.value;
-    this.currentUser.aboutMe = this.aboutMe.value;
+    const user = new User();
+
+    user.id = this.currentUser.id;
+    user.name = this.name.value;
+    user.surname = this.surname.value;
+    user.birthDate = this.birthDate.value;
+    user.phone = this.phone.value;
+    user.nationality = this.nationality.value;
+    user.nif = this.nif.value;
+    user.aboutMe = this.aboutMe.value;
 
     if (this.authService.isUserCompany()) {
-      this.currentUser.companyName = this.companyName.value;
-      this.currentUser.companyDescription = this.companyDescription.value;
-      this.currentUser.cif = this.cif.value;
+      user.companyName = this.companyName.value;
+      user.companyDescription = this.companyDescription.value;
+      user.cif = this.cif.value;
     }
 
-    console.log('Name: ' + this.currentUser.name + ' Surname: ' + this.currentUser.surname + ' Birth date: ' +
-      this.currentUser.birthDate + ' Phone: ' + this.currentUser.phone + ' Nationality: ' +
-      this.currentUser.nationality + ' Nif: ' + this.currentUser.nif + ' ' + 'About me: ' + this.currentUser.aboutMe +
-      ' Company name: ' + this.currentUser.companyName + ' Company description: ' + this.currentUser.companyDescription
-      + ' CIF: ' + this.currentUser.cif);
+    console.log('Name: ' + user.name + ' Surname: ' + user.surname + ' Birth date: ' + user.birthDate + ' Phone: ' + user.phone
+      + ' Nationality: ' + user.nationality + ' Nif: ' + user.nif + ' ' + 'About me: ' + user.aboutMe + ' Company name: '
+      + user.companyName + ' Company description: ' + user.companyDescription + ' CIF: ' + user.cif);
 
-    this.userService.updateUser(this.currentUser).subscribe(
-      data => {
-        this.userUpdatedEvent.emit();
-      }, error => {
-        console.log(error);
-      }
-    );
+    this.store.dispatch(updateUser({user: user}));
   }
 }
