@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../services/user.service';
 import {User} from '../../models/user';
 import {LoginService} from '../../../login/services/login.service';
+import {AppState} from '../../../app.reducer';
+import {Store} from '@ngrx/store';
+import {getUser} from '../../actions';
 
 @Component({
   selector: 'app-profile-info',
@@ -11,21 +13,18 @@ import {LoginService} from '../../../login/services/login.service';
 export class ProfileInfoComponent implements OnInit {
   public currentUser: User;
 
-  constructor(private userService: UserService, public authService: LoginService) {
+  constructor(private store: Store<AppState>, public authService: LoginService) {
   }
 
   ngOnInit(): void {
     const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
+    this.store.select('profileApp').subscribe(profileResponse => {
+      this.currentUser = profileResponse.user;
+    });
+
     if (storedCurrentUser !== undefined) {
-      this.userService.getUser(storedCurrentUser).subscribe(
-        user => {
-          this.currentUser = user;
-          console.log(this.currentUser);
-        },
-        error => {
-          console.log('Error getting user');
-        });
+      this.store.dispatch(getUser({userId: storedCurrentUser}));
     }
   }
 }
