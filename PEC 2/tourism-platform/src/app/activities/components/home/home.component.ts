@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Activity} from '../../models/activity';
 import {User} from '../../../profile/models/user';
-import {UserService} from '../../../profile/services/user.service';
 import {LoginService} from '../../../login/services/login.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app.reducer';
 import {getAllActivities, updateActivity} from '../../actions';
+import {getUser, updateUser} from '../../../profile/actions';
 
 @Component({
   selector: 'app-home',
@@ -18,22 +18,21 @@ export class HomeComponent implements OnInit {
   public saveEnabled = true;
   private currentUser: User;
 
-  constructor(private store: Store<AppState>, private userService: UserService,
-              public authService: LoginService) {
+  constructor(private store: Store<AppState>, public authService: LoginService) {
   }
 
   ngOnInit(): void {
     if (this.authService.isUserLoggedIn()) {
       const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-      this.userService.getUser(storedCurrentUser).subscribe(
-        user => {
-          this.currentUser = user;
+      this.store.select('profileApp').subscribe(profileResponse => {
+        if (profileResponse.loaded) {
+          this.currentUser = profileResponse.user;
           console.log(this.currentUser);
-        },
-        error => {
-          console.log('Error getting user');
-        });
+        }
+      });
+
+      this.store.dispatch(getUser({userId: storedCurrentUser}));
     }
 
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
@@ -59,22 +58,15 @@ export class HomeComponent implements OnInit {
 
     this.store.dispatch(updateActivity({activity}));
 
-    // if current user doesn't have any activity, add it, otherwise push it to the list
-    if (this.currentUser.subscribedActivities === undefined) {
-      this.currentUser.subscribedActivities = [activity];
+    const user = {...this.currentUser};
+
+    if (user.subscribedActivities === undefined) {
+      user.subscribedActivities = [activity];
     } else {
-      this.currentUser.subscribedActivities.push(activity);
+      user.subscribedActivities.push(activity);
     }
 
-    // update user with subscribed activity
-    this.userService.updateUser(this.currentUser).subscribe(
-      data => {
-        console.log('User updated successfully');
-      },
-      error => {
-        console.log('Error updating user');
-      }
-    );
+    this.store.dispatch(updateUser({user: user}));
   }
 
   checkIfUserIsSubscribed(): boolean {

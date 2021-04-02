@@ -41,26 +41,8 @@ export class EducationInfoComponent implements OnInit {
   }
 
   onEducationDelete(education: Education): void {
-    const newEducationList = [...this.educationList.filter(edu => edu.id !== education.id)];
-
-    const user = new User();
-
-    user.id = this.currentUser.id;
-    user.name = this.currentUser.name;
-    user.surname = this.currentUser.surname;
-    user.birthDate = this.currentUser.birthDate;
-    user.phone = this.currentUser.phone;
-    user.nationality = this.currentUser.nationality;
-    user.nif = this.currentUser.nif;
-    user.aboutMe = this.currentUser.aboutMe;
-    user.type = this.currentUser.type;
-    user.email = this.currentUser.email;
-    user.password = this.currentUser.password;
-    user.companyName = this.currentUser.companyName;
-    user.companyDescription = this.currentUser.companyDescription;
-    user.education = newEducationList;
-    user.cif = this.currentUser.cif;
-    user.subscribedActivities = this.currentUser.subscribedActivities;
+    const user = {...this.currentUser};
+    user.education = [...this.educationList.filter(edu => edu.id !== education.id)];
 
     this.store.dispatch(updateUser({user: user}));
   }

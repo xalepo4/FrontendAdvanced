@@ -86,9 +86,8 @@ export class ActivityFormComponent implements OnInit {
   }
 
   updateActivity(): void {
-    const activity = new Activity();
+    const activity = {...this.activityToBeUpdated};
 
-    activity.id = this.activityToBeUpdated.id;
     activity.name = this.name.value;
     activity.category = this.category.value;
     activity.subcategory = this.subcategory.value;
@@ -101,10 +100,8 @@ export class ActivityFormComponent implements OnInit {
     activity.companyId = JSON.parse(localStorage.getItem('currentUser'));
     activity.peopleRegistered = 0;
 
-    console.log('Name: ' + this.activityToBeUpdated.name + ' Category: ' + this.activityToBeUpdated.category
-      + ' Subcategory: ' + this.activityToBeUpdated.subcategory + ' Description: ' + this.activityToBeUpdated.description
-      + ' Language ' + this.activityToBeUpdated.language + ' Date: ' + this.activityToBeUpdated.language
-      + ' Price: ' + this.activityToBeUpdated.price);
+    console.log('Name: ' + activity.name + ' Category: ' + activity.category + ' Subcategory: ' + activity.subcategory + ' Description: '
+      + activity.description + ' Language ' + activity.language + ' Date: ' + activity.language + ' Price: ' + activity.price);
 
     this.store.dispatch(updateActivity({activity}));
   }

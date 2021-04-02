@@ -87,9 +87,8 @@ export class ProfileFormComponent implements OnInit {
       return;
     }
 
-    const user = new User();
+    const user = {...this.currentUser};
 
-    user.id = this.currentUser.id;
     user.name = this.name.value;
     user.surname = this.surname.value;
     user.birthDate = this.birthDate.value;
@@ -97,11 +96,6 @@ export class ProfileFormComponent implements OnInit {
     user.nationality = this.nationality.value;
     user.nif = this.nif.value;
     user.aboutMe = this.aboutMe.value;
-    user.type = this.currentUser.type;
-    user.email = this.currentUser.email;
-    user.password = this.currentUser.password;
-    user.education = this.currentUser.education;
-    user.subscribedActivities = this.currentUser.subscribedActivities;
 
     if (this.authService.isUserCompany()) {
       user.companyName = this.companyName.value;
