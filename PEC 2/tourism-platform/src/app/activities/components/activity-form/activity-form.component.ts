@@ -29,8 +29,9 @@ export class ActivityFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select('activitiesApp').subscribe(activitiesResponse => {
-      console.log('here');
-      console.log(activitiesResponse);
+      if (activitiesResponse.updated) {
+        this.activityEditionFinished.emit();
+      }
     });
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),

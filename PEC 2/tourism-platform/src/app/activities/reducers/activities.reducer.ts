@@ -19,6 +19,8 @@ export interface ActivityState {
   activities: Activity[];
   loading: boolean;
   loaded: boolean;
+  updating: boolean;
+  updated: boolean;
   error: any;
 }
 
@@ -26,6 +28,8 @@ export const initialState: ActivityState = {
   activities: [],
   loading: false,
   loaded: false,
+  updating: false,
+  updated: false,
   error: null
 };
 
@@ -33,19 +37,21 @@ const _activityReducer = createReducer(
   initialState,
   on(addActivity, state => ({
     ...state,
-    loading: true,
+    loading: false,
     loaded: false,
+    updating: true,
+    updated: false
   })),
   on(addActivitySuccess, (state, {activity}) => ({
     ...state,
-    loading: false,
-    loaded: true,
+    updating: false,
+    updated: true,
     activities: [...state.activities, activity]
   })),
   on(addActivityError, (state, {payload}) => ({
     ...state,
-    loading: false,
-    loaded: false,
+    updating: false,
+    updated: false,
     error: {
       url: payload.url,
       status: payload.status,
@@ -54,13 +60,15 @@ const _activityReducer = createReducer(
   })),
   on(updateActivity, state => ({
     ...state,
-    loading: true,
-    loaded: false
+    loading: false,
+    loaded: false,
+    updating: true,
+    updated: false
   })),
   on(updateActivitySuccess, (state, {activity}) => ({
     ...state,
-    loading: false,
-    loaded: true,
+    updating: false,
+    updated: true,
     activities: [...state.activities.map((act) => {
       if (act.id === activity.id) {
         return activity;
@@ -71,8 +79,8 @@ const _activityReducer = createReducer(
   })),
   on(updateActivityError, (state, {payload}) => ({
     ...state,
-    loading: false,
-    loaded: false,
+    updating: false,
+    updated: false,
     error: {
       url: payload.url,
       status: payload.status,
@@ -82,7 +90,9 @@ const _activityReducer = createReducer(
   on(deleteActivity, state => ({
     ...state,
     loading: true,
-    loaded: false
+    loaded: false,
+    updating: false,
+    updated: false,
   })),
   on(deleteActivitySuccess, (state, {activity}) => ({
     ...state,
@@ -103,7 +113,9 @@ const _activityReducer = createReducer(
   on(getAllActivities, state => ({
     ...state,
     loading: true,
-    loaded: false
+    loaded: false,
+    updating: false,
+    updated: false,
   })),
   on(getAllActivitiesSuccess, (state, {activities}) => ({
     ...state,
