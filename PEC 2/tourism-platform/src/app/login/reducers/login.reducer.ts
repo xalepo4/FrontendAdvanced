@@ -12,7 +12,6 @@ import {
 } from '../actions';
 
 export interface LoginState {
-  init: boolean;
   loggingIn: boolean;
   loggedIn: boolean;
   registering: boolean;
@@ -21,7 +20,6 @@ export interface LoginState {
 }
 
 export const initialState: LoginState = {
-  init: false,
   loggingIn: false,
   loggedIn: false,
   registering: false,
@@ -33,7 +31,6 @@ const _loginReducer = createReducer(
   initialState,
   on(login, (state) => ({
     ...state,
-    init: true,
     loggingIn: true,
     loggedIn: false,
     registering: false,
@@ -56,7 +53,6 @@ const _loginReducer = createReducer(
   })),
   on(register, (state) => ({
     ...state,
-    init: true,
     loggingIn: false,
     loggedIn: false,
     registering: true,

@@ -25,7 +25,8 @@
         </div>
       </div>
 
-      <div *ngIf="!loggedIn && storeInit" class="text-danger">
+      <div *ngIf="loginClicked && !loggedIn"
+           class="text-danger">
         User doesn't exist or password is incorrect
       </div>
     </div>

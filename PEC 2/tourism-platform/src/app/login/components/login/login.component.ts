@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../../profile/models/user';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {LoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
 import {AppState} from '../../../app.reducer';
 import {Store} from '@ngrx/store';
@@ -20,7 +19,7 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
 
   public loggedIn = false;
-  public storeInit = false;
+  public loginClicked = false;
 
   constructor(private store: Store<AppState>, private formBuilder: FormBuilder, private router: Router) {
   }
@@ -35,8 +34,6 @@ export class LoginComponent implements OnInit {
     });
 
     this.store.select('loginApp').subscribe(loginResponse => {
-      this.storeInit = loginResponse.init;
-
       this.loggedIn = loginResponse.loggedIn;
       console.log('Log in status ' + this.loggedIn);
 
@@ -47,6 +44,8 @@ export class LoginComponent implements OnInit {
   }
 
   public checkLogin(): void {
+    this.loginClicked = true;
+
     this.user.email = this.email.value;
     this.user.password = this.password.value;
 
