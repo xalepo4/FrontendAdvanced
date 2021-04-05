@@ -30,3 +30,17 @@ export const registerError = createAction(
   '[LOGIN] Register error',
   props<{ payload: any }>()
 );
+
+export const logout = createAction(
+  '[LOGIN] Logout',
+);
+
+export const logoutSuccess = createAction(
+  '[LOGIN] Logout success',
+  props<{ loggedIn: boolean }>()
+);
+
+export const logoutError = createAction(
+  '[LOGIN] Logout error',
+  props<{ payload: any }>()
+);

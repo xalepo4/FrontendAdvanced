@@ -26,7 +26,8 @@
       </button>
       <button *ngIf="authService.isUserLoggedIn()" type="button" class="btn btn-primary" routerLink="/profile">Profile
       </button>
-      <button *ngIf="authService.isUserLoggedIn()" type="button" class="btn btn-primary" (click)="authService.logOut()">
+      <button *ngIf="authService.isUserLoggedIn()" type="button" class="btn btn-primary"
+              (click)="logoutClicked()">
         Logout
       </button>
     </div>

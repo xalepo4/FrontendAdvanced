@@ -5,7 +5,10 @@ import {
   loginError,
   register,
   registerSuccess,
-  registerError
+  registerError,
+  logout,
+  logoutSuccess,
+  logoutError
 } from '../actions';
 
 export interface LoginState {
@@ -43,8 +46,8 @@ const _loginReducer = createReducer(
   })),
   on(loginError, (state, {payload}) => ({
     ...state,
-    loading: false,
-    loaded: false,
+    loggingIn: false,
+    loggedIn: false,
     error: {
       url: payload.url,
       status: payload.status,
@@ -68,6 +71,23 @@ const _loginReducer = createReducer(
     loggedIn: true
   })),
   on(registerError, (state, {payload}) => ({
+    ...state,
+    registering: false,
+    registered: false,
+    error: {
+      url: payload.url,
+      status: payload.status,
+      message: payload.message
+    }
+  })),
+  on(logout, (state) => ({
+    ...state,
+  })),
+  on(logoutSuccess, (state) => ({
+    ...state,
+    loggedIn: false,
+  })),
+  on(logoutError, (state, {payload}) => ({
     ...state,
     loading: false,
     loaded: false,

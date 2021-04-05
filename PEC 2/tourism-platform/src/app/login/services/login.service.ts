@@ -25,13 +25,17 @@ export class LoginService {
     }));
   }
 
-  logOut(): void {
-    // remove currentUser from local storage
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('userType');
+  logOut(): Observable<void> {
+    return new Observable(observer => {
+      // remove currentUser from local storage
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('userType');
 
-    // redirect to home
-    this.router.navigateByUrl('/home');
+      // redirect to home
+      this.router.navigateByUrl('/home');
+
+      return observer.next();
+    });
   }
 
   isUserLoggedIn(): boolean {
