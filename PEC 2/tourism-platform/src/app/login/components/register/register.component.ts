@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../../profile/models/user';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CheckPassword} from '../../../shared/directives/checkPassword';
-import {RegisterService} from '../../../shared/services/register.service';
+import {RegisterService} from '../../services/register.service';
 import {Router} from '@angular/router';
 
 @Component({

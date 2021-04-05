@@ -3,6 +3,9 @@ import {User} from '../../../profile/models/user';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
+import {AppState} from '../../../app.reducer';
+import {Store} from '@ngrx/store';
+import {login} from '../../actions';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +19,10 @@ export class LoginComponent implements OnInit {
   public password: FormControl;
   public loginForm: FormGroup;
 
-  public isUserValid = true;
+  public loggedIn = false;
+  public storeInit = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: LoginService, private router: Router) {
+  constructor(private store: Store<AppState>, private formBuilder: FormBuilder, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -29,6 +33,17 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password
     });
+
+    this.store.select('loginApp').subscribe(loginResponse => {
+      this.storeInit = loginResponse.init;
+
+      this.loggedIn = loginResponse.loggedIn;
+      console.log('Log in status ' + this.loggedIn);
+
+      if (this.loggedIn) {
+        this.router.navigateByUrl('/home');
+      }
+    });
   }
 
   public checkLogin(): void {
@@ -37,17 +52,6 @@ export class LoginComponent implements OnInit {
 
     console.log('Email: ' + this.user.email + ' Password: ' + this.user.password);
 
-    this.authService.logIn(this.user.email, this.user.password)
-      .subscribe(
-        loggedIn => {
-          this.isUserValid = loggedIn;
-          console.log('Log in status ' + this.isUserValid);
-          this.router.navigateByUrl('/home');
-        },
-        error => {
-          this.isUserValid = false;
-          console.log(error);
-          console.log('Log in status ' + this.isUserValid);
-        });
+    this.store.dispatch(login({email: this.user.email, password: this.user.password}));
   }
 }

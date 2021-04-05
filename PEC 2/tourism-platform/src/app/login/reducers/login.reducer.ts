@@ -1,85 +1,40 @@
 import {createReducer, on} from '@ngrx/store';
-
-/*import {
-  completeAllTodos,
-  completeTodo,
-  createTodo, deleteCompletedTodos,
-  deleteTodo,
-  editTodo,
-  getAllTodos,
-  getAllTodosError,
-  getAllTodosSuccess
-} from '../actions';*/
+import {login, loginSuccess, loginError} from '../actions';
 
 export interface LoginState {
-  loading: boolean;
-  loaded: boolean;
+  init: boolean;
+  loggingIn: boolean;
+  loggedIn: boolean;
+  registering: boolean;
+  registered: boolean;
   error: any;
 }
 
 export const initialState: LoginState = {
-  loading: false,
-  loaded: false,
+  init: false,
+  loggingIn: false,
+  loggedIn: false,
+  registering: false,
+  registered: false,
   error: null
 };
 
-
 const _loginReducer = createReducer(
   initialState,
-  /*on(createTodo, (state, {title}) => ({
+  on(login, (state) => ({
     ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos, new Todo(title)]
+    init: true,
+    loggingIn: true,
+    loggedIn: false,
+    registering: false,
+    registered: false,
   })),
-
-  on(completeTodo, (state, {id}) => ({
+  on(loginSuccess, (state, {loggedIn}) => ({
     ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          done: true,
-        };
-      } else {
-        return todo;
-      }
-    })]
+    loggingIn: false,
+    loggedIn: loggedIn,
   })),
-
-  on(editTodo, (state, {id, title}) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          title
-        };
-      } else {
-        return todo;
-      }
-    })]
-  })),
-
-  on(deleteTodo, (state, {id}) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.filter(todo => todo.id !== id)]
-  })),
-
-  on(getAllTodos, state => ({...state, loading: true})),
-  on(getAllTodosSuccess, (state, {todos}) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    todos: [...todos]
-  })),
-  on(getAllTodosError, (state, {payload}) => ({
+  on(loginError, (state, {payload}) => ({
     ...state,
     loading: false,
     loaded: false,
@@ -89,24 +44,6 @@ const _loginReducer = createReducer(
       message: payload.message
     }
   })),
-  on(completeAllTodos, state => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.map((todo) => {
-      return {
-        ...todo,
-        done: true
-      };
-    })]
-  })),
-
-  on(deleteCompletedTodos, state => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos.filter(todo => todo.done === false)]
-  }))*/
 );
 
 export function loginReducer(state, action) {
