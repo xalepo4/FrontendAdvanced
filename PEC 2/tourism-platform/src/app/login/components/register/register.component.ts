@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
     console.log('Name: ' + user.name + ' Surname: ' + user.surname + ' Type: ' + user.type + ' Email: ' + user.email + ' Password '
       + user.password);
 
-    this.registerService.checkUserExist(this.user)
+    this.registerService.checkUserExist(user)
       .subscribe(
         alreadyRegistered => {
           if (!alreadyRegistered) {
