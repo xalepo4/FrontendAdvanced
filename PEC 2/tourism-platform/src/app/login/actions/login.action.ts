@@ -20,3 +20,13 @@ export const register = createAction(
   '[LOGIN] Register',
   props<{ user: User }>()
 );
+
+export const registerSuccess = createAction(
+  '[LOGIN] Register success',
+  props<{ registered: boolean }>()
+);
+
+export const registerError = createAction(
+  '[LOGIN] Register error',
+  props<{ payload: any }>()
+);

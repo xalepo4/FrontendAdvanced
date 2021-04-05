@@ -1,5 +1,12 @@
 import {createReducer, on} from '@ngrx/store';
-import {login, loginSuccess, loginError} from '../actions';
+import {
+  login,
+  loginSuccess,
+  loginError,
+  register,
+  registerSuccess,
+  registerError
+} from '../actions';
 
 export interface LoginState {
   init: boolean;
@@ -35,6 +42,32 @@ const _loginReducer = createReducer(
     loggedIn: loggedIn,
   })),
   on(loginError, (state, {payload}) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: {
+      url: payload.url,
+      status: payload.status,
+      message: payload.message
+    }
+  })),
+  on(register, (state) => ({
+    ...state,
+    init: true,
+    loggingIn: false,
+    loggedIn: false,
+    registering: true,
+    registered: false,
+    checkingUserExists: false,
+    userExists: false,
+  })),
+  on(registerSuccess, (state, {registered}) => ({
+    ...state,
+    registering: false,
+    registered: registered,
+    loggedIn: true
+  })),
+  on(registerError, (state, {payload}) => ({
     ...state,
     loading: false,
     loaded: false,

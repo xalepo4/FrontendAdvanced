@@ -4,6 +4,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CheckPassword} from '../../../shared/directives/checkPassword';
 import {RegisterService} from '../../services/register.service';
 import {Router} from '@angular/router';
+import {AppState} from '../../../app.reducer';
+import {Store} from '@ngrx/store';
+import {register} from '../../actions';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +26,8 @@ export class RegisterComponent implements OnInit {
 
   public isUserRegistered = false;
 
-  constructor(private formBuilder: FormBuilder, private registerService: RegisterService, private router: Router) {
+  constructor(private store: Store<AppState>, private formBuilder: FormBuilder, private registerService: RegisterService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -48,18 +52,25 @@ export class RegisterComponent implements OnInit {
         validator: CheckPassword.checkInvalidPassword
       })
     });
+
+    this.store.select('loginApp').subscribe(loginResponse => {
+      if (loginResponse.registered) {
+        console.log('User registered successfully');
+        this.router.navigateByUrl('/home');
+      }
+    });
   }
 
   public checkRegister(): void {
-    this.user.name = this.name.value;
-    this.user.surname = this.surname.value;
-    this.user.type = this.type.value;
-    this.user.email = this.email.value;
-    this.user.password = this.password.value;
+    const user = (Object.keys(this.user).length === 0) ? this.user : {...this.user};
+    user.name = this.name.value;
+    user.surname = this.surname.value;
+    user.type = this.type.value;
+    user.email = this.email.value;
+    user.password = this.password.value;
 
-    console.log('Name: ' + this.user.name + ' Surname: ' + this.user.surname
-      + ' Type: ' + this.user.type + ' Email: ' + this.user.email
-      + ' Password ' + this.user.password);
+    console.log('Name: ' + user.name + ' Surname: ' + user.surname + ' Type: ' + user.type + ' Email: ' + user.email + ' Password '
+      + user.password);
 
     this.registerService.checkUserExist(this.user)
       .subscribe(
@@ -68,16 +79,7 @@ export class RegisterComponent implements OnInit {
             console.log('User not already registered');
 
             // if not registered, register new user
-            this.registerService.register(this.user).subscribe(
-              success => {
-                console.log('User registered successfully');
-                this.router.navigateByUrl('/home');
-              },
-              error => {
-                console.log('Fail registering user');
-                console.log(error);
-              }
-            );
+            this.store.dispatch(register({user: user}));
           } else {
             this.isUserRegistered = true;
             console.log('User already registered');
