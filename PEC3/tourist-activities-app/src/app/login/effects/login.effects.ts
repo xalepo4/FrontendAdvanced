@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { map, tap, catchError, mergeMap, exhaustMap } from 'rxjs/operators';
 import * as LoginActions from '../actions';
-import { LoginService } from '../Services/login.service';
+import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 
 @Injectable()

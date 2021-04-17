@@ -1,4 +1,4 @@
-import { userNationalities, userTypes } from 'src/app/Shared/Enums/publicEnums';
+import { userNationalities, userTypes } from 'src/app/shared/enums/publicEnums';
 
 export class Profile {
     type: userTypes;

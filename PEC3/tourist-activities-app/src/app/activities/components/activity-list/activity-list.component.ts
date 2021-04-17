@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { FilterType } from 'src/app/Shared/Enums/publicEnums';
+import { FilterType } from 'src/app/shared/enums/publicEnums';
 
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';

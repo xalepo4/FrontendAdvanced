@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Activity } from '../../Models/activity';
+import { Activity } from '../../models/activity';
 
 import { AppState } from '../../../app.reducers';
 import { Store } from '@ngrx/store';

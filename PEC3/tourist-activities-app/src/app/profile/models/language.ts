@@ -1,4 +1,4 @@
-import { languageLevels, activityLenguages } from 'src/app/Shared/Enums/publicEnums';
+import { languageLevels, activityLenguages } from 'src/app/shared/enums/publicEnums';
 
 export class Language {
     uid: number;

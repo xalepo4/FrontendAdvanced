@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Input, Output, OnChanges } from '@angular/core';
 import { Activity } from '../../models/activity';
-import { userTypes } from 'src/app/Shared/Enums/publicEnums';
+import { userTypes } from 'src/app/shared/enums/publicEnums';
 import { Router} from '@angular/router';
 import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { activityStates, FilterType } from 'src/app/Shared/Enums/publicEnums';
+import { activityStates, FilterType } from 'src/app/shared/enums/publicEnums';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { UserState } from '../../../profile/reducers';

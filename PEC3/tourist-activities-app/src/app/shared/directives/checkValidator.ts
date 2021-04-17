@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
-import { userNationalities } from 'src/app/Shared/Enums/publicEnums';
+import { userNationalities } from 'src/app/shared/enums/publicEnums';
 
 /**
  * Función que comprueba que los dos strings que hacen referencia a dos formControls que forman

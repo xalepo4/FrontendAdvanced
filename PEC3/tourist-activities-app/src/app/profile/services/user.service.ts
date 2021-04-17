@@ -1,6 +1,6 @@
 import { Injectable, Input } from '@angular/core';
-import { User } from '../Models/user';
-import { Credentials } from '../../Login/Models/credentials';
+import { User } from '../models/user';
+import { Credentials } from '../../login/models/credentials';
 import { throwError, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, exhaustMap } from 'rxjs/operators';

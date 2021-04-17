@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import { CheckValidator } from 'src/app/Shared/Directives/checkValidator';
-import { PublicFunctions } from 'src/app/Shared/Directives/publicFunctions';
-import { Education } from '../../Models/education';
-import { educationTypes } from 'src/app/Shared/Enums/publicEnums';
-import { universityLevelTypes } from 'src/app/Shared/Enums/publicEnums';
-import { cycleLevelTypes } from 'src/app/Shared/Enums/publicEnums';
+import { CheckValidator } from 'src/app/shared/directives/checkValidator';
+import { PublicFunctions } from 'src/app/shared/directives/publicFunctions';
+import { Education } from '../../models/education';
+import { educationTypes } from 'src/app/shared/enums/publicEnums';
+import { universityLevelTypes } from 'src/app/shared/enums/publicEnums';
+import { cycleLevelTypes } from 'src/app/shared/enums/publicEnums';
 
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';

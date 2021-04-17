@@ -10,7 +10,7 @@ import { getLoginUser, getLoginUserSuccess, getLoginUserFailure, formatUserSucce
         deleteUserLanguage, deleteUserLanguageSuccess, deleteUserLanguageFailure,
         addUserLanguage, addUserLanguageSuccess, addUserLanguageFailure} from '../actions';
 import { createReducer, on } from '@ngrx/store';
-import { User } from '../Models/user';
+import { User } from '../models/user';
 
 export interface UserState {
     user: User;

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { activityLenguages, activityStates } from 'src/app/Shared/Enums/publicEnums';
-import { CheckValidator } from 'src/app/Shared/Directives/checkValidator';
+import { activityLenguages, activityStates } from 'src/app/shared/enums/publicEnums';
+import { CheckValidator } from 'src/app/shared/directives/checkValidator';
 import { Location } from '@angular/common';
-import { PublicFunctions } from 'src/app/Shared/Directives/publicFunctions';
-import { activityCategories } from 'src/app/Shared/Enums/publicEnums';
+import { PublicFunctions } from 'src/app/shared/directives/publicFunctions';
+import { activityCategories } from 'src/app/shared/enums/publicEnums';
 import { Activity } from '../../models/activity';
-import { CultureHeritageCategoryOptions, WineTourismCategoryOptions, BeachesCategoryOptions } from 'src/app/Shared/Enums/publicEnums';
+import { CultureHeritageCategoryOptions, WineTourismCategoryOptions, BeachesCategoryOptions } from 'src/app/shared/enums/publicEnums';
 import { UserState } from '../../../profile/reducers';
 
 import { AppState } from '../../../app.reducers';

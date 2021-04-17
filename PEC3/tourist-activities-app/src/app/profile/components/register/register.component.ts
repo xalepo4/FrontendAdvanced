@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../Models/user';
-import { CheckValidator } from 'src/app/Shared/Directives/checkValidator';
-import { userTypes } from 'src/app/Shared/Enums/publicEnums';
+import { User } from '../../models/user';
+import { CheckValidator } from 'src/app/shared/directives/checkValidator';
+import { userTypes } from 'src/app/shared/enums/publicEnums';
 import { Router } from '@angular/router';
-import { Language } from '../../Models/language';
-import { Education } from '../../Models/education';
+import { Language } from '../../models/language';
+import { Education } from '../../models/education';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { LoginState } from '../../../login/reducers';

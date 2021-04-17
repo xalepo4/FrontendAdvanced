@@ -1,4 +1,4 @@
-import { activityCategories, activityLenguages, activityStates } from 'src/app/Shared/Enums/publicEnums';
+import { activityCategories, activityLenguages, activityStates } from 'src/app/shared/enums/publicEnums';
 
 export class Activity {
     id: number;

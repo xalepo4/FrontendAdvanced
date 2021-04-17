@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { userTypes } from 'src/app/Shared/Enums/publicEnums';
-import { userNationalities } from 'src/app/Shared/Enums/publicEnums';
-import { User } from '../../profile/Models/user';
-import { activityCategories } from 'src/app/Shared/Enums/publicEnums';
-import { activityLenguages } from 'src/app/Shared/Enums/publicEnums';
-import { activityStates } from 'src/app/Shared/Enums/publicEnums';
-import { languageLevels } from 'src/app/Shared/Enums/publicEnums';
-import { educationTypes } from 'src/app/Shared/Enums/publicEnums';
-import { cycleLevelTypes } from 'src/app/Shared/Enums/publicEnums';
-import { CultureHeritageCategoryOptions } from 'src/app/Shared/Enums/publicEnums';
+import { userTypes } from 'src/app/shared/enums/publicEnums';
+import { userNationalities } from 'src/app/shared/enums/publicEnums';
+import { User } from '../../profile/models/user';
+import { activityCategories } from 'src/app/shared/enums/publicEnums';
+import { activityLenguages } from 'src/app/shared/enums/publicEnums';
+import { activityStates } from 'src/app/shared/enums/publicEnums';
+import { languageLevels } from 'src/app/shared/enums/publicEnums';
+import { educationTypes } from 'src/app/shared/enums/publicEnums';
+import { cycleLevelTypes } from 'src/app/shared/enums/publicEnums';
+import { CultureHeritageCategoryOptions } from 'src/app/shared/enums/publicEnums';
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-import { educationTypes } from 'src/app/Shared/Enums/publicEnums';
+import { educationTypes } from 'src/app/shared/enums/publicEnums';
 
 export class Education {
     uid: number;

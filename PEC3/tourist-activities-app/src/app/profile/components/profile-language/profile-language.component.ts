@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { languageLevels } from 'src/app/Shared/Enums/publicEnums';
-import { activityLenguages } from 'src/app/Shared/Enums/publicEnums';
-import { Language } from '../../Models/language';
-import { CheckValidator } from 'src/app/Shared/Directives/checkValidator';
-import { PublicFunctions } from 'src/app/Shared/Directives/publicFunctions';
+import { languageLevels } from 'src/app/shared/enums/publicEnums';
+import { activityLenguages } from 'src/app/shared/enums/publicEnums';
+import { Language } from '../../models/language';
+import { CheckValidator } from 'src/app/shared/directives/checkValidator';
+import { PublicFunctions } from 'src/app/shared/directives/publicFunctions';
 
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
