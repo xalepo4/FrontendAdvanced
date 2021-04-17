@@ -4,12 +4,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Enter your email</mat-label>
         <input matInput type="email" [formControl]="email" placeholder="User E-mail"/>
-        <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-          Email doesn't have a correct format
-        </mat-error>
-        <mat-error *ngIf="email.hasError('required')">
-          Email is required
-        </mat-error>
+        <mat-error *ngIf="email.invalid">{{ getEmailErrorMessage() }} </mat-error>
       </mat-form-field>
     </section>
 
@@ -17,7 +12,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Enter your password</mat-label>
         <input matInput type="password" [formControl]="password" placeholder="User Password"/>
-        <mat-error *ngIf="password.invalid">{{ getErrorsMessage() }} </mat-error>
+        <mat-error *ngIf="password.invalid">{{ getPasswordErrorMessage() }} </mat-error>
       </mat-form-field>
     </section>
 

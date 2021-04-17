@@ -47,7 +47,16 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(LoginAction.login({credentials}));
   }
 
-  public getErrorsMessage(): string {
+  public getEmailErrorMessage(): string {
+    if (this.email.hasError('email')) {
+      return 'Email doesn\'t have a correct format';
+    } else if (this.email.hasError('required')) {
+      return 'Email is required';
+
+    }
+  }
+
+  public getPasswordErrorMessage(): string {
     if (this.password.hasError('required')) {
       return 'You must enter a password';
     }
