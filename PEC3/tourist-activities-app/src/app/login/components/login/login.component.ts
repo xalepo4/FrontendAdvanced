@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import { AppState } from 'src/app/app.reducers';
-import { Store } from '@ngrx/store';
-import { LoginState } from '../../reducers';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AppState} from 'src/app/app.reducers';
+import {Store} from '@ngrx/store';
+import {LoginState} from '../../reducers';
 import * as LoginAction from '../../actions';
 
 @Component({
@@ -21,9 +21,8 @@ export class LoginComponent implements OnInit {
 
   loginState$: LoginState;
 
-  constructor( private store: Store<AppState>, private formBuilder: FormBuilder,
-               public router: Router)
-  {
+  constructor(private store: Store<AppState>, private formBuilder: FormBuilder,
+              public router: Router) {
     this.store.select('login').subscribe(login => this.loginState$ = login);
   }
 
@@ -39,12 +38,18 @@ export class LoginComponent implements OnInit {
   }
 
   // Se recoge la pulsación sobre el botón de login
-  public checkLogin(){
+  public checkLogin() {
     this.bSubmitted = true;
     const credentials = {
       email: this.email.value,
       password: this.password.value,
     };
     this.store.dispatch(LoginAction.login({credentials}));
+  }
+
+  public getErrorsMessage(): string {
+    if (this.password.hasError('required')) {
+      return 'You must enter a password';
+    }
   }
 }
