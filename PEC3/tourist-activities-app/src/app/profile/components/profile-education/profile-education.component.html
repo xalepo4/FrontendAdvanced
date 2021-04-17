@@ -1,56 +1,53 @@
 <div class="container">
-    <form class="text-center border border-light p-5" [formGroup]="rForm" (submit)="submit()"> 
-        <div class="form-group">
-            <div>
-                <!-- Level -->
-                <label for="type">Type:</label>
-                <select (change)="onChangeTypeValue()" formControlName="type" class="form-control mb-4" placeholder="Type">
-                    <option [ngValue]="null">Select type...</option>                
-                    <option *ngFor="let type of eEducationTypes | keyvalue" [ngValue]="type.value">{{type.value}}</option>              
-                </select>
-                <span style="color: red;" *ngIf="rForm.get('type').errors && (rForm.get('type').touched || rForm.get('type').dirty)">                
-                    <span *ngIf="rForm.get('type').errors.required">Type is required</span>
-                </span>
-            </div>
-            <div>
-                <!-- Level -->
-                <label for="level">Level:</label>
-                <select formControlName="level" name="level" class="form-control mb-4" placeholder="Level">
-                    <option [ngValue]="null">Select level...</option>                
-                    <option *ngFor="let level of eLevelTypes | keyvalue" [ngValue]="level.value">{{level.value}}</option>              
-                </select>
-                <span style="color: red;" *ngIf="rForm.get('level').errors && (rForm.get('level').touched || rForm.get('level').dirty)">                
-                    <span *ngIf="rForm.get('level').errors.required">Level is required</span>
-                </span>
-            </div>
-            <div>
-                <!-- Name -->
-                <label for="name">Name:</label>
-                <input type="text" placeholder="Name" name="name" formControlName="name" class="form-control mb-4">
-                <span style="color: red;" *ngIf="rForm.get('name').errors && (rForm.get('name').touched || rForm.get('name').dirty)">                
-                    <span *ngIf="rForm.get('name').errors.required">Name is required</span> 
-                    <span *ngIf="rForm.get('name').errors.minlength || rForm.get('name').errors.maxlength">Name must be greater than 3 characters and less than 55 characters</span>
-                </span>
-            </div>
-            <div>
-                <!-- University -->
-                <label for="university">University:</label>
-                <input type="text" placeholder="University" name="university" formControlName="university" class="form-control mb-4">
-                <span style="color: red;" *ngIf="rForm.get('university').errors && (rForm.get('university').touched || rForm.get('university').dirty)">                
-                    <span *ngIf="rForm.get('university').errors.required">University is required</span> 
-                    <span *ngIf="rForm.get('university').errors.minlength || rForm.get('university').errors.maxlength">University must be greater than 3 characters and less than 55 characters</span>
-                </span>
-            </div>
-            <div>
-                <!-- Finish date -->
-                <label for="date">Finish date:</label>
-                <input type="text" placeholder="dd/MM/yyyy" name="date" formControlName="date" class="form-control mb-4">
-                <span style="color: red;" *ngIf="rForm.get('date').errors && (rForm.get('date').touched || rForm.get('date').dirty)">                
-                    <span *ngIf="rForm.get('date').errors?.errorFormatDate">Invalid format date</span>
-                </span>
-            </div>
-            <button class="btn btn-primary my-4 float-left" type="submit" [disabled]="rForm.invalid">Save</button>
-        </div>
+  <form class="text-center p-5" [formGroup]="rForm" (submit)="submit()">
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>Type</mat-label>
+        <mat-select (valueChange)="onChangeTypeValue()" formControlName="type" placeholder="Type">
+          <mat-option [value]="null">Select type...</mat-option>
+          <mat-option *ngFor="let type of eEducationTypes | keyvalue" [value]="type.value">{{type.value}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="rForm.get('type').invalid">{{ getTypeErrorMessage() }} </mat-error>
+      </mat-form-field>
+    </section>
 
-    </form>
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>Level</mat-label>
+        <mat-select formControlName="level" name="level" placeholder="Level">
+          <mat-option [value]="null">Select level...</mat-option>
+          <mat-option *ngFor="let level of eLevelTypes | keyvalue" [value]="level.value">{{level.value}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="rForm.get('level').invalid">{{ getLevelErrorMessage() }} </mat-error>
+      </mat-form-field>
+    </section>
+
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="Name" name="name" formControlName="name"/>
+        <mat-error *ngIf="rForm.get('name').invalid">{{ getNameErrorMessage() }} </mat-error>
+      </mat-form-field>
+    </section>
+
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>University</mat-label>
+        <input matInput type="text" placeholder="University" name="university" formControlName="university"/>
+        <mat-error *ngIf="rForm.get('university').invalid">{{ getUniversityErrorMessage() }} </mat-error>
+      </mat-form-field>
+    </section>
+
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>Finish date</mat-label>
+        <input matInput type="text" placeholder="dd/MM/yyyy" name="date" formControlName="date"/>
+        <mat-error *ngIf="rForm.get('date').invalid">{{ getFinishDateErrorMessage() }} </mat-error>
+      </mat-form-field>
+    </section>
+
+    <section>
+      <button mat-raised-button color="primary" type="submit" [disabled]="rForm.invalid">Save</button>
+    </section>
+  </form>
 </div>

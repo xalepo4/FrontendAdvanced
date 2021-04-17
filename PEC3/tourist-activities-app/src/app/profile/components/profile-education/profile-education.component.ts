@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import { CheckValidator } from 'src/app/shared/directives/checkValidator';
-import { PublicFunctions } from 'src/app/shared/directives/publicFunctions';
-import { Education } from '../../models/education';
-import { educationTypes } from 'src/app/shared/enums/publicEnums';
-import { universityLevelTypes } from 'src/app/shared/enums/publicEnums';
-import { cycleLevelTypes } from 'src/app/shared/enums/publicEnums';
+import {CheckValidator} from 'src/app/shared/directives/checkValidator';
+import {PublicFunctions} from 'src/app/shared/directives/publicFunctions';
+import {Education} from '../../models/education';
+import {cycleLevelTypes, educationTypes, universityLevelTypes} from 'src/app/shared/enums/publicEnums';
 
-import { AppState } from 'src/app/app.reducers';
-import { Store } from '@ngrx/store';
-import { UserState } from '../../reducers';
+import {AppState} from 'src/app/app.reducers';
+import {Store} from '@ngrx/store';
+import {UserState} from '../../reducers';
 import * as UserAction from '../../actions';
 
 @Component({
@@ -38,21 +36,20 @@ export class ProfileEducationComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   public loadFormInstance(): void {
     // En caso de creación de una nueva educación
-    if (this.education === undefined)
-    {
+    if (this.education === undefined) {
       // Se incicializa la colección
       this.education = new Education();
-      this.education.type  = null;
+      this.education.type = null;
       this.education.level = null;
       this.education.name = '';
       this.education.university = '';
       this.education.finish = '';
-    }
-    else {
+    } else {
       // Se carga la enumeración con los tipos de nivel asociados a la educación
       this.setEnumLevelTypes(this.education.type);
     }
@@ -76,7 +73,7 @@ export class ProfileEducationComponent implements OnInit {
   }
 
   // Se guarda un nuevo tipo de educación
-  public save (education: Education){
+  public save(education: Education) {
     const user = this.userState$.user;
     const _education = PublicFunctions.fakeIncreaseUid <Education>(user.educations, education);
     user.educations.push(_education);
@@ -85,7 +82,7 @@ export class ProfileEducationComponent implements OnInit {
   }
 
   // Se edita una educación
-  public update (education: Education) {
+  public update(education: Education) {
     const user = this.userState$.user;
     const educations = user.educations;
     const foundIndex = educations.findIndex(_education => _education.uid === education.uid);
@@ -96,17 +93,16 @@ export class ProfileEducationComponent implements OnInit {
 
   // Se recoge un cambio en el tipo de educación
   setEnumLevelTypes(value: string): any {
-    if (value.includes(educationTypes.university.toString())){
+    if (value.includes(educationTypes.university.toString())) {
       this.eLevelTypes = universityLevelTypes;
-    }
-    else if (value.includes(educationTypes.cycle.toString())){
+    } else if (value.includes(educationTypes.cycle.toString())) {
       this.eLevelTypes = cycleLevelTypes;
     }
   }
 
-  saveOrUpdate(education: Education){
+  saveOrUpdate(education: Education) {
     // Se invoca la función save o update en función de la respuesta de isNew
-    this.isNew() ? this.save (education) : this.update(education);
+    this.isNew() ? this.save(education) : this.update(education);
   }
 
   public isNew(): boolean {
@@ -118,5 +114,39 @@ export class ProfileEducationComponent implements OnInit {
   onChangeTypeValue(): void {
     this.setEnumLevelTypes(this.rForm.get('type').value);
     this.rForm.controls.level.setValue(null);
+  }
+
+  getTypeErrorMessage(): string {
+    if (this.rForm.get('type').hasError('required')) {
+      return 'Type is required';
+    }
+  }
+
+  getLevelErrorMessage(): string {
+    if (this.rForm.get('level').hasError('required')) {
+      return 'Level is required';
+    }
+  }
+
+  getNameErrorMessage(): string {
+    if (this.rForm.get('name').hasError('required')) {
+      return 'Name is required';
+    } else if (this.rForm.get('name').hasError('minlength') || this.rForm.get('name').hasError('maxlength')) {
+      return 'Name must be greater than 3 characters and less than 55 characters';
+    }
+  }
+
+  getUniversityErrorMessage(): string {
+    if (this.rForm.get('university').hasError('required')) {
+      return 'University is required';
+    } else if (this.rForm.get('university').hasError('minlength') || this.rForm.get('university').hasError('maxlength')) {
+      return 'University must be greater than 3 characters and less than 55 characters';
+    }
+  }
+
+  getFinishDateErrorMessage(): string {
+    if (this.rForm.get('date').hasError('errorFormatDate')) {
+      return 'Invalid format date';
+    }
   }
 }
