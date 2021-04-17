@@ -3,7 +3,7 @@
     <section>
       <mat-form-field appearance="fill">
         <mat-label>Type</mat-label>
-        <mat-select (valueChange)="onChangeTypeValue()" formControlName="type" placeholder="Type">
+        <mat-select (selectionChange)="onChangeTypeValue()" formControlName="type" placeholder="Type">
           <mat-option [value]="null">Select type...</mat-option>
           <mat-option *ngFor="let type of eEducationTypes | keyvalue" [value]="type.value">{{type.value}}</mat-option>
         </mat-select>
