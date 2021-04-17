@@ -1,17 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { activityLenguages, activityStates } from 'src/app/shared/enums/publicEnums';
-import { CheckValidator } from 'src/app/shared/directives/checkValidator';
-import { Location } from '@angular/common';
-import { PublicFunctions } from 'src/app/shared/directives/publicFunctions';
-import { activityCategories } from 'src/app/shared/enums/publicEnums';
-import { Activity } from '../../models/activity';
-import { CultureHeritageCategoryOptions, WineTourismCategoryOptions, BeachesCategoryOptions } from 'src/app/shared/enums/publicEnums';
-import { UserState } from '../../../profile/reducers';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {
+  activityCategories,
+  activityLenguages,
+  activityStates,
+  BeachesCategoryOptions,
+  CultureHeritageCategoryOptions,
+  WineTourismCategoryOptions
+} from 'src/app/shared/enums/publicEnums';
+import {CheckValidator} from 'src/app/shared/directives/checkValidator';
+import {Location} from '@angular/common';
+import {PublicFunctions} from 'src/app/shared/directives/publicFunctions';
+import {Activity} from '../../models/activity';
+import {UserState} from '../../../profile/reducers';
 
-import { AppState } from '../../../app.reducers';
-import { Store } from '@ngrx/store';
+import {AppState} from '../../../app.reducers';
+import {Store} from '@ngrx/store';
 import * as ActivitiesAction from '../../actions';
 
 @Component({
@@ -36,22 +41,22 @@ export class ActivityAdminDetailComponent implements OnInit {
     // Se recoge el identificador de la actividad pasada por el navegador
     this.route.params.subscribe(params => {
       const id = +params.id;
-      this.store.select('activities').subscribe(activities => this.activity = activities.activity.find( x => x.id === id));
+      this.store.select('activities').subscribe(activities => this.activity = activities.activity.find(x => x.id === id));
       this.store.select('user').subscribe(userStates => this.userState$ = userStates);
       this.loadFormInstance();
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   // Se carga la información de la actividad
   public loadFormInstance(): void {
     // En caso que se cree una nueva actividad
-    if (this.activity === undefined)
-    {
+    if (this.activity === undefined) {
       // Se incicializa la colección
       this.activity = new Activity();
-      this.activity.name  = '';
+      this.activity.name = '';
       this.activity.category = null;
       this.activity.subcategory = null;
       this.activity.description = '';
@@ -63,8 +68,7 @@ export class ActivityAdminDetailComponent implements OnInit {
       this.activity.peopleRegistered = 0;
       this.activity.state = activityStates.Places_available;
       this.activity.signUpUsers = new Array<number>();
-    }
-    else {
+    } else {
       this.setEnumSubcategory(this.activity.category);
     }
     this.rForm = new FormGroup({
@@ -83,13 +87,11 @@ export class ActivityAdminDetailComponent implements OnInit {
 
   // En función de la selección de la categoría, se carga un tipo de subcategoría
   setEnumSubcategory(value: string): any {
-    if (value.includes(activityCategories.Culture_Heritage.toString())){
+    if (value.includes(activityCategories.Culture_Heritage.toString())) {
       this.eSubcategory = CultureHeritageCategoryOptions;
-    }
-    else if (value.includes(activityCategories.Wine_tourism.toString())){
+    } else if (value.includes(activityCategories.Wine_tourism.toString())) {
       this.eSubcategory = WineTourismCategoryOptions;
-    }
-    else if (value.includes(activityCategories.Beaches.toString())){
+    } else if (value.includes(activityCategories.Beaches.toString())) {
       this.eSubcategory = BeachesCategoryOptions;
     }
   }
@@ -102,7 +104,7 @@ export class ActivityAdminDetailComponent implements OnInit {
 
   // En caso de seleccionar el botón de save del formulario
   public submit(): void {
-    this.activity.name  = this.rForm.get('name').value;
+    this.activity.name = this.rForm.get('name').value;
     this.activity.category = this.rForm.get('category').value;
     this.activity.subcategory = this.rForm.get('subcategory').value;
     this.activity.description = this.rForm.get('description').value;
@@ -116,7 +118,7 @@ export class ActivityAdminDetailComponent implements OnInit {
   }
 
   // Se guarda una nueva actividad
-  public save (){
+  public save() {
     const idLoggedUser = this.userState$.user?.id;
     let _activities$;
     this.store.select('activities').subscribe(activities => _activities$ = activities.activity);
@@ -128,19 +130,81 @@ export class ActivityAdminDetailComponent implements OnInit {
   }
 
   // Se actualiza la actividad
-  public update (){
+  public update() {
     //const idLoggedUser = this.userService.getIdUser();
     this.store.dispatch(ActivitiesAction.updateActivity({activity: this.activity}));
     this.location.back();
   }
 
-  saveOrUpdate(){
+  saveOrUpdate() {
     // Se invoca la función save o update en función de la respuesta de isNew
-    this.isNew() ? this.save () : this.update ();
+    this.isNew() ? this.save() : this.update();
   }
 
   // Función que devuelve existe el campo id en el objeto activity
   public isNew(): boolean {
     return !!!this.activity.id;
+  }
+
+  getCategoryErrorMessage(): string {
+    if (this.rForm.get('category').hasError('required')) {
+      return 'Category is required';
+    }
+  }
+
+  getSubcategoryErrorMessage(): string {
+    if (this.rForm.get('subcategory').hasError('required')) {
+      return 'Subcategory is required';
+    }
+  }
+
+  getNameErrorMessage(): string {
+    if (this.rForm.get('name').hasError('required')) {
+      return 'Name is required';
+    } else if (this.rForm.get('name').hasError('minlength') || this.rForm.get('name').hasError('maxlength')) {
+      return 'Name must be greater than 3 characters and less than 55 characters';
+    }
+  }
+
+  getLanguageErrorMessage(): string {
+    if (this.rForm.get('language').hasError('required')) {
+      return 'Language is required';
+    }
+  }
+
+  getDateErrorMessage(): string {
+    if (this.rForm.get('date').hasError('errorFormatDate')) {
+      return 'Invalid format date';
+    }
+  }
+
+  getPriceErrorMessage(): string {
+    if (this.rForm.get('price').hasError('required')) {
+      return 'Price is required';
+    } else if (this.rForm.get('price').hasError('errorLessZero')) {
+      return 'Price must be greater than zero';
+    }
+  }
+
+  getMinimumCapacityErrorMessage(): string {
+    if (this.rForm.get('miniumCapacity').hasError('required')) {
+      return 'Minimum capacity is required';
+    } else if (this.rForm.get('miniumCapacity').hasError('errorLessZero')) {
+      return 'Minimum capacity must be greater than zero';
+    }
+  }
+
+  getLimitCapacityErrorMessage(): string {
+    if (this.rForm.get('limitCapacity').hasError('required')) {
+      return 'Limit capacity is required';
+    } else if (this.rForm.get('limitCapacity').hasError('errorLessZero')) {
+      return 'Limit capacity must be greater than zero';
+    }
+  }
+
+  getStateErrorMessage(): string {
+    if (this.rForm.get('state').hasError('required')) {
+      return 'State is required';
+    }
   }
 }
