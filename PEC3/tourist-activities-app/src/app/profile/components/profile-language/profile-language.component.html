@@ -1,38 +1,39 @@
 <div class="container">
-    <form class="text-center border border-light p-5" [formGroup]="rForm" (submit)="submit()"> 
-        <div class="form-group">
-            <div>
-                <!-- Level -->
-                <label for="level">Level:</label>
-                <select formControlName="level" class="form-control mb-4" placeholder="Level">
-                    <option [ngValue]="null">Select level...</option>                
-                    <option *ngFor="let level of eLanguageLevels | keyvalue" [ngValue]="level.value">{{level.value}}</option>              
-                </select>
-                <span style="color: red;" *ngIf="rForm.get('level').errors && (rForm.get('level').touched || rForm.get('level').dirty)">                
-                    <span *ngIf="rForm.get('level').errors.required">Level is required</span>
-                </span>
-            </div>
-            <div>
-                <!-- Language -->
-                <label for="language">Language:</label>
-                <select formControlName="language" class="form-control mb-4" placeholder="Level">
-                    <option [ngValue]="null">Select language...</option>                
-                    <option *ngFor="let language of eActivityLenguages | keyvalue" [ngValue]="language.value">{{language.value}}</option>              
-                </select>
-                <span style="color: red;" *ngIf="rForm.get('language').errors && (rForm.get('language').touched || rForm.get('language').dirty)">                
-                    <span *ngIf="rForm.get('language').errors.required">Language is required</span>
-                </span>
-            </div>
-            <div>
-                <!-- Date -->
-                <label for="date">Title date:</label>
-                <input type="text" placeholder="dd/MM/yyyy" name="date" formControlName="date" class="form-control mb-4">
-                <span style="color: red;" *ngIf="rForm.get('date').errors && (rForm.get('date').touched || rForm.get('date').dirty)">                
-                    <span *ngIf="rForm.get('date').errors?.errorFormatDate">Invalid format date</span>
-                </span>
-            </div>
-            <button class="btn btn-primary my-4 float-left" type="submit" [disabled]="rForm.invalid">Save</button>
-        </div>
+  <form class="text-center p-5" [formGroup]="rForm" (submit)="submit()">
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>Level</mat-label>
+        <mat-select formControlName="level" placeholder="Level">
+          <mat-option [value]="null">Select level...</mat-option>
+          <mat-option *ngFor="let level of eLanguageLevels | keyvalue"
+                      [value]="level.value">{{level.value}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="rForm.get('level').invalid">{{ getLevelErrorMessage() }} </mat-error>
+      </mat-form-field>
+    </section>
 
-    </form>
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>Language</mat-label>
+        <mat-select formControlName="language" placeholder="Level">
+          <mat-option [value]="null">Select language...</mat-option>
+          <mat-option *ngFor="let language of eActivityLenguages | keyvalue"
+                      [value]="language.value">{{language.value}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="rForm.get('language').invalid">{{ getLanguageErrorMessage() }} </mat-error>
+      </mat-form-field>
+    </section>
+
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>Title date</mat-label>
+        <input matInput type="text" placeholder="dd/MM/yyyy" name="date" formControlName="date"/>
+        <mat-error *ngIf="rForm.get('date').invalid">{{ getTitleDateErrorMessage() }} </mat-error>
+      </mat-form-field>
+    </section>
+
+    <section>
+      <button mat-raised-button color="primary" type="submit" [disabled]="rForm.invalid">Save</button>
+    </section>
+  </form>
 </div>

@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { languageLevels } from 'src/app/shared/enums/publicEnums';
-import { activityLenguages } from 'src/app/shared/enums/publicEnums';
-import { Language } from '../../models/language';
-import { CheckValidator } from 'src/app/shared/directives/checkValidator';
-import { PublicFunctions } from 'src/app/shared/directives/publicFunctions';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {activityLenguages, languageLevels} from 'src/app/shared/enums/publicEnums';
+import {Language} from '../../models/language';
+import {CheckValidator} from 'src/app/shared/directives/checkValidator';
+import {PublicFunctions} from 'src/app/shared/directives/publicFunctions';
 
-import { AppState } from 'src/app/app.reducers';
-import { Store } from '@ngrx/store';
-import { UserState } from '../../reducers';
+import {AppState} from 'src/app/app.reducers';
+import {Store} from '@ngrx/store';
+import {UserState} from '../../reducers';
 import * as UserAction from '../../actions';
 
 @Component({
@@ -36,16 +35,16 @@ export class ProfileLanguageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   public loadFormInstance(): void {
     // En caso de creación de un nuevo lenguaje
-    if (this.language === undefined)
-    {
+    if (this.language === undefined) {
       // Se incicializa la colección
       this.language = new Language();
       this.language.finish = '';
-      this.language.level  = null;
+      this.language.level = null;
       this.language.language = null;
     }
     this.rForm = new FormGroup({
@@ -64,23 +63,20 @@ export class ProfileLanguageComponent implements OnInit {
   }
 
   // En caso de creación de un nuevo lenguaje
-  public save (language: Language){
-    if (!this.userState$.user.languages.find(x => x.language === language.language))
-    {
+  public save(language: Language) {
+    if (!this.userState$.user.languages.find(x => x.language === language.language)) {
       const user = this.userState$.user;
       const _language = PublicFunctions.fakeIncreaseUid <Language>(user.languages, language);
       user.languages.push(_language);
       // Se actualiza el usuario
       this.store.dispatch(UserAction.addUserLanguage({user}));
-    }
-    else
-    {
+    } else {
       alert('The language already exists!');
     }
   }
 
   // Se actualiza el lenguaje
-  public update (language: Language){
+  public update(language: Language) {
     const user = this.userState$.user;
     const languages = user.languages;
     const foundIndex = languages.findIndex(_language => _language.uid === language.uid);
@@ -89,13 +85,31 @@ export class ProfileLanguageComponent implements OnInit {
     this.store.dispatch(UserAction.updateUserLanguage({user}));
   }
 
-  saveOrUpdate(language: Language){
+  saveOrUpdate(language: Language) {
     // Se invoca la función save o update en función de la respuesta de isNew
-    this.isNew() ? this.save (language) : this.update(language);
+    this.isNew() ? this.save(language) : this.update(language);
   }
 
   public isNew(): boolean {
     // Función que devuelve true si no existe el campo uid en el objeto language
     return !!!this.language.uid;
+  }
+
+  getLevelErrorMessage(): string {
+    if (this.rForm.get('level').hasError('required')) {
+      return 'Level is required';
+    }
+  }
+
+  getLanguageErrorMessage(): string {
+    if (this.rForm.get('language').hasError('required')) {
+      return 'Language is required';
+    }
+  }
+
+  getTitleDateErrorMessage(): string {
+    if (this.rForm.get('date').hasError('errorFormatDate')) {
+      return 'Invalid format date';
+    }
   }
 }
