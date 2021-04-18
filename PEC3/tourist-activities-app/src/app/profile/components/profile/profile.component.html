@@ -2,7 +2,7 @@
   <form class="text-center p-5" [formGroup]="profileForm" (ngSubmit)="updateProfile()">
     <h5 class="float-left">PROFILE</h5>
     <br>
-    <hr style="border-top: 1px solid blue;"/>
+    <hr style="border-top: 1px solid #3747AC;"/>
     <div *ngIf="companyProfile">
       <section>
         <mat-form-field appearance="fill">
@@ -93,11 +93,11 @@
     <br>
     <h5 class="float-left">EDUCATION</h5>
     <br>
-    <hr style="border-top: 1px solid blue;"/>
+    <hr style="border-top: 1px solid #3747AC;"/>
     <ul class="list-group">
       <table class="table table-bordered">
         <thead>
-        <tr style="background-color:blue;color: #fff;">
+        <tr style="background-color:#3747AC; color: #fff;">
           <th>Type</th>
           <th>Level</th>
           <th>Name</th>
@@ -114,24 +114,28 @@
           <td>{{ education.university }}</td>
           <td>{{ education.finish }}</td>
           <td>
-            <button class="btn btn-outline-info" [routerLink]="['/profile-education', education.uid]">Edit</button>
-            <button class="btn btn-outline-danger" (click)="onClickDeleteEducation(education.uid)">Delete</button>
+            <button class="btn-space" mat-raised-button color="primary"
+                    [routerLink]="['/profile-education', education.uid]">Edit
+            </button>
+            <button class="btn-space" mat-raised-button color="warn" (click)="onClickDeleteEducation(education.uid)">
+              Delete
+            </button>
           </td>
         </tr>
         </tbody>
       </table>
-      <button class="btn btn-outline-primary float-left" [routerLink]="['/profile-education']">Add</button>
+      <button mat-raised-button color="primary" [routerLink]="['/profile-education']">Add</button>
     </ul>
   </form>
   <form class="text-center border border-light p-5">
     <br>
     <h5 class="float-left">LANGUAGES</h5>
     <br>
-    <hr style="border-top: 1px solid blue;"/>
+    <hr style="border-top: 1px solid #3747AC;"/>
     <ul class="list-group">
       <table class="table table-bordered">
         <thead>
-        <tr style="background-color:blue;color: #fff;">
+        <tr style="background-color:#3747AC; color: #fff;">
           <th>Level</th>
           <th>Language</th>
           <th>Finish date</th>
@@ -144,13 +148,17 @@
           <td>{{ language.language }}</td>
           <td>{{ language.finish }}</td>
           <td>
-            <button class="btn btn-outline-info" [routerLink]="['/profile-language', language.uid]">Edit</button>
-            <button class="btn btn-outline-danger" (click)="onClickDeleteLanguage(language.uid)">Delete</button>
+            <button class="btn-space" mat-raised-button color="primary"
+                    [routerLink]="['/profile-language', language.uid]">Edit
+            </button>
+            <button class="btn-space" mat-raised-button color="warn" (click)="onClickDeleteLanguage(language.uid)">
+              Delete
+            </button>
           </td>
         </tr>
         </tbody>
       </table>
-      <button class="btn btn-outline-primary float-left" [routerLink]="['/profile-language']">Add</button>
+      <button mat-raised-button color="primary" [routerLink]="['/profile-language']">Add</button>
     </ul>
   </form>
 </div>

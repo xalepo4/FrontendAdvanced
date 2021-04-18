@@ -1,3 +1,7 @@
 mat-form-field {
   display: block;
 }
+
+.btn-space {
+  margin-right: 10px;
+}

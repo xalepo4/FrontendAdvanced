@@ -2,15 +2,15 @@
   <div class="col">
     <h5 class="float-left">Activities list</h5>
     <br>
-    <hr style="border-top: 1px solid blue;"/>
+    <hr style="border-top: 1px solid #3747AC;"/>
     <ul class="list-group">
       <table class="table table-bordered">
-        <tr style="background-color:blue;color: #fff;">
-            <th>Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Language</th>
-            <th>Actions</th>
+        <tr style="background-color:#3747AC; color: #fff;">
+          <th>Name</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Language</th>
+          <th>Actions</th>
         </tr>
         <tr *ngFor="let activity of activitiesListState$.activity" (click)="onSelect(activity)">
           <td>
@@ -26,14 +26,17 @@
             <b>{{activity.language}}</b>
           </td>
           <td>
-            <button type="button" class="btn btn-primary btn-circle btn-sm"><i class="fa fa-arrow-right"></i></button>
+            <button mat-raised-button color="primary" type="button"><i class="fa fa-arrow-right"></i></button>
           </td>
         </tr>
       </table>
     </ul>
   </div>
   <div class="col">
-      <app-activity-detail [activity]="selectedActivity" [eFilterType]="eFilterType" (signUpActivity)="onSignUpActivity($event)" (deleteSignUpActivity)="onDeleteSignUpActivity($event)" (deleteFavorites)="onDeleteFavorites($event)"></app-activity-detail>
+    <app-activity-detail [activity]="selectedActivity" [eFilterType]="eFilterType"
+                         (signUpActivity)="onSignUpActivity($event)"
+                         (deleteSignUpActivity)="onDeleteSignUpActivity($event)"
+                         (deleteFavorites)="onDeleteFavorites($event)"></app-activity-detail>
   </div>
 </div>
 
