@@ -1,24 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './shared/services/in-memory-data.service';
-import { LoginModule } from './login/login.module';
-import { ActivitiesModule } from './activities/activities.module';
-import { ProfileModule } from './profile/profile.module';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './views/header/header.component';
-import { FooterComponent } from './views/footer/footer.component';
-import { environment } from 'src/environments/environment';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { appReducers } from './app.reducers';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { FormsModule } from '@angular/forms';
-import { EffectsArray } from './app.reducers';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './shared/services/in-memory-data.service';
+import {LoginModule} from './login/login.module';
+import {ActivitiesModule} from './activities/activities.module';
+import {ProfileModule} from './profile/profile.module';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './views/header/header.component';
+import {FooterComponent} from './views/footer/footer.component';
+import {environment} from 'src/environments/environment';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {appReducers, EffectsArray} from './app.reducers';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {FormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginModule,
     ActivitiesModule,
     ProfileModule,
-    StoreModule.forRoot( appReducers, {
+    StoreModule.forRoot(appReducers, {
       runtimeChecks: {
         strictStateImmutability: false,
         strictActionImmutability: false,
@@ -49,11 +53,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+      InMemoryDataService, {dataEncapsulation: false}
     ),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
