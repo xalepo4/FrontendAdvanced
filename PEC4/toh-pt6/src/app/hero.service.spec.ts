@@ -5,6 +5,7 @@ import {HeroService} from './hero.service';
 import {MessageService} from './message.service';
 import {Hero} from './hero';
 import {HEROES} from './mock-heroes';
+import {HttpErrorResponse} from '@angular/common/http';
 
 describe('HeroService', () => {
   let heroService;
@@ -74,8 +75,42 @@ describe('HeroService', () => {
   });
 
   describe('getHero', () => {
+    beforeEach(() => {
+      heroService = TestBed.inject(HeroService);
+    });
 
-// TODO
+    it('should return expected heroe because exists', () => {
+      heroService.getHero(mockId).subscribe(
+        hero => expect(hero).toEqual(mockHero, 'should return expected hero'),
+        fail
+      );
+
+      // HeroService should have made one request to GET hero
+      const req = httpTestingController.expectOne(`${heroService.heroesUrl}/${mockId}`);
+      expect(req.request.method).toEqual('GET');
+
+      // Respond to request with expected hero
+      req.flush(mockHero);
+    });
+
+    it('should return 404 because it doesn\'t exists', () => {
+      const errorResponse = new HttpErrorResponse({
+        error: 'test 404 error',
+        status: 404, statusText: 'Not Found'
+      });
+
+      heroService.getHero(mockId).subscribe(
+        hero => expect(hero.status).toBe(404),
+        error => expect(error.message).toContain(errorResponse.error)
+      );
+
+      // HeroService should have made one request to GET hero
+      const req = httpTestingController.expectOne(`${heroService.heroesUrl}/${mockId}`);
+      expect(req.request.method).toEqual('GET');
+
+      // Respond to request with error response
+      req.flush(errorResponse);
+    });
   });
 
   describe('addHero', () => {
