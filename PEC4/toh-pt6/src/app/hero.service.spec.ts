@@ -61,7 +61,7 @@ describe('HeroService', () => {
       mockHeroes = [];
 
       heroService.getHeroNo404(mockId).subscribe(
-        hero => expect(hero).toEqual(undefined, 'should return undefined'),
+        hero => expect(hero).toBeUndefined(),
         fail
       );
 
@@ -95,13 +95,12 @@ describe('HeroService', () => {
 
     it('should return 404 because it doesn\'t exists', () => {
       const errorResponse = new HttpErrorResponse({
-        error: 'test 404 error',
-        status: 404, statusText: 'Not Found'
+        error: 'Invalid request parameters', status: 404, statusText: 'Bad Request', url: `${heroService.heroesUrl}/${mockId}`
       });
 
       heroService.getHero(mockId).subscribe(
         hero => expect(hero.status).toBe(404),
-        error => expect(error.message).toContain(errorResponse.error)
+        error => expect(error.status).toBe(404),
       );
 
       // HeroService should have made one request to GET hero
@@ -118,7 +117,7 @@ describe('HeroService', () => {
       heroService = TestBed.inject(HeroService);
     });
 
-    it('should add non existing hero', () => {
+    it('should add a hero', () => {
       const newHero: Hero = {id: 21, name: 'xavi'};
 
       heroService.addHero(newHero).subscribe(
@@ -132,6 +131,22 @@ describe('HeroService', () => {
 
       // Respond to request with new hero
       req.flush(newHero);
+    });
+
+    it('should fail on error', () => {
+      const errorResponse = new HttpErrorResponse({
+        error: 'Invalid request parameters', status: 404, statusText: 'Bad Request', url: heroService.heroesUrl
+      });
+
+      heroService.addHero(mockHero).subscribe(
+        hero => expect(hero).toEqual(errorResponse, 'should return error response'),
+        fail
+      );
+      // Receive GET request
+      const req = httpTestingController.expectOne(heroService.heroesUrl);
+      expect(req.request.method).toEqual('POST');
+      // Respond with the mock heroes
+      req.flush(errorResponse);
     });
   });
 
@@ -152,6 +167,22 @@ describe('HeroService', () => {
 
       // Respond to request with new hero
       req.flush(mockHero);
+    });
+
+    it('should fail on error', () => {
+      const errorResponse = new HttpErrorResponse({
+        error: 'Invalid request parameters', status: 404, statusText: 'Bad Request', url: `${heroService.heroesUrl}/${mockId}`
+      });
+
+      heroService.deleteHero(mockId).subscribe(
+        hero => expect(hero).toEqual(errorResponse, 'should return error response'),
+        fail
+      );
+      // Receive GET request
+      const req = httpTestingController.expectOne(`${heroService.heroesUrl}/${mockId}`);
+      expect(req.request.method).toEqual('DELETE');
+      // Respond with the mock heroes
+      req.flush(errorResponse);
     });
   });
 
@@ -174,6 +205,22 @@ describe('HeroService', () => {
 
       // Respond to request with new hero
       req.flush(mockHero);
+    });
+
+    it('should fail on error', () => {
+      const errorResponse = new HttpErrorResponse({
+        error: 'Invalid request parameters', status: 404, statusText: 'Bad Request', url: heroService.heroesUrl
+      });
+
+      heroService.updateHero(mockHero).subscribe(
+        hero => expect(hero).toEqual(errorResponse, 'should return error response'),
+        fail
+      );
+      // Receive GET request
+      const req = httpTestingController.expectOne(heroService.heroesUrl);
+      expect(req.request.method).toEqual('PUT');
+      // Respond with the mock heroes
+      req.flush(errorResponse);
     });
   });
 });
