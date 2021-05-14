@@ -114,8 +114,39 @@ describe('HeroService', () => {
   });
 
   describe('addHero', () => {
+    beforeEach(() => {
+      heroService = TestBed.inject(HeroService);
+    });
 
-// TODO
+    it('should add non existing hero', () => {
+      const newHero: Hero = {id: 21, name: 'xavi'};
+
+      heroService.addHero(newHero).subscribe(
+        hero => expect(hero).toEqual(newHero, 'should return added hero'),
+        fail
+      );
+
+      // HeroService should have made one request to GET hero
+      const req = httpTestingController.expectOne(heroService.heroesUrl);
+      expect(req.request.method).toEqual('POST');
+
+      // Respond to request with new hero
+      req.flush(newHero);
+    });
+
+    it('should add existing hero', () => {
+      heroService.addHero(mockHero).subscribe(
+        hero => expect(hero).toEqual(mockHero, 'should return added hero'),
+        fail
+      );
+
+      // HeroService should have made one request to GET hero
+      const req = httpTestingController.expectOne(heroService.heroesUrl);
+      expect(req.request.method).toEqual('POST');
+
+      // Respond to request with new hero
+      req.flush(mockHero);
+    });
   });
 
   describe('deleteHero', () => {
