@@ -133,6 +133,26 @@ describe('HeroService', () => {
       // Respond to request with new hero
       req.flush(newHero);
     });
+  });
+
+  describe('deleteHero', () => {
+    beforeEach(() => {
+      heroService = TestBed.inject(HeroService);
+    });
+
+    it('should delete existing hero', () => {
+      heroService.deleteHero(mockId).subscribe(
+        hero => expect(hero).toEqual(mockHero, 'should return deleted hero'),
+        fail
+      );
+
+      // HeroService should have made one request to GET hero
+      const req = httpTestingController.expectOne(`${heroService.heroesUrl}/${mockId}`);
+      expect(req.request.method).toEqual('DELETE');
+
+      // Respond to request with new hero
+      req.flush(mockHero);
+    });
 
     it('should add existing hero', () => {
       heroService.addHero(mockHero).subscribe(
@@ -147,11 +167,6 @@ describe('HeroService', () => {
       // Respond to request with new hero
       req.flush(mockHero);
     });
-  });
-
-  describe('deleteHero', () => {
-
-// TODO
   });
 
   describe('updateHero', () => {
