@@ -50,11 +50,11 @@ describe('HeroSearchComponent', () => {
     });
   });
 
-  it('search method should find one hero', () => {
-    component.heroes$.subscribe(heroes =>
-        expect(heroes.length).toEqual(1),
-      fail
-    );
+  it('search method should find one hero', (done) => {
+    component.heroes$.subscribe(heroes => {
+      expect(heroes.length).toEqual(1);
+      done();
+    });
 
     component.search(mockHero.name);
   });
