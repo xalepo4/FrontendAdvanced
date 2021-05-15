@@ -13,7 +13,7 @@ describe('HeroesComponent', () => {
       imports: [
         HttpClientTestingModule
       ],
-      providers: [HeroService, MessageService],
+      providers: [HeroService],
       declarations: [HeroesComponent]
     }).compileComponents();
   }));
