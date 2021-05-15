@@ -5,6 +5,7 @@ import {HeroDetailComponent} from './hero-detail.component';
 import {HEROES} from '../mock-heroes';
 import {of} from 'rxjs';
 import {Hero} from '../hero';
+import {FormsModule} from '@angular/forms';
 
 class HeroServiceStub {
   mockHero = HEROES[1];
@@ -14,6 +15,7 @@ class HeroServiceStub {
   }
 
   updateHero(hero: Hero) {
+    return of(hero);
   }
 }
 
@@ -31,7 +33,8 @@ describe('HeroDetailComponent', () => {
       providers: [
         {provide: ActivatedRoute, useFactory: activatedRouteStub},
         {provide: HeroService, useClass: HeroServiceStub}
-      ]
+      ],
+      imports: [FormsModule]
     });
   }));
 
