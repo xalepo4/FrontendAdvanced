@@ -7,6 +7,9 @@ import {of} from 'rxjs';
 import {Hero} from '../hero';
 import {FormsModule} from '@angular/forms';
 
+
+// Exercise 6
+
 class HeroServiceStub {
   mockHero = HEROES[1];
 

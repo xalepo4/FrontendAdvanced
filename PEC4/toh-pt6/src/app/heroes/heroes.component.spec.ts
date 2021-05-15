@@ -23,6 +23,7 @@ describe('HeroesComponent', () => {
     fixture.detectChanges();
   });
 
+  // Exercise 5
   it('exists h2 with My Heroes text', () => {
     const h2Element: HTMLElement = fixture.nativeElement;
     const h2 = h2Element.querySelector('h2');
@@ -36,6 +37,11 @@ describe('HeroesComponent', () => {
     addButton.click();
     expect(component.add).toHaveBeenCalled();
   });
+
+  // Exercise 6
+
+
+
 });
 
 

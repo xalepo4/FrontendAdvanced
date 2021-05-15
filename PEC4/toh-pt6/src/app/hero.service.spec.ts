@@ -7,6 +7,8 @@ import {Hero} from './hero';
 import {HEROES} from './mock-heroes';
 import {HttpErrorResponse} from '@angular/common/http';
 
+// Exercise 4
+
 describe('HeroService', () => {
   let heroService;
   let httpTestingController: HttpTestingController;
