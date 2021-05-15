@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {ActivatedRoute} from '@angular/router';
 import {HeroService} from '../hero.service';
 import {HeroDetailComponent} from './hero-detail.component';
@@ -21,7 +21,7 @@ describe('HeroDetailComponent', () => {
   let component: HeroDetailComponent;
   let fixture: ComponentFixture<HeroDetailComponent>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     const activatedRouteStub = () => ({
       snapshot: {paramMap: {get: () => ({})}}
     });
@@ -37,7 +37,7 @@ describe('HeroDetailComponent', () => {
     fixture = TestBed.createComponent(HeroDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('exists h2 with Dr Nice Details text', () => {
     const h2Element: HTMLElement = fixture.nativeElement;
@@ -64,4 +64,5 @@ describe('HeroDetailComponent', () => {
       expect(component.save).toHaveBeenCalled();
     });
   });
-});
+})
+;
