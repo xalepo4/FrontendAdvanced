@@ -29,7 +29,7 @@ describe('HeroesComponent', () => {
     expect(h2.textContent).toEqual('My Heroes');
   });
 
-  it('clicked invokes add method', () => {
+  it('click add button invokes add method', () => {
     spyOn(component, 'add').and.callThrough();
 
     const addButton = fixture.debugElement.nativeElement.querySelector('button');
