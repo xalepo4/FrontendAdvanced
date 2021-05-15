@@ -32,7 +32,7 @@ describe('HeroesComponent', () => {
   it('click add button invokes add method', () => {
     spyOn(component, 'add').and.callThrough();
 
-    const addButton = fixture.debugElement.nativeElement.querySelector('button');
+    const addButton = fixture.nativeElement.querySelector('button');
     addButton.click();
     expect(component.add).toHaveBeenCalled();
   });

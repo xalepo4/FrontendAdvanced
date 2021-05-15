@@ -45,15 +45,13 @@ describe('HeroDetailComponent', () => {
   });
 
   it('exists h2 with hero name text', () => {
-    const h2Element: HTMLElement = fixture.nativeElement;
-    const h2 = h2Element.querySelector('h2');
-    expect(h2.textContent).toEqual('NARCO Details');
+    expect(fixture.nativeElement.querySelector('h2').textContent).toEqual('NARCO Details');
   });
 
   it('click back invokes goBack method', () => {
     spyOn(component, 'goBack').and.callThrough();
 
-    const backButton = fixture.debugElement.nativeElement.querySelector('button');
+    const backButton = fixture.nativeElement.querySelector('button');
     backButton.click();
     expect(component.goBack).toHaveBeenCalled();
 
@@ -62,7 +60,7 @@ describe('HeroDetailComponent', () => {
   it('click save invokes save method', () => {
     spyOn(component, 'save').and.callThrough();
 
-    const saveButton = fixture.debugElement.nativeElement.querySelectorAll('button')[1];
+    const saveButton = fixture.nativeElement.querySelectorAll('button')[1];
     saveButton.click();
     expect(component.save).toHaveBeenCalled();
   });
