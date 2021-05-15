@@ -2,7 +2,6 @@ import {HeroesComponent} from './heroes.component';
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {HeroService} from '../hero.service';
-import {MessageService} from '../message.service';
 
 describe('HeroesComponent', () => {
   let component: HeroesComponent;
