@@ -30,13 +30,11 @@ describe('HeroesComponent', () => {
   });
 
   it('clicked invokes add method', () => {
-    spyOn(component, 'add');
+    spyOn(component, 'add').and.callThrough();
 
     const addButton = fixture.debugElement.nativeElement.querySelector('button');
     addButton.click();
-    fixture.whenStable().then(() => {
-      expect(component.add).toHaveBeenCalled();
-    });
+    expect(component.add).toHaveBeenCalled();
   });
 });
 
