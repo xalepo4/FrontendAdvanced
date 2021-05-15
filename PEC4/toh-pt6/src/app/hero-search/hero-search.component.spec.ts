@@ -39,7 +39,7 @@ describe('HeroSearchComponent', () => {
     expect(fixture.nativeElement.querySelector('label').textContent).toEqual('Hero Search');
   });
 
-  it('text is updated when write in input', () => {
+  it('text is updated when write in input', (done) => {
     const input = fixture.nativeElement.querySelector('input');
 
     input.value = 'New Hero';
@@ -47,6 +47,7 @@ describe('HeroSearchComponent', () => {
 
     fixture.whenStable().then(() => {
       expect(input.value).toEqual('New Hero');
+      done();
     });
   });
 
