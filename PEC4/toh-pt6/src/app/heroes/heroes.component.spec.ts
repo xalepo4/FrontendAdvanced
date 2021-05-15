@@ -15,11 +15,13 @@ describe('HeroesComponent', () => {
       providers: [HeroService],
       declarations: [HeroesComponent]
     }).compileComponents();
+  }));
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(HeroesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('exists h2 with My Heroes text', () => {
     const h2Element: HTMLElement = fixture.nativeElement;

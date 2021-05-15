@@ -33,11 +33,13 @@ describe('HeroDetailComponent', () => {
         {provide: HeroService, useClass: HeroServiceStub}
       ]
     });
+  }));
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(HeroDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('exists h2 with Dr Nice Details text', () => {
     const h2Element: HTMLElement = fixture.nativeElement;
