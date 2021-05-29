@@ -16,7 +16,7 @@ import {RepositoriesComponent} from './components/repositories/repositories.comp
     RepositoriesComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
