@@ -1,10 +1,23 @@
 <div class="container mt-5">
-  <h1>Public repositories of xalepo4</h1>
-  <hr>
-  <ul class="list-group">
-    <a *ngFor="let repository of repositories" [routerLink]="['/repository', repository.name]"
-       class="list-group-item list-group-item-action animate__animated animate__bounce animate__fadeIn">
-      {{repository.name}}
-    </a>
-  </ul>
+    <h1>Github username</h1>
+    <div class="form-row align-items-center">
+      <div class="col-auto">
+        <label class="sr-only" for="githubUser">Username</label>
+        <input type="text" class="form-control mb-2" id="githubUser" placeholder="xalepo4" value="xalepo4" #githubUserInput>
+      </div>
+      <div class="col-auto">
+        <button (click)="searchGithubUser(githubUserInput.value)" class="btn btn-primary mb-2">Search</button>
+      </div>
+    </div>
+
+  <div class="row mt-5">
+    <h1>Public repositories of {{githubUser}}</h1>
+    <hr>
+    <ul class="list-group">
+      <a *ngFor="let repository of repositories" [routerLink]="['/repository', githubUser, repository.name]"
+         class="list-group-item list-group-item-action animate__animated animate__bounce animate__fadeIn">
+        {{repository.name}}
+      </a>
+    </ul>
+  </div>
 </div>

@@ -5,7 +5,7 @@ import {RepositoryComponent} from "./components/repository/repository.component"
 
 const routes: Routes = [
   {path: '', component: RepositoriesComponent},
-  {path: 'repository/:name', component: RepositoryComponent},
+  {path: 'repository/:user/:name', component: RepositoryComponent},
   {path: '**', component: RepositoriesComponent}
 ];
 

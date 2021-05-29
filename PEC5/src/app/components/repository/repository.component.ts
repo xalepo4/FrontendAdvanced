@@ -17,10 +17,12 @@ export class RepositoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const user = this.activatedRoute.snapshot.paramMap.get('user');
     const name = this.activatedRoute.snapshot.paramMap.get('name');
+    console.log('User -->', user);
     console.log('Name -->', name);
 
-    this.repositoriesService.getRepositoryByName(name).subscribe((repository) => {
+    this.repositoriesService.getRepositoryByUserAndName(user, name).subscribe((repository) => {
 
       if (!repository) {
         return this.router.navigateByUrl('/');

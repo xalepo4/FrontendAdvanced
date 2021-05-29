@@ -8,12 +8,18 @@ import {RepositoriesService} from "../../services/repositories.service";
   styleUrls: ['./repositories.component.scss']
 })
 export class RepositoriesComponent implements OnInit {
+  githubUser = 'xalepo4';
   repositories: Repository[] = [];
 
   constructor(private repositoryService: RepositoriesService) {
   }
 
   ngOnInit(): void {
-    this.repositoryService.getAllRepositories().subscribe((repositories) => this.repositories = repositories);
+    this.repositoryService.getAllRepositoriesByUser(this.githubUser).subscribe((repositories) => this.repositories = repositories);
+  }
+
+  searchGithubUser(githubUser: string) {
+    this.githubUser = githubUser;
+    this.repositoryService.getAllRepositoriesByUser(this.githubUser).subscribe((repositories) => this.repositories = repositories);
   }
 }

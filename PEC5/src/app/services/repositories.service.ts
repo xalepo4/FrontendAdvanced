@@ -11,11 +11,11 @@ export class RepositoriesService {
   constructor(private http: HttpClient) {
   }
 
-  getAllRepositories(): Observable<Repository[]> {
-    return this.http.get<Repository[]>('https://api.github.com/users/xalepo4/repos');
+  getAllRepositoriesByUser(user: string | null): Observable<Repository[]> {
+    return this.http.get<Repository[]>('https://api.github.com/users/' + user + '/repos');
   }
 
-  getRepositoryByName(name: string | null): Observable<Repository> {
-    return this.http.get<Repository>('https://api.github.com/repos/xalepo4/' + name);
+  getRepositoryByUserAndName(user: string | null, name: string | null): Observable<Repository> {
+    return this.http.get<Repository>('https://api.github.com/repos/' + user + '/' + name);
   }
 }
