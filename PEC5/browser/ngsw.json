@@ -1,0 +1,101 @@
+{
+  "configVersion": 1,
+  "timestamp": 1622291838114,
+  "index": "https://xalepo4.github.io/FrontendAdvanced/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://xalepo4.github.io/FrontendAdvanced/favicon.ico",
+        "https://xalepo4.github.io/FrontendAdvanced/index.html",
+        "https://xalepo4.github.io/FrontendAdvanced/main.dc0f5c281b75cf8340ec.js",
+        "https://xalepo4.github.io/FrontendAdvanced/manifest.webmanifest",
+        "https://xalepo4.github.io/FrontendAdvanced/polyfills.c06841e3ef45fa688f34.js",
+        "https://xalepo4.github.io/FrontendAdvanced/runtime.a59f28cf96a13b57a2f2.js",
+        "https://xalepo4.github.io/FrontendAdvanced/styles.31d6cfe0d16ae931b73c.css"
+      ],
+      "patterns": [
+        "https:\\/\\/cdn\\.jsdelivr\\.net\\/npm\\/bootstrap@5\\.0\\.1\\/dist\\/css\\/bootstrap\\.min\\.css"
+      ]
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://xalepo4.github.io/FrontendAdvanced/assets/css/animate.css",
+        "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-128x128.png",
+        "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-144x144.png",
+        "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-152x152.png",
+        "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-192x192.png",
+        "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-384x384.png",
+        "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-512x512.png",
+        "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-72x72.png",
+        "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "github-api",
+      "patterns": [
+        "https:\\/\\/api\\.github\\.com\\/.*",
+        "https:\\/\\/avatars\\.githubusercontent\\.com\\/u\\/.*"
+      ],
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": 3600000,
+      "timeoutMs": 1000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "https://xalepo4.github.io/FrontendAdvanced/assets/css/animate.css": "17f4832572f77640ae51ba916ac2055c15a9fb3c",
+    "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-128x128.png": "1916eb52755ac360ad602a6a54cd344ca0c153dc",
+    "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-144x144.png": "acf095acdd27d6d62a646a927d0273296fd41432",
+    "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-152x152.png": "def935093283c2b24d7bf82479fbae6de5e380de",
+    "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-192x192.png": "8626ff1a7863e0d089d7f7b4e7797b315b173a6d",
+    "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-384x384.png": "eee7bc373b0c66b8107261b8f3199b2b40fc3421",
+    "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-512x512.png": "beb66a738f4f315ed014efacb0723ecfc116611c",
+    "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-72x72.png": "4688ac806d26494458d0e2e3d5a8f3a35d835188",
+    "https://xalepo4.github.io/FrontendAdvanced/assets/icons/icon-96x96.png": "cbed43ddadf75ee083921b653c2c9e3c44ac7264",
+    "https://xalepo4.github.io/FrontendAdvanced/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "https://xalepo4.github.io/FrontendAdvanced/index.html": "2f9bccc94ff6ab4bab0a0eca4765e293a8c0a3a7",
+    "https://xalepo4.github.io/FrontendAdvanced/main.dc0f5c281b75cf8340ec.js": "099fb0c1bc0ee2aa738228e12a694a33672e470d",
+    "https://xalepo4.github.io/FrontendAdvanced/manifest.webmanifest": "1d2aa1b0beb466db1d9f2be615e0b7b5f1c140df",
+    "https://xalepo4.github.io/FrontendAdvanced/polyfills.c06841e3ef45fa688f34.js": "8895c10897dd99a5436f927f2c1c35b847600d68",
+    "https://xalepo4.github.io/FrontendAdvanced/runtime.a59f28cf96a13b57a2f2.js": "1dfe4b2509ac784abad2f90eb2e870a632422e62",
+    "https://xalepo4.github.io/FrontendAdvanced/styles.31d6cfe0d16ae931b73c.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
