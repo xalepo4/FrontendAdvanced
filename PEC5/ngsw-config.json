@@ -34,7 +34,8 @@
     {
       "name": "github-api",
       "urls": [
-        "https://api.github.com/**"
+        "https://api.github.com/**",
+        "https://avatars.githubusercontent.com/u/**"
       ],
       "cacheConfig": {
         "maxSize": 10,
