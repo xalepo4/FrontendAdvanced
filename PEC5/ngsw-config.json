@@ -32,9 +32,9 @@
   ],
   "dataGroups": [
     {
-      "name": "images-api",
+      "name": "github-api",
       "urls": [
-        "https://picsum.photos/**"
+        "https://api.github.com/**"
       ],
       "cacheConfig": {
         "maxSize": 10,
