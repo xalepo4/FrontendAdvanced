@@ -1,0 +1,10 @@
+<div class="container mt-5">
+  <h1>Public repositories of xalepo4</h1>
+  <hr>
+  <ul class="list-group">
+    <a *ngFor="let repository of repositories" [routerLink]="['/repository', repository.name]"
+       class="list-group-item list-group-item-action animate__animated animate__bounce animate__fadeIn">
+      {{repository.name}}
+    </a>
+  </ul>
+</div>

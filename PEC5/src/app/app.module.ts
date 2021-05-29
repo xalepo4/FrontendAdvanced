@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ImagesComponent } from './components/images/images.component';
-import { ImageComponent } from './components/image/image.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
+import {RepositoryComponent} from './components/repository/repository.component';
+import {RepositoriesComponent} from './components/repositories/repositories.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ImagesComponent,
-    ImageComponent
+    RepositoryComponent,
+    RepositoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -29,4 +29,5 @@ import { environment } from '../environments/environment';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

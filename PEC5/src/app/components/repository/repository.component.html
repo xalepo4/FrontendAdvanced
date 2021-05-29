@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <h1>Repository details</h1>
+  <hr>
+  <div *ngIf="repository" class="row animate__animated animate__bounce animate__fadeIn">
+    <div class="col-md-9">
+      <p><strong>Name: </strong>{{repository.name}}</p>
+      <p><strong>Owner: </strong>{{repository.owner.login}}</p>
+      <p><strong>Default branch: </strong>{{repository.default_branch}}</p>
+      <p><strong>Language: </strong>{{repository.language}}</p>
+      <p><strong>Url: </strong>{{repository.html_url}}</p>
+      <p><strong>Clone url: </strong>{{repository.clone_url}}</p>
+      <strong>Avatar image: </strong>
+      <img class="rounded" src="{{repository.owner.avatar_url}}" alt="">
+    </div>
+
+    <div class="col-md-3 mt-3 mb-3">
+      <a class="btn btn-danger" routerLink="/">Back</a>
+    </div>
+  </div>
+</div>

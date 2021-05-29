@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ImagesComponent} from "./components/images/images.component";
-import {ImageComponent} from "./components/image/image.component";
+import {RepositoriesComponent} from "./components/repositories/repositories.component";
+import {RepositoryComponent} from "./components/repository/repository.component";
 
 const routes: Routes = [
-  {path: '', component: ImagesComponent},
-  {path: 'image/:id', component: ImageComponent},
-  {path: '**', component: ImagesComponent}
+  {path: '', component: RepositoriesComponent},
+  {path: 'repository/:name', component: RepositoryComponent},
+  {path: '**', component: RepositoriesComponent}
 ];
 
 @NgModule({
