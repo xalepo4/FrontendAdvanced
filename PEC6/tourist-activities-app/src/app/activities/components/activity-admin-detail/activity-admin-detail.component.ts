@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { activityLenguages, activityStates } from 'src/app/Shared/Enums/publicEnums';
 import { CheckValidator } from 'src/app/Shared/Directives/checkValidator';
@@ -49,24 +49,15 @@ export class ActivityAdminDetailComponent implements OnInit {
     // En caso que se cree una nueva actividad
     if (this.activity === undefined)
     {
-      // Se incicializa la colección
-      this.activity = new Activity();
-      this.activity.name  = '';
-      this.activity.category = null;
-      this.activity.subcategory = null;
-      this.activity.description = '';
-      this.activity.language = null;
-      this.activity.date = '';
-      this.activity.price = 0;
-      this.activity.miniumCapacity = 0;
-      this.activity.limitCapacity = 0;
-      this.activity.peopleRegistered = 0;
-      this.activity.state = activityStates.Places_available;
-      this.activity.signUpUsers = new Array<number>();
+      this.createEmptyActivity();
     }
     else {
       this.setEnumSubcategory(this.activity.category);
     }
+    this.createActivityForm();
+  }
+
+  private createActivityForm(): void {
     this.rForm = new FormGroup({
       name: new FormControl(this.activity.name, [Validators.required, Validators.minLength(3), Validators.maxLength(55)]),
       category: new FormControl(this.activity.category, [Validators.required]),
@@ -81,7 +72,24 @@ export class ActivityAdminDetailComponent implements OnInit {
     });
   }
 
-  // En función de la selección de la categoría, se carga un tipo de subcategoría
+  private createEmptyActivity(): void {
+    // Se incicializa la colección
+    this.activity = new Activity();
+    this.activity.name = '';
+    this.activity.category = null;
+    this.activity.subcategory = null;
+    this.activity.description = '';
+    this.activity.language = null;
+    this.activity.date = '';
+    this.activity.price = 0;
+    this.activity.miniumCapacity = 0;
+    this.activity.limitCapacity = 0;
+    this.activity.peopleRegistered = 0;
+    this.activity.state = activityStates.Places_available;
+    this.activity.signUpUsers = new Array<number>();
+  }
+
+// En función de la selección de la categoría, se carga un tipo de subcategoría
   setEnumSubcategory(value: string): any {
     if (value.includes(activityCategories.Culture_Heritage.toString())){
       this.eSubcategory = CultureHeritageCategoryOptions;

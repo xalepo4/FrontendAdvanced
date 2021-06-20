@@ -41,7 +41,7 @@ export class ActivityListComponent implements OnInit {
     this.store.dispatch(ActivitiesAction.getUserActivities({idUser}));
   }
 
-  onDeleteFavorites(activity) {
+  onDeleteFavorites() {
     // Se fuerza el refresco
     const idFavoriteUserActivities = this.userState$.user?.profile.favorites;
     // Se filtran las actividades favoritas del usuario logado

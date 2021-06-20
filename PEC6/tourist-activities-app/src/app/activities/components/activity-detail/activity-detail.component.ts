@@ -60,7 +60,11 @@ export class ActivityDetailComponent implements OnInit {
     // Si hay un usuario logado y tiene el perfil de turista
     // se muestran los botones de sign up y save favorites
     const idLoggedUser = this.userState$.user?.id;
-    if ((this.userState$.user !== null) && (this.userState$.user?.profile.type === userTypes.Tourist.toString()))
+
+    const existsUser = this.userState$.user !== null;
+    const isTourist = this.userState$.user?.profile.type === userTypes.Tourist.toString();
+
+    if (existsUser && isTourist)
     {
       // Se obtienen la lista de actividades favoritas del usuario de la memoria local
       this.idActivitiesUserFavorites = this.userState$.user?.profile.favorites;
